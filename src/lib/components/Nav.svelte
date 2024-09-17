@@ -11,7 +11,7 @@
     <span class="self-center whitespace-nowrap text-xl font-semibold text-black">gfriend-6.github.io</span>
   </NavBrand>
   <NavHamburger />
-  <NavUl {activeUrl} activeClass="text-gfriend-gray" nonActiveClass="hover:text-gfriend-gray">
+  <NavUl {activeUrl} activeClass="text-gfriend-purple-500" nonActiveClass="hover:text-gfriend-purple-500">
     <NavLi href="/gfriend/">Home</NavLi>
     <NavLi class="cursor-pointer">
       Profiles<ChevronDownOutline class="w-6 h-6 ms-2 text-primary-800 inline" />
