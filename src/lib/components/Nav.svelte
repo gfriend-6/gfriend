@@ -32,7 +32,7 @@
       <DropdownItem href="/gfriend/wins">Music Show Wins</DropdownItem>
       <DropdownItem href="/gfriend/accomplishments">Accomplishments</DropdownItem>
     </Dropdown>
-    <NavLi href="/gfriend/hybe-timeline">Timeline</NavLi>
+    <NavLi href="/gfriend/timeline">Timeline</NavLi>
   </NavUl>
 </Navbar>
 </div>

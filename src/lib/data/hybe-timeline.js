@@ -8,7 +8,7 @@ export const hybe_timeline = {
         {
             title: "Source Music Casts Minji",
             date: "2018",
-            labels: ['Minji', 'Source Music'],
+            labels: ['Team N', 'Minji', 'Source Music'],
             text: 'Minji is cast as a Source Music trainee at some point in 2018.',
             sources: ["https://m.entertain.naver.com/article/433/0000106807"]
         },

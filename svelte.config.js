@@ -8,7 +8,7 @@ const config = {
 			fallback: '/404.html'
 		}),
 		paths: {
-			base: process.env.NODE_ENV === "production" ? "/gfriend" : "",
+			base: "/gfriend"
 		}
 	},
   preprocess: vitePreprocess()
