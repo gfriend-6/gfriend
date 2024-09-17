@@ -72,7 +72,7 @@ export const hybe_timeline = {
         {
             title: "N Teams's Debut Evaluation",
             date: "March 27, 2021",
-            labels: ['Team N','Min Hee-Jin', 'Minji', 'Hanni', 'Haerin', 'Danielle', 'Hyein','Source Music'],
+            labels: ['Team N', 'Minji', 'Hanni', 'Haerin', 'Danielle', 'Hyein','Source Music'],
             text: 'N Teams Debut Evaluation was conducted with the song \"Attention\". In the debut evaluation Minji, Hanni, Haerin, Danielle, and Hyein can be seen along side 2 other trainees.',
             sources: ["https://m.entertain.naver.com/ranking/article/433/0000106807"]
         },
