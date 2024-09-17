@@ -1,6 +1,6 @@
 export const hybe_timeline = {
     labels: {
-        groups: ['GFRIEND', 'NewJeans', 'LE SSERAFIM', 'Team N', 'Team S'],
+        groups: ['GFriend', 'NewJeans', 'LE SSERAFIM', 'Team N', 'Team S'],
         people: ['Min Hee-Jin', 'Yuju', 'Yerin', 'Sowon', 'SinB', 'Eunha', 'Umji', 'Minji', 'Hanni', 'Danielle', 'Haerin', 'Hyein', 'Chaewon', 'Sakura', 'Yunjin', 'Kazuha', 'Eunchae', 'Garam'],
         companies: ['Source Music', 'ADOR']
     },
@@ -56,10 +56,10 @@ export const hybe_timeline = {
             sources: ["https://magazine.weverse.io/article/view/401?lang=en&ref=main&artist=LESSERAFIM"]
         },
         {
-            title: "Source Music Submits Trademarks for \"GFRIEND\"",
+            title: "Source Music Submits Trademarks for \"GFriend\"",
             date: "March 11, 2021",
-            labels: ['GFRIEND','Source Music'],
-            text: 'Source Music Submits Trademarks for \"GFRIEND\", all of which have been rejected due to the group no longer being under Source Music.',
+            labels: ['GFriend','Source Music'],
+            text: 'Source Music Submits Trademarks for \"GFriend\", all of which have been rejected due to the group no longer being under Source Music.',
             sources: ["https://www.koreaboo.com/news/source-music-copyright-fail-file-gfriend/"]
         },
         {
@@ -77,10 +77,10 @@ export const hybe_timeline = {
             sources: ["https://m.entertain.naver.com/ranking/article/433/0000106807"]
         },
         {
-            title: "GFRIEND Learn Their Contract is Ending",
+            title: "GFriend Learn Their Contract is Ending",
             date: "April 2021",
-            labels: ['GFRIEND','Source Music'],
-            text: 'Roughly a month prior to GFRIEND\'s disbandment under Source Music, GFRIEND were notified their contract would not be renewed. GFRIEND can be seen crying on VLIVE from April until their contract ended.',
+            labels: ['GFriend','Source Music'],
+            text: 'Roughly a month prior to GFriend\'s disbandment under Source Music, GFriend were notified their contract would not be renewed. GFriend can be seen crying on VLIVE from April until their contract ended.',
             sources: ["https://www.soompi.com/article/1515881wpp/sinb-reveals-she-didnt-know-mago-would-be-gfriends-final-round-of-promotions-says-shes-confident-they-will-reunite"]
         },
         {
@@ -91,17 +91,17 @@ export const hybe_timeline = {
             sources: ["https://magazine.weverse.io/article/view/401?lang=en&ref=main&artist=LESSERAFIM"]
         },
         {
-            title: "Source Music Announces GFRIEND's Contract is Ending",
+            title: "Source Music Announces GFriend's Contract is Ending",
             date: "May 17, 2021",
-            labels: ['GFRIEND','Source Music'],
-            text: 'Source Music announced that GFRIEND\'s contract would be ending on the May 22nd. Suprising everyone including most of their own staff. Source Music claims the disbandment is after a "mutual agreement", however, the members have said they were fired, with SinB even saying they they didn\'t know MAGO would be their last comeback. GFRIEND\'s upcoming schedule is also deleted.',
+            labels: ['GFriend','Source Music'],
+            text: 'Source Music announced that GFriend\'s contract would be ending on the May 22nd. Suprising everyone including most of their own staff. Source Music claims the disbandment is after a "mutual agreement", however, the members have said they were fired, with SinB even saying they they didn\'t know MAGO would be their last comeback. GFriend\'s upcoming schedule is also deleted.',
             sources: ['https://weverse.io/gfriend/notice/1282', 'http://www.heraldpop.com/view.php?ud=202105181644230496316_1']
         },
         {
-            title: "GFRIEND's Contract Ends",
+            title: "GFriend's Contract Ends",
             date: "May 22, 2021",
-            labels: ['GFRIEND','Source Music'],
-            text: 'GFRIEND officially disbands under Source Music.',
+            labels: ['GFriend','Source Music'],
+            text: 'GFriend officially disbands under Source Music.',
             sources: []
         },
         {

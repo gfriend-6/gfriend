@@ -11,7 +11,7 @@
   import { hybe_timeline } from "../../lib/data/hybe-timeline.js";
   let timeline_events = hybe_timeline["events"];
   $: values = {
-    'GFRIEND': true,
+    'GFriend': true,
     'NewJeans': true,
     'LE SSERAFIM': true,
     'Team N': true,
@@ -26,7 +26,7 @@
     'ADOR': true,
   };
   const static_all = {
-    'GFRIEND': true,
+    'GFriend': true,
     'NewJeans': true,
     'LE SSERAFIM': true,
     'Team N': true,
@@ -61,7 +61,7 @@
   }
   function resetF() {
     values = {
-    'GFRIEND': true,
+    'GFriend': true,
     'NewJeans': true,
     'LE SSERAFIM': true,
     'Team N': true,
@@ -79,7 +79,7 @@
   }
   function clearF() {
     values = {
-    'GFRIEND': false,
+    'GFriend': false,
     'NewJeans': false,
     'LE SSERAFIM': false,
     'Team N': false,
@@ -121,7 +121,7 @@
   <Card class="float-right mt-5 space-y-2">
     <div>
       Groups
-      <Checkbox checked={values["GFRIEND"]} on:change={() => switchVal("GFRIEND")}>GFRIEND</Checkbox>
+      <Checkbox checked={values["GFriend"]} on:change={() => switchVal("GFriend")}>GFriend</Checkbox>
       <Checkbox checked={values["NewJeans"]} on:change={() => switchVal("NewJeans")}>NewJeans</Checkbox
       >
       <Checkbox checked={values["LE SSERAFIM"]} on:change={() => switchVal("LE SSERAFIM")}
