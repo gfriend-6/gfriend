@@ -6,33 +6,33 @@
 </script>
 <div class="w-full bg-gfriend-blue-500">
 <Navbar color="primary" class="w-4/5 place-self-center mx-auto">
-  <NavBrand href="/gfriend/">
+  <NavBrand href="/">
     <img src="https://i.imgur.com/TModnbu.png" class="me-3 h-6 sm:h-9" alt="GFRIEND Logo" />
     <span class="self-center whitespace-nowrap text-xl font-semibold text-black">gfriend-6.github.io</span>
   </NavBrand>
   <NavHamburger />
   <NavUl {activeUrl} activeClass="text-gfriend-purple-500" nonActiveClass="hover:text-gfriend-purple-500">
-    <NavLi href="/gfriend/">Home</NavLi>
+    <NavLi href="/">Home</NavLi>
     <NavLi class="cursor-pointer">
       Profiles<ChevronDownOutline class="w-6 h-6 ms-2 text-primary-800 inline" />
     </NavLi>
     <Dropdown class="w-44 z-20">
-      <DropdownItem href="/gfriend/profile">GFRIEND</DropdownItem>
-      <DropdownItem href="/gfriend/newjeans">NewJeans</DropdownItem>
-      <DropdownItem href="/gfriend/lesserafim">LE SSERAFIM</DropdownItem>
+      <DropdownItem href="/profile">GFRIEND</DropdownItem>
+      <DropdownItem href="/newjeans">NewJeans</DropdownItem>
+      <DropdownItem href="/lesserafim">LE SSERAFIM</DropdownItem>
       <DropdownDivider />
-      <DropdownItem href="/gfriend/source-music">Source Music</DropdownItem>
-      <DropdownItem href="/gfriend/ador">ADOR</DropdownItem>
-      <DropdownItem href="/gfriend/hybe">HYBE</DropdownItem>
+      <DropdownItem href="/source-music">Source Music</DropdownItem>
+      <DropdownItem href="/ador">ADOR</DropdownItem>
+      <DropdownItem href="/hybe">HYBE</DropdownItem>
     </Dropdown>
     <NavLi class="cursor-pointer">
       Achivements<ChevronDownOutline class="w-6 h-6 ms-2 text-primary-800 inline" />
     </NavLi>
     <Dropdown class="w-44 z-20">
-      <DropdownItem href="/gfriend/wins">Music Show Wins</DropdownItem>
-      <DropdownItem href="/gfriend/accomplishments">Accomplishments</DropdownItem>
+      <DropdownItem href="/wins">Music Show Wins</DropdownItem>
+      <DropdownItem href="/accomplishments">Accomplishments</DropdownItem>
     </Dropdown>
-    <NavLi href="/gfriend/timeline">Timeline</NavLi>
+    <NavLi href="/timeline">Timeline</NavLi>
   </NavUl>
 </Navbar>
 </div>
