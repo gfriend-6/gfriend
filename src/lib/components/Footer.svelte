@@ -10,7 +10,6 @@
         <FooterLink href="https://tailwindcss.com/" target="_blank">Tailwind CSS</FooterLink>
         <FooterLink href="https://svelte.dev/">Svelte</FooterLink>
         <FooterLink href="https://flowbite-svelte.com/">Flowbite Svelte</FooterLink>
-        <FooterLink href="/">Contact</FooterLink>
         </FooterLinkGroup>
     </div>
     <FooterLinkGroup ulClass="flex flex-wrap items-center mt-3 text-sm text-black sm:mt-0">
