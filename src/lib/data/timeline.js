@@ -2,7 +2,7 @@ export const hybe_timeline = {
     labels: {
         groups: ['GFriend', 'NewJeans', 'LE SSERAFIM', 'Team N', 'Team S'],
         people: ['Min Hee-Jin', 'Yuju', 'Yerin', 'Sowon', 'SinB', 'Eunha', 'Umji', 'Minji', 'Hanni', 'Danielle', 'Haerin', 'Hyein', 'Chaewon', 'Sakura', 'Yunjin', 'Kazuha', 'Eunchae', 'Garam'],
-        companies: ['Source Music', 'ADOR']
+        companies: ['HYBE', 'Bighit', 'Belift', 'Source Music', 'Pledis', 'KOZ', 'ADOR']
     },
     events: [
         {
@@ -13,12 +13,34 @@ export const hybe_timeline = {
             sources: ["https://m.entertain.naver.com/article/433/0000106807"]
         },
         {
-            title: "Min Hee-Jin Joins Big Hit (HYBE)",
+            title: "GFriend's 2nd Album: \"Time For Us\" is Released",
+            date: "Januart 01, 2019",
+            labels: ['GFriend', 'Source Music'],
+            text: 'Time For Us is release with positive reactions.',
+            sources: ["https://kpopreviewed.com/2019/01/14/sunrise-gfriend/"]
+        },
+        {
+            title: "GFriend's 7th EP: \"Fever Season\" is Released",
+            date: "July 01, 2019",
+            labels: ['GFriend', 'Source Music'],
+            text: 'Fever Season is release with mixed reactions. Some fans stating the title track "Fever" felt generaic and lacklustre.',
+            notes: 'This was GFriend\'s last release outside of HYBE and may have been a budget release as Source Music likely joined HYBE for financial support.',
+            sources: ["https://www.asianjunkie.com/2019/07/01/review-gfriends-fever-provides-a-summer-vibe-but-is-disappointingly-generic/", 'https://www.allkpop.com/article/2021/03/hybe-releases-the-2020-financial-report-for-sublabels-pledis-entertainment-and-source-music']
+        },
+        {
+            title: "Min Hee-Jin Joins BigHit (HYBE)",
             date: "July 01, 2019",
             labels: ['Team N', 'Min Hee-Jin', 'Source Music'],
-            text: 'Min Hee-Jin joined Big Hit (HYBE) as its Chief Brand Officer (CBO), with one of her responsibilities being to "lead the launch of a new girl group"',
+            text: 'Min Hee-Jin joined BigHit (HYBE) as its Chief Brand Officer (CBO), with one of her responsibilities being to "lead the launch of a new girl group"',
             notes: 'It can be concluded that Min Hee-Jin was set to work with Souce Music\'s "Team N" as there were no other female trainee teams, under hybe, until 2021.',
             sources: ["https://m.entertain.naver.com/now/article/081/0003010589"]
+        },
+        {
+            title: "GFriend's 2nd Japanese Album: \"Fallin' Light\" is Released",
+            date: "November 13, 2019",
+            labels: ['GFriend', 'Source Music'],
+            text: 'Fallin\' Light is release with positive reactions. This is GFriend\'s first release uder HYBE and the debut of their mature concept.',
+            sources: ["https://kpopreviewed.com/2019/11/16/fallin-light-gfriend/"]
         },
         {
             title: "Source Music Casts Hanni",
@@ -28,11 +50,25 @@ export const hybe_timeline = {
             sources: ["https://m.entertain.naver.com/article/433/0000106807"]
         },
         {
+            title: "GFriend's 8th EP: \"回:Labyrinth\" is Released",
+            date: "Febuary 3, 2020",
+            labels: ['GFriend', 'Source Music'],
+            text: '回:Labyrinth is release with positive reactions. This is GFriend\'s first Korean release uder HYBE and introduces the mature concept to their Korean fanbase.',
+            sources: ["https://thebiaslist.com/2020/02/04/buried-treasure-gfriend-labyrinth/"]
+        },
+        {
             title: "Haerin Joins Source Music",
             date: "February 2020",
             labels: ['Team N', 'Haerin', 'Source Music'],
             text: 'Haerin first discovered in November 2019, at the time she was a trainee under another company. However in December of that year her mother reached out to Source Music and she signed with Source Music in February of 2020.',
             sources: ["https://m.entertain.naver.com/article/433/0000106807"]
+        },
+        {
+            title: "GFriend's 9th EP: \"回:Song of the Sirens\" is Released",
+            date: "Febuary 3, 2020",
+            labels: ['GFriend', 'Source Music'],
+            text: '回:Song of the Sirens is release with positive reactions.',
+            sources: ["https://kpopreviewed.com/2020/07/14/apple-gfriend/"]
         },
         {
             title: "Danielle Joins Source Music",
@@ -56,6 +92,13 @@ export const hybe_timeline = {
             sources: ["https://magazine.weverse.io/article/view/401?lang=en&ref=main&artist=LESSERAFIM"]
         },
         {
+            title: "GFriend's 3rd Album: \"回:Walpurgis Night\" is Released",
+            date: "Febuary 3, 2021",
+            labels: ['GFriend', 'Source Music'],
+            text: '回:Song of the Sirens is release with positive reactions.',
+            sources: ["https://kpopreviewed.com/2020/12/30/album-walpurgis-night-gfriend/"]
+        },
+        {
             title: "Source Music Submits Trademarks for \"GFriend\"",
             date: "March 11, 2021",
             labels: ['GFriend','Source Music'],
@@ -63,7 +106,7 @@ export const hybe_timeline = {
             sources: ["https://www.koreaboo.com/news/source-music-copyright-fail-file-gfriend/"]
         },
         {
-            title: "It's Reported That Sakura Will Be Going To Big Hit",
+            title: "It's Reported That Sakura Will Be Going To BigHit",
             date: "March 11, 2021",
             labels: ['Sakura','Source Music'],
             text: 'It\'s reported that Sakura will be going to Bit Hit after Iz*One disbands.',
@@ -107,7 +150,7 @@ export const hybe_timeline = {
         {
             title: "Source Music's New Team Launch Meeting",
             date: "June 18, 2021",
-            labels: ['Team N', 'Team S','Source Music'],
+            labels: ['Team S','Source Music'],
             text: 'Source Music creates a new trainee team "Team S", with the plan to debut at the latest of Q1 2022 because of the "popularity of the S-Team members". This would imply Sakura and Chaewon had already begun contract talks. Additionally at this time "Team N" is still first in the debut priority however if that gets post-poned then "Team S" is to take priority.',
             notes: 'Min Hee-Jin has refered to "Team S" as "Team Sakura" several times implying that "Team S" was built around Sakura.',
             sources: ["https://m.entertain.naver.com/article/433/0000106807"]

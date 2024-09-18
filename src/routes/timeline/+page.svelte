@@ -8,7 +8,7 @@
     Button,
     DropdownDivider, Dropdown, DropdownItem } from 'flowbite-svelte';
   import { AngleRightOutline, ChevronDownOutline } from "flowbite-svelte-icons";
-  import { hybe_timeline } from "../../lib/data/hybe-timeline.js";
+  import { hybe_timeline } from "../../lib/data/timeline.js";
   let timeline_events = hybe_timeline["events"];
   $: values = {
     'GFriend': true,
@@ -153,6 +153,7 @@
     <DropdownDivider class="bg-black"/>
     <Button>Presets<ChevronDownOutline class="w-6 h-6 ms-2 text-white dark:text-white" /></Button>
     <Dropdown>
+      <DropdownItem on:click={() => toggleF('GFriend')}>GFriend</DropdownItem>
       <DropdownItem on:click={() => toggleF('Min Hee-Jin')}>Min Hee-Jin</DropdownItem>
       <DropdownItem on:click={() => toggleF('NewJeans', 'Team N')}>NewJeans</DropdownItem>
     </Dropdown>
