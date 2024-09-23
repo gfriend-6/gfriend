@@ -1,16 +1,13 @@
 <script>
-  import {
-    Timeline,
-    TimelineItem,
-    Badge,
-    Card,
-    Checkbox,
-    Button,
-    DropdownDivider, Dropdown, DropdownItem } from 'flowbite-svelte';
-  import { AngleRightOutline, ChevronDownOutline } from "flowbite-svelte-icons";
+  import { Card, Checkbox, Button, DropdownDivider, Dropdown, DropdownItem } from 'flowbite-svelte';
+  import TimelineItem from '../../lib/components/TimelineItem.svelte'
+  import Timeline from '../../lib/components/Timeline.svelte'
+  import { ChevronDownOutline } from "flowbite-svelte-icons";
   import { hybe_timeline } from "../../lib/data/timeline.js";
   let timeline_events = hybe_timeline["events"];
-  $: values = {
+  const static_all_true = {
+    'Music': true,
+    'Trainee': true,
     'GFriend': true,
     'NewJeans': true,
     'LE SSERAFIM': true,
@@ -25,60 +22,9 @@
     'KOZ': true,
     'ADOR': true,
   };
-  const static_all = {
-    'GFriend': true,
-    'NewJeans': true,
-    'LE SSERAFIM': true,
-    'Team N': true,
-    'Team S': true,
-    'Min Hee-Jin': true,
-    'HYBE': true,
-    'BigHit': true,
-    'Belift': true,
-    'Source Music': true,
-    'Pledis': true,
-    'KOZ': true,
-    'ADOR': true,
-  };
-  /**
-   * @param {string} val
-   */
-  function switchVal(val) {
-    values[val] = !values[val]
-  }
-  function checkCheckbox(label) {
-    let showItem = false;
-    for (let labelVar in label) {
-      if (values[label[labelVar]]) {
-        showItem = true;
-      }
-    }
-    return showItem;
-  }
-  let update_var = 0
-  function update() {
-    update_var += 1
-  }
-  function resetF() {
-    values = {
-    'GFriend': true,
-    'NewJeans': true,
-    'LE SSERAFIM': true,
-    'Team N': true,
-    'Team S': true,
-    'Min Hee-Jin': true,
-    'HYBE': true,
-    'BigHit': true,
-    'Belift': true,
-    'Source Music': true,
-    'Pledis': true,
-    'KOZ': true,
-    'ADOR': true,
-    }
-    update()
-  }
-  function clearF() {
-    values = {
+  const static_all_false = {
+    'Music': false,
+    'Trainee': false,
     'GFriend': false,
     'NewJeans': false,
     'LE SSERAFIM': false,
@@ -92,13 +38,46 @@
     'Pledis': false,
     'KOZ': false,
     'ADOR': false,
+  };
+  let values = JSON.parse(JSON.stringify(static_all_true))
+  /**
+   * @param {string} val
+   */
+  function switchVal(val) {
+    values[val] = !values[val]
+    update()
+  }
+  function checkCheckbox(label) {
+    let labels = []
+    for (let labelCategoryNames in hybe_timeline["labels"]["labelCategoryNames"]) {
+      for (let tag in label[hybe_timeline["labels"]["labelCategoryNames"][labelCategoryNames]]) {
+        labels.push(label[hybe_timeline["labels"]["labelCategoryNames"][labelCategoryNames]][tag])
     }
+    }
+    let showItem = false;
+    for (let labelVar in labels) {
+      if (values[labels[labelVar]]) {
+        showItem = true;
+      }
+    }
+    return showItem;
+  }
+  let update_var = 0
+  function update() {
+    update_var += 1
+  }
+  function resetF() {
+    values = JSON.parse(JSON.stringify(static_all_true))
+    update()
+  }
+  function clearF() {
+    values = JSON.parse(JSON.stringify(static_all_false))
     update()
   }
   function allF() {
     let placeholder = true
     for (let val in values) {
-      if (values[val] != static_all[val] && placeholder === true) {
+      if (values[val] != static_all_true[val] && placeholder === true) {
         placeholder = false
       }
     }
@@ -146,9 +125,14 @@
       >
       <Checkbox checked={values["ADOR"]} on:change={() => switchVal("ADOR")}>ADOR</Checkbox>
     </div>
+    <div>
+      Event Type
+      <Checkbox checked={values["Music"]} on:change={() => switchVal("Music")}>Musical Release</Checkbox
+      >
+      <Checkbox checked={values["Trainee"]} on:change={() => switchVal("Trainee")}>New Trainee</Checkbox>
+    </div>
     <div class="flex place-content-center space-x-4">
       <Button color="red" on:click={allF} class="w-1/3 h-10 ">Toggle All</Button>
-      <Button on:click={update} class="w-1/3 h-10">Filter</Button>
     </div>
     <DropdownDivider class="bg-black"/>
     <Button>Presets<ChevronDownOutline class="w-6 h-6 ms-2 text-white dark:text-white" /></Button>
@@ -161,42 +145,23 @@
 
 <Card size="lg" class="float-left mt-5">
   {#key update_var}
-  <Timeline order="vertical">
+  <Timeline order="default">
     {#each timeline_events as item}
       {#if checkCheckbox(item["labels"])}
-        <TimelineItem title={item["title"]} date={item["date"]}>
-          <svelte:fragment slot="icon">
-            <span
-              class="flex absolute -start-3 justify-center items-center w-6 h-6 bg-primary-200 rounded-full ring-8 ring-white"
-            >
-              <AngleRightOutline class="w-4 h-4 text-primary-600" />
-            </span>
-          </svelte:fragment>
-          <div class="flex space-x-1">
-            {#each item["labels"] as tag}
-              {#if hybe_timeline["labels"]["groups"].includes(tag)}
-                <Badge color="purple">{tag}</Badge>
-              {/if}
-              {#if hybe_timeline["labels"]["people"].includes(tag)}
-                <Badge color="blue">{tag}</Badge>
-              {/if}
-              {#if hybe_timeline["labels"]["companies"].includes(tag)}
-                <Badge color="red">{tag}</Badge>
-              {/if}
-            {/each}
-          </div>
+        <TimelineItem title={item["title"]} date={item["date"]} desc={item["text"] ? true : false }>
           <p class="mb-4 text-base font-normal text-gray-500">
             {item["text"]}
             {#if item["notes"]}
-              <br /><br /><small>Note: {item["notes"]}</small>
+              <br /><br /><i>Note: {item["notes"]}</i>
             {/if}
             {#if item["sources"].length != 0}
-              <br />
+              <br /><small>Sources:
               {#each item["sources"] as source}
                 <a class="text-primary-600" href={source} target="_blank"
                   >({item["sources"].indexOf(source) + 1})</a
                 >
               {/each}
+            </small>
             {/if}
           </p>
         </TimelineItem>
