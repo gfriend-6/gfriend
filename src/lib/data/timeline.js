@@ -47,7 +47,7 @@ export const hybe_timeline = {
             date: "July 01, 2019",
             labels: {
                 groups: [],
-                other: ['Team N'],
+                other: ['Team N', 'Min Hee-Jin'],
                 companies: ['Source Music'],
                 type: [],
             },
@@ -208,7 +208,7 @@ export const hybe_timeline = {
                 companies: ['Source Music'],
                 type: [],
             },
-            text: 'Roughly a month prior to GFriend\'s disbandment under Source Music, GFriend were notified their contract would not be renewed. GFriend can be seen crying on VLIVE from April until their contract ended.',
+            text: 'Roughly a month prior to GFriend\'s disbandment under Source Music, GFriend were notified their contract would be ending. GFriend can be seen crying on VLIVE from April until their contract ended.',
             sources: ["https://www.soompi.com/article/1515881wpp/sinb-reveals-she-didnt-know-mago-would-be-gfriends-final-round-of-promotions-says-shes-confident-they-will-reunite"]
         },
         {
@@ -233,6 +233,7 @@ export const hybe_timeline = {
                 type: [],
             },
             text: 'Source Music announced that GFriend\'s contract would be ending on the May 22nd. Suprising everyone including most of their own staff. Source Music claims the disbandment is after a "mutual agreement", however, the members have said they were fired, with SinB even saying they they didn\'t know MAGO would be their last comeback. GFriend\'s upcoming schedule is also deleted.',
+            notes: 'GFRIEND debuted on January 15th, 2015 and their contracts ended on May 22, 2021. The fact that they were a group for only 6.35 years and that the members had no idea leading up to a month before their disbandment eludes to the fact that Source Music and HYBE terminated their contract early.',
             sources: ['https://weverse.io/gfriend/notice/1282', 'http://www.heraldpop.com/view.php?ud=202105181644230496316_1']
         },
         {
