@@ -1,5 +1,6 @@
 <script>
-    import { Card, Checkbox, Button, DropdownDivider, Dropdown, DropdownItem } from 'flowbite-svelte';
+    import { Checkbox, Button, DropdownDivider, Dropdown, DropdownItem } from 'flowbite-svelte';
+    import Card from  '$lib/components/Card.svelte'
     import TimelineItem from '$lib/components/TimelineItem.svelte'
     import Timeline from '$lib/components/Timeline.svelte'
     import { hybe_timeline } from "$lib/data/timeline.js";
@@ -7,7 +8,7 @@
 </script>
   <div class="overflow-hidden -mt-5">
     
-  <Card size="lg" class="float-left mt-5">
+  <Card size="lg" class="float-left mt-5" color="secondary" >
     <Timeline order="default">
       {#each timeline_events as item}
         <TimelineItem title={item["title"]} date={item["date"]} desc={(item["text"] || item["sources"].length != 0) ? true : false }>
@@ -23,7 +24,7 @@
             {#if item["sources"].length != 0}
             <small>Sources:
             {#each item["sources"] as source}
-                <a class="text-primary-600" href={source} target="_blank"
+                <a class="text-primary-2" href={source} target="_blank"
                 >({item["sources"].indexOf(source) + 1})</a
                 >
             {/each}

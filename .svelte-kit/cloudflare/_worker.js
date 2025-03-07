@@ -4645,16 +4645,24 @@ var init_floating_ui_dom = __esm({
   }
 });
 
-// .svelte-kit/output/server/chunks/Frame.js
+// .svelte-kit/output/server/chunks/names.js
 function is_void(name) {
   return void_element_names.test(name) || name.toLowerCase() === "!doctype";
 }
-var void_element_names, bgColors, Frame;
+var void_element_names;
+var init_names = __esm({
+  ".svelte-kit/output/server/chunks/names.js"() {
+    void_element_names = /^(?:area|base|br|col|command|embed|hr|img|input|keygen|link|meta|param|source|track|wbr)$/;
+  }
+});
+
+// .svelte-kit/output/server/chunks/Frame.js
+var bgColors, Frame;
 var init_Frame = __esm({
   ".svelte-kit/output/server/chunks/Frame.js"() {
     init_ssr();
+    init_names();
     init_bundle_mjs();
-    void_element_names = /^(?:area|base|br|col|command|embed|hr|img|input|keygen|link|meta|param|source|track|wbr)$/;
     bgColors = {
       gray: "bg-gray-50 dark:bg-gray-800",
       red: "bg-red-50 dark:bg-gray-800",
@@ -4802,6 +4810,7 @@ var init_DropdownItem = __esm({
     init_floating_ui_dom();
     init_Frame();
     init_chunks();
+    init_names();
     Popper = create_ssr_component(($$result, $$props, $$bindings, slots) => {
       let middleware;
       let $$restProps = compute_rest_props($$props, [
@@ -5233,6 +5242,7 @@ var init_layout_svelte = __esm({
     init_Frame();
     init_bundle_mjs();
     init_chunks();
+    init_names();
     init_ChevronDownOutline();
     init_stores();
     ToolbarButton = create_ssr_component(($$result, $$props, $$bindings, slots) => {
@@ -5614,7 +5624,7 @@ var init_layout_svelte = __esm({
       $$unsubscribe_page = subscribe(page, (value) => $page = value);
       activeUrl = $page.url.pathname;
       $$unsubscribe_page();
-      return `<div class="w-full bg-gfriend-blue-500">${validate_component(Navbar, "Navbar").$$render(
+      return `<div class="w-full bg-accent-3">${validate_component(Navbar, "Navbar").$$render(
         $$result,
         {
           color: "primary",
@@ -5631,8 +5641,8 @@ var init_layout_svelte = __esm({
               $$result,
               {
                 activeUrl,
-                activeClass: "text-gfriend-purple-500",
-                nonActiveClass: "hover:text-gfriend-purple-500"
+                activeClass: "font-bold text-accent-1",
+                nonActiveClass: "text-accent-5 hover:text-white"
               },
               {},
               {
@@ -5646,7 +5656,7 @@ var init_layout_svelte = __esm({
                       return `Profiles${validate_component(ChevronDownOutline, "ChevronDownOutline").$$render(
                         $$result,
                         {
-                          class: "w-6 h-6 ms-2 text-primary-800 inline"
+                          class: "w-6 h-6 ms-2 text-accent-5 inline"
                         },
                         {},
                         {}
@@ -5685,7 +5695,7 @@ var init_layout_svelte = __esm({
                       return `Achivements${validate_component(ChevronDownOutline, "ChevronDownOutline").$$render(
                         $$result,
                         {
-                          class: "w-6 h-6 ms-2 text-primary-800 inline"
+                          class: "w-6 h-6 ms-2 text-accent-5 inline"
                         },
                         {},
                         {}
@@ -5716,7 +5726,7 @@ var init_layout_svelte = __esm({
       )}</div>`;
     });
     Footer_1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-      return `<div class="w-full bg-gfriend-blue-500">${validate_component(Footer, "Footer").$$render(
+      return `<div class="w-full bg-accent-2">${validate_component(Footer, "Footer").$$render(
         $$result,
         {
           color: "primary",
@@ -5786,11 +5796,11 @@ var init_layout_svelte = __esm({
     });
     css = {
       code: ".app.svelte-1e7kqks{display:flex;flex-direction:column;min-height:100vh}main.svelte-1e7kqks{flex:1;display:flex;flex-direction:column;padding:1rem;width:100%;max-width:72rem;margin:0 auto;box-sizing:border-box}",
-      map: `{"version":3,"file":"+layout.svelte","sources":["+layout.svelte"],"sourcesContent":["<script>\\n\\timport '../app.css';\\n\\timport Nav from '../lib/components/Nav.svelte';\\n\\timport Footer from '../lib/components/Footer.svelte';\\n<\/script>\\n\\n<div class=\\"app bg-gfriend-blue-300\\">\\n\\t<Nav />\\n\\t<main>\\n\\t\\t<slot />\\n\\t</main>\\n\\t<Footer />\\n\\n</div>\\n\\n<style>\\n\\t.app {\\n\\t\\tdisplay: flex;\\n\\t\\tflex-direction: column;\\n\\t\\tmin-height: 100vh;\\n\\t}\\n\\n\\tmain {\\n\\t\\tflex: 1;\\n\\t\\tdisplay: flex;\\n\\t\\tflex-direction: column;\\n\\t\\tpadding: 1rem;\\n\\t\\twidth: 100%;\\n\\t\\tmax-width: 72rem;\\n\\t\\tmargin: 0 auto;\\n\\t\\tbox-sizing: border-box;\\n\\t}\\n\\n</style>\\n"],"names":[],"mappings":"AAgBC,mBAAK,CACJ,OAAO,CAAE,IAAI,CACb,cAAc,CAAE,MAAM,CACtB,UAAU,CAAE,KACb,CAEA,mBAAK,CACJ,IAAI,CAAE,CAAC,CACP,OAAO,CAAE,IAAI,CACb,cAAc,CAAE,MAAM,CACtB,OAAO,CAAE,IAAI,CACb,KAAK,CAAE,IAAI,CACX,SAAS,CAAE,KAAK,CAChB,MAAM,CAAE,CAAC,CAAC,IAAI,CACd,UAAU,CAAE,UACb"}`
+      map: `{"version":3,"file":"+layout.svelte","sources":["+layout.svelte"],"sourcesContent":["<script>\\n\\timport '../app.css';\\n\\timport Nav from '../lib/components/Nav.svelte';\\n\\timport Footer from '../lib/components/Footer.svelte';\\n<\/script>\\n\\n<div class=\\"app bg-background\\">\\n\\t<Nav />\\n\\t<main>\\n\\t\\t<slot />\\n\\t</main>\\n\\t<Footer />\\n\\n</div>\\n\\n<style>\\n\\t.app {\\n\\t\\tdisplay: flex;\\n\\t\\tflex-direction: column;\\n\\t\\tmin-height: 100vh;\\n\\t}\\n\\n\\tmain {\\n\\t\\tflex: 1;\\n\\t\\tdisplay: flex;\\n\\t\\tflex-direction: column;\\n\\t\\tpadding: 1rem;\\n\\t\\twidth: 100%;\\n\\t\\tmax-width: 72rem;\\n\\t\\tmargin: 0 auto;\\n\\t\\tbox-sizing: border-box;\\n\\t}\\n\\n</style>\\n"],"names":[],"mappings":"AAgBC,mBAAK,CACJ,OAAO,CAAE,IAAI,CACb,cAAc,CAAE,MAAM,CACtB,UAAU,CAAE,KACb,CAEA,mBAAK,CACJ,IAAI,CAAE,CAAC,CACP,OAAO,CAAE,IAAI,CACb,cAAc,CAAE,MAAM,CACtB,OAAO,CAAE,IAAI,CACb,KAAK,CAAE,IAAI,CACX,SAAS,CAAE,KAAK,CAChB,MAAM,CAAE,CAAC,CAAC,IAAI,CACd,UAAU,CAAE,UACb"}`
     };
     Layout = create_ssr_component(($$result, $$props, $$bindings, slots) => {
       $$result.css.add(css);
-      return `<div class="app bg-gfriend-blue-300 svelte-1e7kqks">${validate_component(Nav, "Nav").$$render($$result, {}, {}, {})} <main class="svelte-1e7kqks">${slots.default ? slots.default({}) : ``}</main> ${validate_component(Footer_1, "Footer").$$render($$result, {}, {}, {})} </div>`;
+      return `<div class="app bg-background svelte-1e7kqks">${validate_component(Nav, "Nav").$$render($$result, {}, {}, {})} <main class="svelte-1e7kqks">${slots.default ? slots.default({}) : ``}</main> ${validate_component(Footer_1, "Footer").$$render($$result, {}, {}, {})} </div>`;
     });
   }
 });
@@ -5813,8 +5823,8 @@ var init__ = __esm({
     index = 0;
     component = async () => component_cache ??= (await Promise.resolve().then(() => (init_layout_svelte(), layout_svelte_exports))).default;
     universal_id = "src/routes/+layout.js";
-    imports = ["_app/immutable/nodes/0.Bpc8aWER.js", "_app/immutable/chunks/8AsGc6G2.js", "_app/immutable/chunks/d6l7Xdkk.js", "_app/immutable/chunks/d5pu_znH.js", "_app/immutable/chunks/Cphl3bv_.js", "_app/immutable/chunks/BPvXYaVj.js", "_app/immutable/chunks/CTCHEIqW.js", "_app/immutable/chunks/CUlzXemM.js", "_app/immutable/chunks/De4OBVEq.js"];
-    stylesheets = ["_app/immutable/assets/0.CiA9g6rf.css", "_app/immutable/assets/app.CzFB9xeo.css"];
+    imports = ["_app/immutable/nodes/0.BT2xpF86.js", "_app/immutable/chunks/CE_swLSu.js", "_app/immutable/chunks/BYLTsbat.js", "_app/immutable/chunks/B-j-nzhe.js", "_app/immutable/chunks/CTIfdKuQ.js", "_app/immutable/chunks/DUjiu_U4.js", "_app/immutable/chunks/J6ZmAdDH.js", "_app/immutable/chunks/Drs2_v4N.js", "_app/immutable/chunks/CHCOI_Bm.js", "_app/immutable/chunks/BZn2moeI.js"];
+    stylesheets = ["_app/immutable/assets/0.CiA9g6rf.css", "_app/immutable/assets/app.ZtUZiSHB.css"];
     fonts = [];
   }
 });
@@ -5852,7 +5862,7 @@ var init__2 = __esm({
   ".svelte-kit/output/server/nodes/1.js"() {
     index2 = 1;
     component2 = async () => component_cache2 ??= (await Promise.resolve().then(() => (init_error_svelte(), error_svelte_exports))).default;
-    imports2 = ["_app/immutable/nodes/1.Bf8u1FrZ.js", "_app/immutable/chunks/8AsGc6G2.js", "_app/immutable/chunks/d6l7Xdkk.js", "_app/immutable/chunks/CUlzXemM.js", "_app/immutable/chunks/De4OBVEq.js", "_app/immutable/chunks/BPvXYaVj.js"];
+    imports2 = ["_app/immutable/nodes/1.Bw3O3smm.js", "_app/immutable/chunks/CE_swLSu.js", "_app/immutable/chunks/BYLTsbat.js", "_app/immutable/chunks/CHCOI_Bm.js", "_app/immutable/chunks/BZn2moeI.js", "_app/immutable/chunks/J6ZmAdDH.js"];
     stylesheets2 = [];
     fonts2 = [];
   }
@@ -5868,7 +5878,7 @@ var init_page_svelte = __esm({
   ".svelte-kit/output/server/entries/pages/_page.svelte.js"() {
     init_ssr();
     Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-      return `<p data-svelte-h="svelte-1wr15oe">please click the timeline sub-page in the nav bar</p> <p data-svelte-h="svelte-1ipb3fd"><a class="underline text-lg text-gfriend-purple-500" href="https://www.buddyville.xyz/timeline">or click here</a></p>`;
+      return `<p data-svelte-h="svelte-1wr15oe">please click the timeline sub-page in the nav bar</p> <p data-svelte-h="svelte-wb78fm"><a class="underline text-lg text-primary-2" href="https://www.buddyville.xyz/timeline">or click here</a></p>`;
     });
   }
 });
@@ -5887,7 +5897,7 @@ var init__3 = __esm({
   ".svelte-kit/output/server/nodes/2.js"() {
     index3 = 2;
     component3 = async () => component_cache3 ??= (await Promise.resolve().then(() => (init_page_svelte(), page_svelte_exports))).default;
-    imports3 = ["_app/immutable/nodes/2.CMc0aELC.js", "_app/immutable/chunks/8AsGc6G2.js", "_app/immutable/chunks/d6l7Xdkk.js"];
+    imports3 = ["_app/immutable/nodes/2.CX3bDu5r.js", "_app/immutable/chunks/CE_swLSu.js", "_app/immutable/chunks/BYLTsbat.js"];
     stylesheets3 = [];
     fonts3 = [];
   }
@@ -5955,7 +5965,7 @@ var init_timeline = __esm({
     init_ChevronDownOutline();
     init_bundle_mjs();
     liClasses = "mb-10 ms-4";
-    divClasses = "absolute w-3 h-3 bg-primary-600 rounded-full mt-1.5 -start-1.5 border border-white";
+    divClasses = "absolute w-3 h-3 bg-primary-2 rounded-full mt-1.5 -start-1.5 border border-white";
     timeClasses = "mb-1 text-xs font-normal leading-none text-gray-500 dark:text-gray-500";
     h3Cls = "text-md font-semibold text-gray-900 dark:text-white";
     TimelineItem = create_ssr_component(($$result, $$props, $$bindings, slots) => {
@@ -6328,7 +6338,7 @@ var Button, Label, colorClasses, labelClass, inputClass, Checkbox, Page2;
 var init_page_svelte2 = __esm({
   ".svelte-kit/output/server/entries/pages/timeline/_page.svelte.js"() {
     init_ssr();
-    init_Frame();
+    init_names();
     init_bundle_mjs();
     init_Card();
     init_DropdownItem();
@@ -6762,7 +6772,7 @@ var init_page_svelte2 = __esm({
                     default: () => {
                       return `<p class="mb-4 text-base font-normal text-gray-500 text-sm"><br> ${escape(item["text"])} ${item["notes"] != "" ? `<br><i>Note: ${escape(item["notes"])}</i>` : ``} ${item["text"] != "" ? `<br><br>` : ``} ${item["sources"].length != 0 ? `<small>Sources:
               ${each(item["sources"], (source) => {
-                        return `<a class="text-primary-600"${add_attribute("href", source, 0)} target="_blank">(${escape(item["sources"].indexOf(source) + 1)})</a>`;
+                        return `<a class="text-primary-2"${add_attribute("href", source, 0)} target="_blank">(${escape(item["sources"].indexOf(source) + 1)})</a>`;
                       })} </small>` : ``}</p> `;
                     }
                   }
@@ -6790,7 +6800,7 @@ var init__4 = __esm({
   ".svelte-kit/output/server/nodes/3.js"() {
     index4 = 3;
     component4 = async () => component_cache4 ??= (await Promise.resolve().then(() => (init_page_svelte2(), page_svelte_exports2))).default;
-    imports4 = ["_app/immutable/nodes/3.DXaO8cxO.js", "_app/immutable/chunks/8AsGc6G2.js", "_app/immutable/chunks/d6l7Xdkk.js", "_app/immutable/chunks/BEsiMtnd.js", "_app/immutable/chunks/CTCHEIqW.js", "_app/immutable/chunks/Cphl3bv_.js", "_app/immutable/chunks/CldTraaC.js", "_app/immutable/chunks/d5pu_znH.js", "_app/immutable/chunks/BPvXYaVj.js"];
+    imports4 = ["_app/immutable/nodes/3.CdenvGpn.js", "_app/immutable/chunks/CE_swLSu.js", "_app/immutable/chunks/BYLTsbat.js", "_app/immutable/chunks/MDm--iX7.js", "_app/immutable/chunks/Drs2_v4N.js", "_app/immutable/chunks/CTIfdKuQ.js", "_app/immutable/chunks/Cu52Q1Rw.js", "_app/immutable/chunks/DUjiu_U4.js", "_app/immutable/chunks/B-j-nzhe.js", "_app/immutable/chunks/J6ZmAdDH.js"];
     stylesheets4 = [];
     fonts4 = [];
   }
@@ -6801,41 +6811,233 @@ var page_svelte_exports3 = {};
 __export(page_svelte_exports3, {
   default: () => Page3
 });
-var Page3;
+var bgColors2, Frame2, Card2, Page3;
 var init_page_svelte3 = __esm({
   ".svelte-kit/output/server/entries/pages/timeline/gfriend_termination/_page.svelte.js"() {
     init_ssr();
-    init_Card();
+    init_bundle_mjs();
+    init_names();
     init_timeline();
+    bgColors2 = {
+      gray: "bg-gray-50 dark:bg-gray-800",
+      red: "bg-red-50 dark:bg-gray-800",
+      yellow: "bg-yellow-50 dark:bg-gray-800 ",
+      green: "bg-green-50 dark:bg-gray-800 ",
+      indigo: "bg-indigo-50 dark:bg-gray-800 ",
+      purple: "bg-purple-50 dark:bg-gray-800 ",
+      pink: "bg-pink-50 dark:bg-gray-800 ",
+      blue: "bg-blue-50 dark:bg-gray-800 ",
+      light: "bg-gray-50 dark:bg-gray-700",
+      dark: "bg-gray-50 dark:bg-gray-800",
+      default: "bg-white dark:bg-gray-800",
+      dropdown: "bg-white dark:bg-gray-700",
+      navbar: "bg-white dark:bg-gray-900",
+      navbarUl: "bg-gray-50 dark:bg-gray-800",
+      form: "bg-gray-50 dark:bg-gray-700",
+      primary: "bg-primary-50 dark:bg-gray-800 ",
+      orange: "bg-orange-50 dark:bg-orange-800",
+      none: "",
+      secondary: "bg-secondary-1"
+    };
+    Frame2 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+      let $$restProps = compute_rest_props($$props, [
+        "tag",
+        "color",
+        "rounded",
+        "border",
+        "shadow",
+        "node",
+        "use",
+        "options",
+        "role",
+        "transition",
+        "params",
+        "open"
+      ]);
+      const noop3 = () => {
+      };
+      setContext("background", true);
+      let { tag = $$restProps.href ? "a" : "div" } = $$props;
+      let { color: color2 = "default" } = $$props;
+      let { rounded = false } = $$props;
+      let { border = false } = $$props;
+      let { shadow = false } = $$props;
+      let { node = void 0 } = $$props;
+      let { use = noop3 } = $$props;
+      let { options: options2 = {} } = $$props;
+      let { role = void 0 } = $$props;
+      let { transition = void 0 } = $$props;
+      let { params = {} } = $$props;
+      let { open = true } = $$props;
+      const dispatch = createEventDispatcher();
+      const textColors = {
+        gray: "text-gray-800 dark:text-gray-300",
+        red: "text-red-800 dark:text-red-400",
+        yellow: "text-yellow-800 dark:text-yellow-300",
+        green: "text-green-800 dark:text-green-400",
+        indigo: "text-indigo-800 dark:text-indigo-400",
+        purple: "text-purple-800 dark:text-purple-400",
+        pink: "text-pink-800 dark:text-pink-400",
+        blue: "text-blue-800 dark:text-blue-400",
+        light: "text-gray-700 dark:text-gray-300",
+        dark: "text-gray-700 dark:text-gray-300",
+        default: "text-gray-500 dark:text-gray-400",
+        dropdown: "text-gray-700 dark:text-gray-200",
+        navbar: "text-gray-700 dark:text-gray-200",
+        navbarUl: "text-gray-700 dark:text-gray-400",
+        form: "text-gray-900 dark:text-white",
+        primary: "text-primary-800 dark:text-primary-400",
+        orange: "text-orange-800 dark:text-orange-400",
+        none: "",
+        secondary: "text-secondary-1"
+      };
+      const borderColors = {
+        gray: "border-gray-300 dark:border-gray-800 divide-gray-300 dark:divide-gray-800",
+        red: "border-red-300 dark:border-red-800 divide-red-300 dark:divide-red-800",
+        yellow: "border-yellow-300 dark:border-yellow-800 divide-yellow-300 dark:divide-yellow-800",
+        green: "border-green-300 dark:border-green-800 divide-green-300 dark:divide-green-800",
+        indigo: "border-indigo-300 dark:border-indigo-800 divide-indigo-300 dark:divide-indigo-800",
+        purple: "border-purple-300 dark:border-purple-800 divide-purple-300 dark:divide-purple-800",
+        pink: "border-pink-300 dark:border-pink-800 divide-pink-300 dark:divide-pink-800",
+        blue: "border-blue-300 dark:border-blue-800 divide-blue-300 dark:divide-blue-800",
+        light: "border-gray-500 divide-gray-500",
+        dark: "border-gray-500 divide-gray-500",
+        default: "border-gray-200 dark:border-gray-700 divide-gray-200 dark:divide-gray-700",
+        dropdown: "border-gray-100 dark:border-gray-600 divide-gray-100 dark:divide-gray-600",
+        navbar: "border-gray-100 dark:border-gray-700 divide-gray-100 dark:divide-gray-700",
+        navbarUl: "border-gray-100 dark:border-gray-700 divide-gray-100 dark:divide-gray-700",
+        form: "border-gray-300 dark:border-gray-700 divide-gray-300 dark:divide-gray-700",
+        primary: "border-primary-500 dark:border-primary-200  divide-primary-500 dark:divide-primary-200 ",
+        orange: "border-orange-300 dark:border-orange-800 divide-orange-300 dark:divide-orange-800",
+        none: "",
+        secondary: "border-secondary-3 divide-secondary-3"
+      };
+      let divClass;
+      if ($$props.tag === void 0 && $$bindings.tag && tag !== void 0) $$bindings.tag(tag);
+      if ($$props.color === void 0 && $$bindings.color && color2 !== void 0) $$bindings.color(color2);
+      if ($$props.rounded === void 0 && $$bindings.rounded && rounded !== void 0) $$bindings.rounded(rounded);
+      if ($$props.border === void 0 && $$bindings.border && border !== void 0) $$bindings.border(border);
+      if ($$props.shadow === void 0 && $$bindings.shadow && shadow !== void 0) $$bindings.shadow(shadow);
+      if ($$props.node === void 0 && $$bindings.node && node !== void 0) $$bindings.node(node);
+      if ($$props.use === void 0 && $$bindings.use && use !== void 0) $$bindings.use(use);
+      if ($$props.options === void 0 && $$bindings.options && options2 !== void 0) $$bindings.options(options2);
+      if ($$props.role === void 0 && $$bindings.role && role !== void 0) $$bindings.role(role);
+      if ($$props.transition === void 0 && $$bindings.transition && transition !== void 0) $$bindings.transition(transition);
+      if ($$props.params === void 0 && $$bindings.params && params !== void 0) $$bindings.params(params);
+      if ($$props.open === void 0 && $$bindings.open && open !== void 0) $$bindings.open(open);
+      {
+        dispatch(open ? "open" : "close");
+      }
+      {
+        dispatch("show", open);
+      }
+      color2 = color2 ?? "default";
+      {
+        setContext("color", color2);
+      }
+      divClass = twMerge(bgColors2[color2], textColors[color2], rounded && "rounded-lg", border && "border", borderColors[color2], shadow && "shadow-md", $$props.class);
+      return `${transition && open ? `${((tag$1) => {
+        return tag$1 ? `<${tag}${spread(
+          [
+            { role: escape_attribute_value(role) },
+            escape_object($$restProps),
+            { class: escape_attribute_value(divClass) }
+          ],
+          {}
+        )}${add_attribute("this", node, 0)}>${is_void(tag$1) ? "" : `${slots.default ? slots.default({}) : ``}`}${is_void(tag$1) ? "" : `</${tag$1}>`}` : "";
+      })(tag)}` : `${open ? `${((tag$1) => {
+        return tag$1 ? `<${tag}${spread(
+          [
+            { role: escape_attribute_value(role) },
+            escape_object($$restProps),
+            { class: escape_attribute_value(divClass) }
+          ],
+          {}
+        )}${add_attribute("this", node, 0)}>${is_void(tag$1) ? "" : `${slots.default ? slots.default({}) : ``}`}${is_void(tag$1) ? "" : `</${tag$1}>`}` : "";
+      })(tag)}` : ``}`} `;
+    });
+    Card2 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+      let $$restProps = compute_rest_props($$props, ["href", "horizontal", "reverse", "img", "padding", "size", "imgClass"]);
+      let { href = void 0 } = $$props;
+      let { horizontal = false } = $$props;
+      let { reverse = false } = $$props;
+      let { img = void 0 } = $$props;
+      let { padding = "lg" } = $$props;
+      let { size: size2 = "sm" } = $$props;
+      let { imgClass = "" } = $$props;
+      const paddings = {
+        none: "",
+        xs: "p-2",
+        sm: "p-4",
+        md: "p-4 sm:p-5",
+        lg: "p-4 sm:p-6",
+        xl: "p-4 sm:p-8"
+      };
+      const sizes = {
+        none: "",
+        xs: "max-w-xs",
+        sm: "max-w-sm",
+        md: "max-w-xl",
+        lg: "max-w-2xl",
+        xl: "max-w-(--breakpoint-xl)"
+      };
+      let innerPadding;
+      let cardClass;
+      let imgCls;
+      if ($$props.href === void 0 && $$bindings.href && href !== void 0) $$bindings.href(href);
+      if ($$props.horizontal === void 0 && $$bindings.horizontal && horizontal !== void 0) $$bindings.horizontal(horizontal);
+      if ($$props.reverse === void 0 && $$bindings.reverse && reverse !== void 0) $$bindings.reverse(reverse);
+      if ($$props.img === void 0 && $$bindings.img && img !== void 0) $$bindings.img(img);
+      if ($$props.padding === void 0 && $$bindings.padding && padding !== void 0) $$bindings.padding(padding);
+      if ($$props.size === void 0 && $$bindings.size && size2 !== void 0) $$bindings.size(size2);
+      if ($$props.imgClass === void 0 && $$bindings.imgClass && imgClass !== void 0) $$bindings.imgClass(imgClass);
+      innerPadding = paddings[padding];
+      cardClass = twMerge("flex w-full", sizes[size2], reverse ? "flex-col-reverse" : "flex-col", horizontal && (reverse ? "md:flex-row-reverse" : "md:flex-row"), href && "hover:bg-gray-100 dark:hover:bg-gray-700", !img && innerPadding, $$props.class);
+      imgCls = twMerge(reverse ? "rounded-b-lg" : "rounded-t-lg", horizontal && "object-cover w-full h-96 md:h-auto md:w-48 md:rounded-none", horizontal && (reverse ? "md:rounded-e-lg" : "md:rounded-s-lg"), imgClass);
+      return `${validate_component(Frame2, "Frame").$$render($$result, Object.assign({}, { tag: href ? "a" : "div" }, { rounded: true }, { shadow: true }, { border: true }, { href }, $$restProps, { class: cardClass }), {}, {
+        default: () => {
+          return `${img ? `<img${add_attribute("class", imgCls, 0)}${add_attribute("src", img, 0)} alt=""> <div${add_attribute("class", innerPadding, 0)}>${slots.default ? slots.default({}) : ``}</div>` : `${slots.default ? slots.default({}) : ``}`}`;
+        }
+      })} `;
+    });
     Page3 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
       let timeline_events = hybe_timeline["events"];
-      return `<div class="overflow-hidden -mt-5">${validate_component(Card, "Card").$$render($$result, { size: "lg", class: "float-left mt-5" }, {}, {
-        default: () => {
-          return `${validate_component(Timeline, "Timeline").$$render($$result, { order: "default" }, {}, {
-            default: () => {
-              return `${each(timeline_events, (item) => {
-                return `${validate_component(TimelineItem, "TimelineItem").$$render(
-                  $$result,
-                  {
-                    title: item["title"],
-                    date: item["date"],
-                    desc: item["text"] || item["sources"].length != 0 ? true : false
-                  },
-                  {},
-                  {
-                    default: () => {
-                      return `<p class="mb-4 text-base font-normal text-gray-500 text-sm"><br> ${escape(item["text"])} ${item["notes"] != "" ? `<br><i>Note: ${escape(item["notes"])}</i>` : ``} ${item["text"] != "" ? `<br><br>` : ``} ${item["sources"].length != 0 ? `<small>Sources:
+      return `<div class="overflow-hidden -mt-5">${validate_component(Card2, "Card").$$render(
+        $$result,
+        {
+          size: "lg",
+          class: "float-left mt-5",
+          color: "secondary"
+        },
+        {},
+        {
+          default: () => {
+            return `${validate_component(Timeline, "Timeline").$$render($$result, { order: "default" }, {}, {
+              default: () => {
+                return `${each(timeline_events, (item) => {
+                  return `${validate_component(TimelineItem, "TimelineItem").$$render(
+                    $$result,
+                    {
+                      title: item["title"],
+                      date: item["date"],
+                      desc: item["text"] || item["sources"].length != 0 ? true : false
+                    },
+                    {},
+                    {
+                      default: () => {
+                        return `<p class="mb-4 text-base font-normal text-gray-500 text-sm"><br> ${escape(item["text"])} ${item["notes"] != "" ? `<br><i>Note: ${escape(item["notes"])}</i>` : ``} ${item["text"] != "" ? `<br><br>` : ``} ${item["sources"].length != 0 ? `<small>Sources:
             ${each(item["sources"], (source) => {
-                        return `<a class="text-primary-600"${add_attribute("href", source, 0)} target="_blank">(${escape(item["sources"].indexOf(source) + 1)})</a>`;
-                      })} </small>` : ``}</p> `;
+                          return `<a class="text-primary-2"${add_attribute("href", source, 0)} target="_blank">(${escape(item["sources"].indexOf(source) + 1)})</a>`;
+                        })} </small>` : ``}</p> `;
+                      }
                     }
-                  }
-                )}`;
-              })}`;
-            }
-          })}`;
+                  )}`;
+                })}`;
+              }
+            })}`;
+          }
         }
-      })}</div>`;
+      )}</div>`;
     });
   }
 });
@@ -6854,7 +7056,7 @@ var init__5 = __esm({
   ".svelte-kit/output/server/nodes/4.js"() {
     index5 = 4;
     component5 = async () => component_cache5 ??= (await Promise.resolve().then(() => (init_page_svelte3(), page_svelte_exports3))).default;
-    imports5 = ["_app/immutable/nodes/4.BtiQ4Hrc.js", "_app/immutable/chunks/8AsGc6G2.js", "_app/immutable/chunks/d6l7Xdkk.js", "_app/immutable/chunks/BEsiMtnd.js", "_app/immutable/chunks/CTCHEIqW.js", "_app/immutable/chunks/Cphl3bv_.js", "_app/immutable/chunks/CldTraaC.js"];
+    imports5 = ["_app/immutable/nodes/4.DwPSOTRu.js", "_app/immutable/chunks/CE_swLSu.js", "_app/immutable/chunks/BYLTsbat.js", "_app/immutable/chunks/MDm--iX7.js", "_app/immutable/chunks/Drs2_v4N.js", "_app/immutable/chunks/CTIfdKuQ.js"];
     stylesheets5 = [];
     fonts5 = [];
   }
@@ -19351,8 +19553,8 @@ var init__6 = __esm({
   ".svelte-kit/output/server/nodes/5.js"() {
     index6 = 5;
     component6 = async () => component_cache6 ??= (await Promise.resolve().then(() => (init_page_svelte4(), page_svelte_exports4))).default;
-    imports6 = ["_app/immutable/nodes/5.CLu2Dti-.js", "_app/immutable/chunks/8AsGc6G2.js", "_app/immutable/chunks/d6l7Xdkk.js", "_app/immutable/chunks/Cphl3bv_.js", "_app/immutable/chunks/CldTraaC.js"];
-    stylesheets6 = ["_app/immutable/assets/5.520sU_rV.css", "_app/immutable/assets/app.CzFB9xeo.css"];
+    imports6 = ["_app/immutable/nodes/5.WR6mhrAi.js", "_app/immutable/chunks/CE_swLSu.js", "_app/immutable/chunks/BYLTsbat.js", "_app/immutable/chunks/CTIfdKuQ.js", "_app/immutable/chunks/Cu52Q1Rw.js", "_app/immutable/chunks/DUjiu_U4.js"];
+    stylesheets6 = ["_app/immutable/assets/5.520sU_rV.css", "_app/immutable/assets/app.ZtUZiSHB.css"];
     fonts6 = [];
   }
 });
@@ -19467,7 +19669,7 @@ var options = {
   root: Root,
   service_worker: false,
   templates: {
-    app: ({ head, body: body2, assets: assets2, nonce, env }) => '<!doctype html>\n<html lang="en">\n	<head>\n		<meta property="og:title" content="Buddyville" /> \n		<meta property="og:description" content="Dive into the world of GFriend! This fan page is dedicated to the girls history and achievements." /> \n		<meta property="og:image" content="https://assets.teenvogue.com/photos/5fa97b1cae4e8fa5ef375193/16:9/w_6575,h_3698,c_limit/GFRIEND%20Press%20Photo_Photo%20Credit%20SOURCE%20MUSIC%201.jpg" /> \n		<meta property="og:site" content="https://www.buddyville.xyz/" /> \n		<meta name="twitter:card" content="summary_large_image" />\n		<meta name="twitter:title" content="Buddyville" />\n		<meta name="twitter:image:alt" content="Picture of gfriend" />\n		<meta charset="utf-8" />\n		<meta name="viewport" content="width=device-width, initial-scale=1" />\n		' + head + '\n	</head>\n	<body data-sveltekit-preload-data="hover">\n		<div style="display: contents">' + body2 + "</div>\n	</body>\n</html>\n",
+    app: ({ head, body: body2, assets: assets2, nonce, env }) => '<!doctype html>\n<html lang="en">\n	<head>\n		<meta property="og:title" content="Buddyville" /> \n		<meta property="og:description" content="Dive into the world of GFriend! This fan page is dedicated to the girls history and achievements." /> \n		<meta property="og:image" content="https://assets.teenvogue.com/photos/5fa97b1cae4e8fa5ef375193/16:9/w_6575,h_3698,c_limit/GFRIEND%20Press%20Photo_Photo%20Credit%20SOURCE%20MUSIC%201.jpg" /> \n		<meta property="og:site" content="https://www.buddyville.xyz/" />\n		<meta property="og:type" content="image/jpg" />\n		<meta name="twitter:site" content="summary_large_image" />\n		<meta name="twitter:creator" content="terrifiedpigeon" />\n		<meta name="twitter:title" content="Buddyville" />\n		<meta name="twitter:description" content="TEST" />\n		<meta name="twitter:image:alt" content="Picture of gfriend" />\n		<meta charset="utf-8" />\n		<meta name="viewport" content="width=device-width, initial-scale=1" />\n		' + head + '\n	</head>\n	<body data-sveltekit-preload-data="hover">\n		<div style="display: contents">' + body2 + "</div>\n	</body>\n</html>\n",
     error: ({ status, message }) => '<!doctype html>\n<html lang="en">\n	<head>\n		<meta charset="utf-8" />\n		<title>' + message + `</title>
 
 		<style>
@@ -19539,7 +19741,7 @@ var options = {
 		<div class="error">
 			<span class="status">` + status + '</span>\n			<div class="message">\n				<h1>' + message + "</h1>\n			</div>\n		</div>\n	</body>\n</html>\n"
   },
-  version_hash: "12e5snw"
+  version_hash: "1g28u4w"
 };
 async function get_hooks() {
   let handle;
@@ -23243,7 +23445,7 @@ var manifest = (() => {
     assets: /* @__PURE__ */ new Set([".nojekyll"]),
     mimeTypes: {},
     _: {
-      client: { start: "_app/immutable/entry/start.CBj9sP1A.js", app: "_app/immutable/entry/app.tgQ1cdC9.js", imports: ["_app/immutable/entry/start.CBj9sP1A.js", "_app/immutable/chunks/De4OBVEq.js", "_app/immutable/chunks/8AsGc6G2.js", "_app/immutable/chunks/BPvXYaVj.js", "_app/immutable/entry/app.tgQ1cdC9.js", "_app/immutable/chunks/8AsGc6G2.js", "_app/immutable/chunks/d6l7Xdkk.js"], stylesheets: [], fonts: [], uses_env_dynamic_public: false },
+      client: { start: "_app/immutable/entry/start.CJdwi1Rg.js", app: "_app/immutable/entry/app.Bg931Myx.js", imports: ["_app/immutable/entry/start.CJdwi1Rg.js", "_app/immutable/chunks/BZn2moeI.js", "_app/immutable/chunks/CE_swLSu.js", "_app/immutable/chunks/J6ZmAdDH.js", "_app/immutable/entry/app.Bg931Myx.js", "_app/immutable/chunks/CE_swLSu.js", "_app/immutable/chunks/BYLTsbat.js"], stylesheets: [], fonts: [], uses_env_dynamic_public: false },
       nodes: [
         __memo(() => Promise.resolve().then(() => (init__(), __exports))),
         __memo(() => Promise.resolve().then(() => (init__2(), __exports2))),

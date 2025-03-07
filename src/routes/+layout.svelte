@@ -4,7 +4,7 @@
 	import Footer from '../lib/components/Footer.svelte';
 </script>
 
-<div class="app bg-gfriend-blue-300">
+<div class="app bg-background">
 	<Nav />
 	<main>
 		<slot />

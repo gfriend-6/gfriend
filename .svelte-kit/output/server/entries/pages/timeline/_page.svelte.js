@@ -1,5 +1,5 @@
 import { c as create_ssr_component, a as compute_rest_props, g as getContext, b as spread, d as escape_attribute_value, f as escape_object, h as add_attribute, j as compute_slots, k as each, v as validate_component, e as escape } from "../../../chunks/ssr.js";
-import { i as is_void } from "../../../chunks/Frame.js";
+import { i as is_void } from "../../../chunks/names.js";
 import { twMerge } from "tailwind-merge";
 import { C as Card } from "../../../chunks/Card.js";
 import { b as DropdownDivider, D as Dropdown, a as DropdownItem } from "../../../chunks/DropdownItem.js";
@@ -433,7 +433,7 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
                 default: () => {
                   return `<p class="mb-4 text-base font-normal text-gray-500 text-sm"><br> ${escape(item["text"])} ${item["notes"] != "" ? `<br><i>Note: ${escape(item["notes"])}</i>` : ``} ${item["text"] != "" ? `<br><br>` : ``} ${item["sources"].length != 0 ? `<small>Sources:
               ${each(item["sources"], (source) => {
-                    return `<a class="text-primary-600"${add_attribute("href", source, 0)} target="_blank">(${escape(item["sources"].indexOf(source) + 1)})</a>`;
+                    return `<a class="text-primary-2"${add_attribute("href", source, 0)} target="_blank">(${escape(item["sources"].indexOf(source) + 1)})</a>`;
                   })} </small>` : ``}</p> `;
                 }
               }

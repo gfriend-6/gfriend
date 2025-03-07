@@ -1,9 +1,10 @@
 import { c as create_ssr_component, a as compute_rest_props, g as getContext, b as spread, e as escape, d as escape_attribute_value, f as escape_object, h as add_attribute, i as subscribe, s as setContext, v as validate_component } from "../../chunks/ssr.js";
 /* empty css               */
 import { D as Dropdown, a as DropdownItem, b as DropdownDivider } from "../../chunks/DropdownItem.js";
-import { F as Frame, i as is_void } from "../../chunks/Frame.js";
+import { F as Frame } from "../../chunks/Frame.js";
 import { twMerge } from "tailwind-merge";
 import { w as writable } from "../../chunks/index.js";
+import { i as is_void } from "../../chunks/names.js";
 import { C as ChevronDownOutline } from "../../chunks/ChevronDownOutline.js";
 import { p as page } from "../../chunks/stores.js";
 function sineIn(t) {
@@ -390,7 +391,7 @@ const Nav = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   $$unsubscribe_page = subscribe(page, (value) => $page = value);
   activeUrl = $page.url.pathname;
   $$unsubscribe_page();
-  return `<div class="w-full bg-gfriend-blue-500">${validate_component(Navbar, "Navbar").$$render(
+  return `<div class="w-full bg-accent-3">${validate_component(Navbar, "Navbar").$$render(
     $$result,
     {
       color: "primary",
@@ -407,8 +408,8 @@ const Nav = create_ssr_component(($$result, $$props, $$bindings, slots) => {
           $$result,
           {
             activeUrl,
-            activeClass: "text-gfriend-purple-500",
-            nonActiveClass: "hover:text-gfriend-purple-500"
+            activeClass: "font-bold text-accent-1",
+            nonActiveClass: "text-accent-5 hover:text-white"
           },
           {},
           {
@@ -422,7 +423,7 @@ const Nav = create_ssr_component(($$result, $$props, $$bindings, slots) => {
                   return `Profiles${validate_component(ChevronDownOutline, "ChevronDownOutline").$$render(
                     $$result,
                     {
-                      class: "w-6 h-6 ms-2 text-primary-800 inline"
+                      class: "w-6 h-6 ms-2 text-accent-5 inline"
                     },
                     {},
                     {}
@@ -461,7 +462,7 @@ const Nav = create_ssr_component(($$result, $$props, $$bindings, slots) => {
                   return `Achivements${validate_component(ChevronDownOutline, "ChevronDownOutline").$$render(
                     $$result,
                     {
-                      class: "w-6 h-6 ms-2 text-primary-800 inline"
+                      class: "w-6 h-6 ms-2 text-accent-5 inline"
                     },
                     {},
                     {}
@@ -492,7 +493,7 @@ const Nav = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   )}</div>`;
 });
 const Footer_1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  return `<div class="w-full bg-gfriend-blue-500">${validate_component(Footer, "Footer").$$render(
+  return `<div class="w-full bg-accent-2">${validate_component(Footer, "Footer").$$render(
     $$result,
     {
       color: "primary",
@@ -562,11 +563,11 @@ const Footer_1 = create_ssr_component(($$result, $$props, $$bindings, slots) => 
 });
 const css = {
   code: ".app.svelte-1e7kqks{display:flex;flex-direction:column;min-height:100vh}main.svelte-1e7kqks{flex:1;display:flex;flex-direction:column;padding:1rem;width:100%;max-width:72rem;margin:0 auto;box-sizing:border-box}",
-  map: `{"version":3,"file":"+layout.svelte","sources":["+layout.svelte"],"sourcesContent":["<script>\\n\\timport '../app.css';\\n\\timport Nav from '../lib/components/Nav.svelte';\\n\\timport Footer from '../lib/components/Footer.svelte';\\n<\/script>\\n\\n<div class=\\"app bg-gfriend-blue-300\\">\\n\\t<Nav />\\n\\t<main>\\n\\t\\t<slot />\\n\\t</main>\\n\\t<Footer />\\n\\n</div>\\n\\n<style>\\n\\t.app {\\n\\t\\tdisplay: flex;\\n\\t\\tflex-direction: column;\\n\\t\\tmin-height: 100vh;\\n\\t}\\n\\n\\tmain {\\n\\t\\tflex: 1;\\n\\t\\tdisplay: flex;\\n\\t\\tflex-direction: column;\\n\\t\\tpadding: 1rem;\\n\\t\\twidth: 100%;\\n\\t\\tmax-width: 72rem;\\n\\t\\tmargin: 0 auto;\\n\\t\\tbox-sizing: border-box;\\n\\t}\\n\\n</style>\\n"],"names":[],"mappings":"AAgBC,mBAAK,CACJ,OAAO,CAAE,IAAI,CACb,cAAc,CAAE,MAAM,CACtB,UAAU,CAAE,KACb,CAEA,mBAAK,CACJ,IAAI,CAAE,CAAC,CACP,OAAO,CAAE,IAAI,CACb,cAAc,CAAE,MAAM,CACtB,OAAO,CAAE,IAAI,CACb,KAAK,CAAE,IAAI,CACX,SAAS,CAAE,KAAK,CAChB,MAAM,CAAE,CAAC,CAAC,IAAI,CACd,UAAU,CAAE,UACb"}`
+  map: `{"version":3,"file":"+layout.svelte","sources":["+layout.svelte"],"sourcesContent":["<script>\\n\\timport '../app.css';\\n\\timport Nav from '../lib/components/Nav.svelte';\\n\\timport Footer from '../lib/components/Footer.svelte';\\n<\/script>\\n\\n<div class=\\"app bg-background\\">\\n\\t<Nav />\\n\\t<main>\\n\\t\\t<slot />\\n\\t</main>\\n\\t<Footer />\\n\\n</div>\\n\\n<style>\\n\\t.app {\\n\\t\\tdisplay: flex;\\n\\t\\tflex-direction: column;\\n\\t\\tmin-height: 100vh;\\n\\t}\\n\\n\\tmain {\\n\\t\\tflex: 1;\\n\\t\\tdisplay: flex;\\n\\t\\tflex-direction: column;\\n\\t\\tpadding: 1rem;\\n\\t\\twidth: 100%;\\n\\t\\tmax-width: 72rem;\\n\\t\\tmargin: 0 auto;\\n\\t\\tbox-sizing: border-box;\\n\\t}\\n\\n</style>\\n"],"names":[],"mappings":"AAgBC,mBAAK,CACJ,OAAO,CAAE,IAAI,CACb,cAAc,CAAE,MAAM,CACtB,UAAU,CAAE,KACb,CAEA,mBAAK,CACJ,IAAI,CAAE,CAAC,CACP,OAAO,CAAE,IAAI,CACb,cAAc,CAAE,MAAM,CACtB,OAAO,CAAE,IAAI,CACb,KAAK,CAAE,IAAI,CACX,SAAS,CAAE,KAAK,CAChB,MAAM,CAAE,CAAC,CAAC,IAAI,CACd,UAAU,CAAE,UACb"}`
 };
 const Layout = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   $$result.css.add(css);
-  return `<div class="app bg-gfriend-blue-300 svelte-1e7kqks">${validate_component(Nav, "Nav").$$render($$result, {}, {}, {})} <main class="svelte-1e7kqks">${slots.default ? slots.default({}) : ``}</main> ${validate_component(Footer_1, "Footer").$$render($$result, {}, {}, {})} </div>`;
+  return `<div class="app bg-background svelte-1e7kqks">${validate_component(Nav, "Nav").$$render($$result, {}, {}, {})} <main class="svelte-1e7kqks">${slots.default ? slots.default({}) : ``}</main> ${validate_component(Footer_1, "Footer").$$render($$result, {}, {}, {})} </div>`;
 });
 export {
   Layout as default

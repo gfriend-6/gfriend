@@ -161,7 +161,7 @@
             {#if item["sources"].length != 0}
               <small>Sources:
               {#each item["sources"] as source}
-                <a class="text-primary-600" href={source} target="_blank"
+                <a class="text-primary-2" href={source} target="_blank"
                   >({item["sources"].indexOf(source) + 1})</a
                 >
               {/each}

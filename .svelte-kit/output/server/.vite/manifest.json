@@ -29,18 +29,20 @@
     "imports": [
       "_ssr.js",
       "_Frame.js",
-      "_index.js"
+      "_index.js",
+      "_names.js"
     ]
   },
   "_Frame.js": {
     "file": "chunks/Frame.js",
     "name": "Frame",
     "imports": [
-      "_ssr.js"
+      "_ssr.js",
+      "_names.js"
     ]
   },
   "_app.js": {
-    "file": "_app/immutable/assets/app.Bd96_sDO.css",
+    "file": "_app/immutable/assets/app.DJPotyho.css",
     "src": "_app.js"
   },
   "_exports.js": {
@@ -61,6 +63,10 @@
       "_ssr.js",
       "_ssr2.js"
     ]
+  },
+  "_names.js": {
+    "file": "chunks/names.js",
+    "name": "names"
   },
   "_ssr.js": {
     "file": "chunks/ssr.js",
@@ -124,12 +130,13 @@
       "_DropdownItem.js",
       "_Frame.js",
       "_index.js",
+      "_names.js",
       "_ChevronDownOutline.js",
       "_stores.js"
     ],
     "css": [
       "_app/immutable/assets/_layout.CiA9g6rf.css",
-      "_app/immutable/assets/app.Bd96_sDO.css"
+      "_app/immutable/assets/app.DJPotyho.css"
     ]
   },
   "src/routes/+page.svelte": {
@@ -148,7 +155,7 @@
     "isEntry": true,
     "imports": [
       "_ssr.js",
-      "_Frame.js",
+      "_names.js",
       "_Card.js",
       "_DropdownItem.js",
       "_timeline.js",
@@ -162,7 +169,7 @@
     "isEntry": true,
     "imports": [
       "_ssr.js",
-      "_Card.js",
+      "_names.js",
       "_timeline.js"
     ]
   },
@@ -177,7 +184,7 @@
     ],
     "css": [
       "_app/immutable/assets/_page.520sU_rV.css",
-      "_app/immutable/assets/app.Bd96_sDO.css"
+      "_app/immutable/assets/app.DJPotyho.css"
     ]
   }
 }

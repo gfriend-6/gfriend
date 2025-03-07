@@ -5,3 +5,15 @@ compatibility_date = "2025-03-07"
 
 workers_dev = false
 route = { pattern = "www.buddyville.xyz/*", zone_name = "www.buddyville.xyz" }
+
+kv_namespaces = [
+  { binding = "<MY_NAMESPACE>", id = "<KV_ID>" }
+]
+
+[env.staging]
+name = "my-worker-staging"
+route = { pattern = "staging.example.org/*", zone_name = "example.org" }
+
+kv_namespaces = [
+  { binding = "<MY_NAMESPACE>", id = "<STAGING_KV_ID>" }
+]
