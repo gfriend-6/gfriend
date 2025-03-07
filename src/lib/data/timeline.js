@@ -16,7 +16,7 @@ export const hybe_timeline = {
                 companies: ['Source Music'],
                 type: ['Trainee'],
             },
-            sources: ["https://m.entertain.naver.com/article/433/0000106807"]
+            sources: ["https://m.entertain.naver.com/article/433/0000106807", "https://www.koreatimes.co.kr/www/art/2025/03/398_362674.html"]
         },
         {
             title: "GFriend's 2nd Album: \"Time For Us\" is Released",
@@ -245,7 +245,7 @@ export const hybe_timeline = {
                 companies: ['Source Music'],
                 type: [],
             },
-            text: 'GFriend officially disbands under Source Music.',
+            text: 'GFriend\'s contract under Source Music end and all members leave.',
             sources: []
         },
         {
