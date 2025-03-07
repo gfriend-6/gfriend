@@ -1,0 +1,15 @@
+{
+	"/": [
+		"src/routes/+layout.js",
+		"src/routes/+layout.js"
+	],
+	"/timeline": [
+		"src/routes/+layout.js"
+	],
+	"/timeline/gfriend_termination": [
+		"src/routes/+layout.js"
+	],
+	"/wins": [
+		"src/routes/+layout.js"
+	]
+}

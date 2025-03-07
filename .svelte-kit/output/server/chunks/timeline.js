@@ -1,0 +1,370 @@
+import { c as create_ssr_component, h as add_attribute, e as escape, v as validate_component } from "./ssr.js";
+import { C as ChevronDownOutline } from "./ChevronDownOutline.js";
+import { twMerge } from "tailwind-merge";
+const liClasses = "mb-10 ms-4";
+const divClasses = "absolute w-3 h-3 bg-primary-600 rounded-full mt-1.5 -start-1.5 border border-white";
+const timeClasses = "mb-1 text-xs font-normal leading-none text-gray-500 dark:text-gray-500";
+const h3Cls = "text-md font-semibold text-gray-900 dark:text-white";
+const TimelineItem = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  let { desc = false } = $$props;
+  let { title = "" } = $$props;
+  let { date = "" } = $$props;
+  if ($$props.desc === void 0 && $$bindings.desc && desc !== void 0) $$bindings.desc(desc);
+  if ($$props.title === void 0 && $$bindings.title && title !== void 0) $$bindings.title(title);
+  if ($$props.date === void 0 && $$bindings.date && date !== void 0) $$bindings.date(date);
+  return `  <li${add_attribute("class", liClasses, 0)}><div${add_attribute("class", divClasses, 0)}></div> <time${add_attribute("class", timeClasses, 0)}>${escape(date)}</time> ${title ? `<div><h3${add_attribute("class", h3Cls, 0)}>${desc ? `<button class="justify-between flex">${escape(title)} <div class="justify-center ms-2 items-center w-6 h-6 bg-gray-200 rounded-full">${validate_component(ChevronDownOutline, "ChevronDownOutline").$$render($$result, { class: "w-6 h-6 ms-0 text-black" }, {}, {})}</div></button>` : `${escape(title)}`}</h3></div>` : ``} <div>${slots.default ? slots.default({}) : ``}</div></li> `;
+});
+let olClasses = "relative border-s border-black dark:border-gray-700";
+const Timeline = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  return `  <ol${add_attribute("class", twMerge(olClasses, $$props.class), 0)}>${slots.default ? slots.default({}) : ``}</ol> `;
+});
+const hybe_timeline = {
+  labels: {
+    labelCategoryNames: ["groups", "other", "companies", "type"]
+  },
+  events: [
+    {
+      title: "Source Music Casts Minji",
+      date: "2017",
+      labels: {
+        groups: [],
+        other: ["Team N"],
+        companies: ["Source Music"],
+        type: ["Trainee"]
+      },
+      text: "",
+      notes: "",
+      sources: ["https://m.entertain.naver.com/article/433/0000106807", "https://www.koreatimes.co.kr/www/art/2025/03/398_362674.html"]
+    },
+    {
+      title: `GFriend's 2nd Album: "Time For Us" is Released`,
+      date: "January 01, 2019",
+      labels: {
+        group: ["GFriend"],
+        other: [],
+        companies: ["Source Music"],
+        type: ["Music"]
+      },
+      text: "Time For Us is release with positive reactions.",
+      notes: "",
+      sources: ["https://kpopreviewed.com/2019/01/14/sunrise-gfriend/"]
+    },
+    {
+      title: `GFriend's 7th EP: "Fever Season" is Released`,
+      date: "July 01, 2019",
+      labels: {
+        group: ["GFriend"],
+        other: [],
+        companies: ["Source Music"],
+        type: ["Music"]
+      },
+      text: 'Fever Season is release with mixed reactions. Some fans stating the title track "Fever" felt generaic and lacklustre.',
+      notes: "This was GFriend's last release outside of HYBE and may have been a budget release as Source Music likely joined HYBE for financial support.",
+      sources: ["https://www.asianjunkie.com/2019/07/01/review-gfriends-fever-provides-a-summer-vibe-but-is-disappointingly-generic/", "https://www.allkpop.com/article/2021/03/hybe-releases-the-2020-financial-report-for-sublabels-pledis-entertainment-and-source-music"]
+    },
+    {
+      title: "Min Hee-Jin Joins BigHit (HYBE)",
+      date: "July 01, 2019",
+      labels: {
+        groups: [],
+        other: ["Team N", "Min Hee-Jin"],
+        companies: ["Source Music"],
+        type: []
+      },
+      text: 'Min Hee-Jin joined BigHit (HYBE) as its Chief Brand Officer (CBO), with one of her responsibilities being to "lead the launch of a new girl group"',
+      notes: `It can be concluded that Min Hee-Jin was set to work with Souce Music's "Team N" as there were no other female trainee teams, under hybe, until 2021.`,
+      sources: ["https://m.entertain.naver.com/now/article/081/0003010589"]
+    },
+    {
+      title: `GFriend's 2nd Japanese Album: "Fallin' Light" is Released`,
+      date: "November 13, 2019",
+      labels: {
+        groups: ["GFriend"],
+        other: [],
+        companies: ["Source Music"],
+        type: ["Music"]
+      },
+      text: "Fallin' Light is release with positive reactions. This is GFriend's first release uder HYBE and the debut of their mature concept.",
+      notes: "",
+      sources: ["https://kpopreviewed.com/2019/11/16/fallin-light-gfriend/"]
+    },
+    {
+      title: "Source Music Casts Hanni",
+      date: "November 2019",
+      labels: {
+        groups: [],
+        other: ["Team N"],
+        companies: ["Source Music"],
+        type: ["Trainee"]
+      },
+      text: `Hanni is cast as a Source Music trainee in November 2019 through Source Music and Bit Hit's "Plus Global Audition".`,
+      notes: "",
+      sources: ["https://m.entertain.naver.com/article/433/0000106807"]
+    },
+    {
+      title: `GFriend's 8th EP: "回:Labyrinth" is Released`,
+      date: "Febuary 3, 2020",
+      labels: {
+        groups: ["GFriend"],
+        other: [],
+        companies: ["Source Music"],
+        type: ["Music"]
+      },
+      text: "回:Labyrinth is release with positive reactions. This is GFriend's first Korean release uder HYBE and introduces the mature concept to their Korean fanbase.",
+      notes: "",
+      sources: ["https://thebiaslist.com/2020/02/04/buried-treasure-gfriend-labyrinth/"]
+    },
+    {
+      title: "Haerin Joins Source Music",
+      date: "February 2020",
+      labels: {
+        groups: [],
+        other: ["Team N"],
+        companies: ["Source Music"],
+        type: ["Trainee"]
+      },
+      text: "Haerin first discovered in November 2019, at the time she was a trainee under another company. However in December of that year her mother reached out to Source Music and she signed with Source Music in February of 2020.",
+      notes: "",
+      sources: ["https://m.entertain.naver.com/article/433/0000106807"]
+    },
+    {
+      title: `GFriend's 9th EP: "回:Song of the Sirens" is Released`,
+      date: "Febuary 3, 2020",
+      labels: {
+        groups: ["GFriend"],
+        other: [],
+        companies: ["Source Music"],
+        type: ["Music"]
+      },
+      text: "回:Song of the Sirens is release with positive reactions.",
+      notes: "",
+      sources: ["https://kpopreviewed.com/2020/07/14/apple-gfriend/"]
+    },
+    {
+      title: "Danielle Joins Source Music",
+      date: "July 2020",
+      labels: {
+        groups: [],
+        other: ["Team N"],
+        companies: ["Source Music"],
+        type: ["Trainee"]
+      },
+      text: "Danielle signed in July 2020 and was a former YG trainee.",
+      notes: "",
+      sources: ["https://m.entertain.naver.com/article/433/0000106807"]
+    },
+    {
+      title: "Hyein Joins Source Music",
+      date: "January 2021",
+      labels: {
+        groups: [],
+        other: ["Team N"],
+        companies: ["Source Music"],
+        type: ["Trainee"]
+      },
+      text: "Hyein signed in January 2021 after the CEO of Source Music took it upon himself to persuade her parents.",
+      notes: "",
+      sources: ["https://m.entertain.naver.com/article/433/0000106807"]
+    },
+    {
+      title: "Source Music Casts Eunchae",
+      date: "January 9, 2021",
+      labels: {
+        groups: [],
+        other: ["Team S"],
+        companies: ["Source Music"],
+        type: ["Trainee"]
+      },
+      text: "Eunchae leaves her dance school to join Source Music as a trainee.",
+      notes: "",
+      sources: ["https://magazine.weverse.io/article/view/401?lang=en&ref=main&artist=LESSERAFIM"]
+    },
+    {
+      title: `GFriend's 3rd Album: "回:Walpurgis Night" is Released`,
+      date: "November 9, 2020",
+      labels: {
+        group: ["GFriend"],
+        other: [],
+        companies: ["Source Music"],
+        type: ["Music"]
+      },
+      text: "回:Song of the Sirens is release with positive reactions.",
+      notes: "",
+      sources: ["https://kpopreviewed.com/2020/12/30/album-walpurgis-night-gfriend/"]
+    },
+    {
+      title: 'Source Music Submits Trademarks for "GFriend"',
+      date: "March 11, 2021",
+      labels: {
+        groups: ["GFriend"],
+        other: [],
+        companies: ["Source Music"],
+        type: []
+      },
+      text: 'Source Music Submits Trademarks for "GFriend", all of which have been rejected due to the group no longer being under Source Music.',
+      notes: "",
+      sources: ["https://www.koreaboo.com/news/source-music-copyright-fail-file-gfriend/"]
+    },
+    {
+      title: "It's Reported That Sakura Will Be Going To BigHit",
+      date: "March 11, 2021",
+      labels: {
+        groups: [],
+        other: ["Team S"],
+        companies: ["Source Music"],
+        type: []
+      },
+      text: "It's reported that Sakura will be going to Bit Hit after Iz*One disbands.",
+      notes: "",
+      sources: ["https://m.entertain.naver.com/now/article/015/0004511578"]
+    },
+    {
+      title: "N Teams's Debut Evaluation",
+      date: "March 27, 2021",
+      labels: {
+        groups: [],
+        other: ["Team N"],
+        companies: ["Source Music"],
+        type: []
+      },
+      text: 'N Teams Debut Evaluation was conducted with the song "Attention". In the debut evaluation Minji, Hanni, Haerin, Danielle, and Hyein can be seen along side 2 other trainees.',
+      notes: "",
+      sources: ["https://m.entertain.naver.com/ranking/article/433/0000106807"]
+    },
+    {
+      title: "GFriend Learn Their Contract is Ending",
+      date: "April 2021",
+      labels: {
+        groups: ["GFriend"],
+        other: [],
+        companies: ["Source Music"],
+        type: []
+      },
+      text: "Roughly a month prior to GFriend's disbandment under Source Music, GFriend were notified their contract would be ending. GFriend can be seen crying on VLIVE from April until their contract ended.",
+      notes: "",
+      sources: ["https://www.soompi.com/article/1515881wpp/sinb-reveals-she-didnt-know-mago-would-be-gfriends-final-round-of-promotions-says-shes-confident-they-will-reunite"]
+    },
+    {
+      title: "Source Music Casts Garam",
+      date: "May 2021",
+      labels: {
+        groups: [],
+        other: ["Team S"],
+        companies: ["Source Music"],
+        type: ["Trainee"]
+      },
+      text: "Garam joins Source Music as a trainee.",
+      notes: "",
+      sources: ["https://magazine.weverse.io/article/view/401?lang=en&ref=main&artist=LESSERAFIM"]
+    },
+    {
+      title: "Source Music Announces GFriend's Contract is Ending",
+      date: "May 17, 2021",
+      labels: {
+        groups: ["GFriend"],
+        other: [],
+        companies: ["Source Music"],
+        type: []
+      },
+      text: "Source Music announced that GFriend's contract would be ending on the May 22nd despite debuting in January of 2015. Suprising everyone including most of their own staff. Additionally GFriend's upcoming schedule was deleted.",
+      notes: "The members have said they were fired, with SinB saying they they didn't know MAGO would be their last comeback. In a HYBE investment report it had GFriend down for a 10th mini album in June and contract renewal in Q4 of 2021.",
+      sources: ["https://weverse.io/gfriend/notice/1282", "http://www.heraldpop.com/view.php?ud=202105181644230496316_1", "https://securities.miraeasset.com/bbs/download/2084380.pdf?attachmentId=2084380"]
+    },
+    {
+      title: "GFriend's Contract Ends",
+      date: "May 22, 2021",
+      labels: {
+        groups: ["GFriend"],
+        other: [],
+        companies: ["Source Music"],
+        type: []
+      },
+      text: "GFriend's contract under Source Music end and all members leave.",
+      notes: "",
+      sources: []
+    },
+    {
+      title: "Source Music's New Team Launch Meeting",
+      date: "June 18, 2021",
+      labels: {
+        groups: [],
+        other: ["Team S"],
+        companies: ["Source Music"],
+        type: []
+      },
+      text: 'Source Music creates a new trainee team "Team S", with the plan to debut at the latest of Q1 2022 because of the "popularity of the S-Team members". This would imply Sakura and Chaewon had already begun contract talks. Additionally at this time "Team N" is still first in the debut priority however if that gets post-poned then "Team S" is to take priority.',
+      notes: 'Min Hee-Jin has refered to "Team S" as "Team Sakura" several times implying that "Team S" was built around Sakura.',
+      sources: ["https://m.entertain.naver.com/article/433/0000106807"]
+    },
+    {
+      title: "Source Music Recruits Sakura and Chaewon",
+      date: "August 17, 2021",
+      labels: {
+        groups: [],
+        other: ["Team S"],
+        companies: ["Source Music"],
+        type: ["Trainee"]
+      },
+      text: "Source Music reportedly signs Chaewon and is negotiating with Sakura's Japanese management regarding her joining the agency.",
+      notes: "",
+      sources: ["https://www.nme.com/news/music/hybe-girl-group-reportedly-recruit-izone-kim-chae-won-miyawaki-sakura-3021027"]
+    },
+    {
+      title: "Yunjin transfers to Source Music",
+      date: "August 25, 2021",
+      labels: {
+        groups: [],
+        other: ["Team S"],
+        companies: ["Source Music"],
+        type: ["Trainee"]
+      },
+      text: "Yunjin reportedly transfers from PLEDIS to Source Music.",
+      notes: "",
+      sources: ["https://www.nme.com/news/music/heo-yun-jin-produce-48-source-music-hybe-upcoming-girl-group-3028474"]
+    },
+    {
+      title: "Source Music Signs Sakura",
+      date: "September 23, 2021",
+      labels: {
+        groups: [],
+        other: ["Team S"],
+        companies: ["Source Music"],
+        type: ["Trainee"]
+      },
+      text: "Source Music reportedly signs Sakura.",
+      notes: "Sakura's final performance with HKT48 was on June 27. However it was not announced that her contract had ended until November 2021.",
+      sources: ["https://www.hkt48.jp/news/2021/06/7460", "https://www.allkpop.com/article/2021/09/miyawaki-sakura-has-reportedly-finalized-her-exclusive-contract-with-source-music-x-hybe-labels", "https://www.oricon.co.jp/news/2212359/full/"]
+    },
+    {
+      title: `HYBE's New Label "ADOR"`,
+      date: "November 12, 2021",
+      labels: {
+        groups: [],
+        other: ["Team N", "Min Hee-Jin"],
+        companies: ["Source Music", "ADOR"],
+        type: []
+      },
+      text: `HYBE's New Label "ADOR" is established with Min Hee-Jin apointed as the CEO. ADOR was set to introduce a new girl group in 2022 with the members selected from Source Music and Bit Hit's "Plus Global Audition" back in 2019.`,
+      notes: "",
+      sources: ["https://sports.khan.co.kr/article/202111120921003", "https://m.entertain.naver.com/now/article/081/0003010589"]
+    },
+    {
+      title: "Source Music Recruits Kazuha",
+      date: "November 2021",
+      labels: {
+        groups: [],
+        other: ["Team S"],
+        companies: ["Source Music"],
+        type: ["Trainee"]
+      },
+      text: "Kazuha is said to have trained for approximately 6 months prior to Le Sserafim's debut, placing her recuitment in November 2021.",
+      notes: "",
+      sources: ["https://www.envimedia.co/7-things-to-know-about-le-sserafims-kazuha/"]
+    }
+  ]
+};
+export {
+  Timeline as T,
+  TimelineItem as a,
+  hybe_timeline as h
+};
