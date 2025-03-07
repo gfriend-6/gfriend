@@ -2,7 +2,7 @@
 	"name": "gfriend",
 	"version": "0.0.1",
 	"scripts": {
-		"deploy": "pnpm build && npx gh-pages -d build -t",
+		"deploy": "wrangler deploy",
 		"dev": "vite dev",
 		"build": "vite build",
 		"preview": "vite preview",
