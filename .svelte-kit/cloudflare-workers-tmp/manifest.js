@@ -12,12 +12,12 @@ return {
 	_: {
 		client: {start:"_app/immutable/entry/start.n5OF2YHI.js",app:"_app/immutable/entry/app.bN7uUzvf.js",imports:["_app/immutable/entry/start.n5OF2YHI.js","_app/immutable/chunks/ETQbwrEZ.js","_app/immutable/chunks/CE_swLSu.js","_app/immutable/chunks/J6ZmAdDH.js","_app/immutable/entry/app.bN7uUzvf.js","_app/immutable/chunks/CE_swLSu.js","_app/immutable/chunks/BYLTsbat.js"],stylesheets:[],fonts:[],uses_env_dynamic_public:false},
 		nodes: [
-			__memo(() => import('./nodes/0.js')),
-			__memo(() => import('./nodes/1.js')),
-			__memo(() => import('./nodes/2.js')),
-			__memo(() => import('./nodes/3.js')),
-			__memo(() => import('./nodes/4.js')),
-			__memo(() => import('./nodes/5.js'))
+			__memo(() => import('../output/server/nodes/0.js')),
+			__memo(() => import('../output/server/nodes/1.js')),
+			__memo(() => import('../output/server/nodes/2.js')),
+			__memo(() => import('../output/server/nodes/3.js')),
+			__memo(() => import('../output/server/nodes/4.js')),
+			__memo(() => import('../output/server/nodes/5.js'))
 		],
 		routes: [
 			{
@@ -58,3 +58,7 @@ return {
 	}
 }
 })();
+
+export const prerendered = new Map([]);
+
+export const base_path = "";

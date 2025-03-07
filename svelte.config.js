@@ -1,17 +1,12 @@
-import adapter from '@sveltejs/adapter-cloudflare';
+import adapter from '@sveltejs/adapter-cloudflare-workers';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
-/** @type {import('@sveltejs/kit').Config} */
-const config = {
+export default {
 	kit: {
 		adapter: adapter({
 			fallback: '/404.html'
-		}),
-		paths: {
-			base: process.env.NODE_ENV === "production" ? "" : ""
-		}
+		})
 	},
-  preprocess: vitePreprocess()
-};
+	preprocess: vitePreprocess()
 
-export default config;
+};

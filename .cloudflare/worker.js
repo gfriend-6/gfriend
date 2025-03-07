@@ -661,7 +661,7 @@ var require_cookie = __commonJS({
     function tryDecode(str, decode2) {
       try {
         return decode2(str);
-      } catch (e3) {
+      } catch (e) {
         return str;
       }
     }
@@ -689,10 +689,10 @@ var require_set_cookie = __commonJS({
       options2 = options2 ? Object.assign({}, defaultParseOptions, options2) : defaultParseOptions;
       try {
         value = options2.decodeValues ? decodeURIComponent(value) : value;
-      } catch (e3) {
+      } catch (e) {
         console.error(
           "set-cookie-parser encountered an error while decoding a cookie with value '" + value + "'. Set options.decodeValues to false to disable this feature.",
-          e3
+          e
         );
       }
       var cookie = {
@@ -3953,7 +3953,7 @@ function isTopLayer(element) {
   return [":popover-open", ":modal"].some((selector) => {
     try {
       return element.matches(selector);
-    } catch (e3) {
+    } catch (e) {
       return false;
     }
   });
@@ -4515,7 +4515,7 @@ function observeMove(element, onMove) {
         // Handle <iframe>s
         root: root.ownerDocument
       });
-    } catch (e3) {
+    } catch (e) {
       io = new IntersectionObserver(handleObserve, options2);
     }
     io.observe(element);
@@ -4842,7 +4842,7 @@ var init_DropdownItem = __esm({
       let floatingEl;
       let arrowEl;
       let contentEl;
-      const px = (n2) => n2 ? `${n2}px` : "";
+      const px = (n) => n ? `${n}px` : "";
       let arrowSide;
       const oppositeSideMap2 = {
         left: "right",
@@ -5229,8 +5229,8 @@ var layout_svelte_exports = {};
 __export(layout_svelte_exports, {
   default: () => Layout
 });
-function sineIn(t2) {
-  const v = Math.cos(t2 * Math.PI * 0.5);
+function sineIn(t) {
+  const v = Math.cos(t * Math.PI * 0.5);
   if (Math.abs(v) < 1e-14) return 1;
   else return 1 - v;
 }
@@ -5823,7 +5823,7 @@ var init__ = __esm({
     index = 0;
     component = async () => component_cache ??= (await Promise.resolve().then(() => (init_layout_svelte(), layout_svelte_exports))).default;
     universal_id = "src/routes/+layout.js";
-    imports = ["_app/immutable/nodes/0.BLkEtXGi.js", "_app/immutable/chunks/CE_swLSu.js", "_app/immutable/chunks/BYLTsbat.js", "_app/immutable/chunks/B-j-nzhe.js", "_app/immutable/chunks/CTIfdKuQ.js", "_app/immutable/chunks/DUjiu_U4.js", "_app/immutable/chunks/J6ZmAdDH.js", "_app/immutable/chunks/Drs2_v4N.js", "_app/immutable/chunks/C5cL7Its.js", "_app/immutable/chunks/D3cSA9yg.js"];
+    imports = ["_app/immutable/nodes/0.DnjP4fag.js", "_app/immutable/chunks/CE_swLSu.js", "_app/immutable/chunks/BYLTsbat.js", "_app/immutable/chunks/B-j-nzhe.js", "_app/immutable/chunks/CTIfdKuQ.js", "_app/immutable/chunks/DUjiu_U4.js", "_app/immutable/chunks/J6ZmAdDH.js", "_app/immutable/chunks/Drs2_v4N.js", "_app/immutable/chunks/BUQRgvq-.js", "_app/immutable/chunks/ETQbwrEZ.js"];
     stylesheets = ["_app/immutable/assets/0.CiA9g6rf.css", "_app/immutable/assets/app.ZtUZiSHB.css"];
     fonts = [];
   }
@@ -5862,7 +5862,7 @@ var init__2 = __esm({
   ".svelte-kit/output/server/nodes/1.js"() {
     index2 = 1;
     component2 = async () => component_cache2 ??= (await Promise.resolve().then(() => (init_error_svelte(), error_svelte_exports))).default;
-    imports2 = ["_app/immutable/nodes/1.9jQE1dLO.js", "_app/immutable/chunks/CE_swLSu.js", "_app/immutable/chunks/BYLTsbat.js", "_app/immutable/chunks/C5cL7Its.js", "_app/immutable/chunks/D3cSA9yg.js", "_app/immutable/chunks/J6ZmAdDH.js"];
+    imports2 = ["_app/immutable/nodes/1.BuI_Usal.js", "_app/immutable/chunks/CE_swLSu.js", "_app/immutable/chunks/BYLTsbat.js", "_app/immutable/chunks/BUQRgvq-.js", "_app/immutable/chunks/ETQbwrEZ.js", "_app/immutable/chunks/J6ZmAdDH.js"];
     stylesheets2 = [];
     fonts2 = [];
   }
@@ -7104,13 +7104,13 @@ function hexString(v) {
   var f = isShort(v) ? h1 : h2;
   return v ? "#" + f(v.r) + f(v.g) + f(v.b) + alpha(v.a, f) : void 0;
 }
-function hsl2rgbn(h, s3, l) {
-  const a = s3 * Math.min(l, 1 - l);
-  const f = (n2, k = (n2 + h / 30) % 12) => l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+function hsl2rgbn(h, s2, l) {
+  const a = s2 * Math.min(l, 1 - l);
+  const f = (n, k = (n + h / 30) % 12) => l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
   return [f(0), f(8), f(4)];
 }
-function hsv2rgbn(h, s3, v) {
-  const f = (n2, k = (n2 + h / 60) % 6) => v - v * s3 * Math.max(Math.min(k, 4 - k, 1), 0);
+function hsv2rgbn(h, s2, v) {
+  const f = (n, k = (n + h / 60) % 6) => v - v * s2 * Math.max(Math.min(k, 4 - k, 1), 0);
   return [f(5), f(3), f(1)];
 }
 function hwb2rgbn(h, w, b) {
@@ -7127,43 +7127,43 @@ function hwb2rgbn(h, w, b) {
   }
   return rgb;
 }
-function hueValue(r3, g, b, d, max2) {
-  if (r3 === max2) {
+function hueValue(r, g, b, d, max2) {
+  if (r === max2) {
     return (g - b) / d + (g < b ? 6 : 0);
   }
   if (g === max2) {
-    return (b - r3) / d + 2;
+    return (b - r) / d + 2;
   }
-  return (r3 - g) / d + 4;
+  return (r - g) / d + 4;
 }
 function rgb2hsl(v) {
   const range = 255;
-  const r3 = v.r / range;
+  const r = v.r / range;
   const g = v.g / range;
   const b = v.b / range;
-  const max2 = Math.max(r3, g, b);
-  const min2 = Math.min(r3, g, b);
+  const max2 = Math.max(r, g, b);
+  const min2 = Math.min(r, g, b);
   const l = (max2 + min2) / 2;
-  let h, s3, d;
+  let h, s2, d;
   if (max2 !== min2) {
     d = max2 - min2;
-    s3 = l > 0.5 ? d / (2 - max2 - min2) : d / (max2 + min2);
-    h = hueValue(r3, g, b, d, max2);
+    s2 = l > 0.5 ? d / (2 - max2 - min2) : d / (max2 + min2);
+    h = hueValue(r, g, b, d, max2);
     h = h * 60 + 0.5;
   }
-  return [h | 0, s3 || 0, l];
+  return [h | 0, s2 || 0, l];
 }
-function calln(f, a, b, c2) {
-  return (Array.isArray(a) ? f(a[0], a[1], a[2]) : f(a, b, c2)).map(n2b);
+function calln(f, a, b, c) {
+  return (Array.isArray(a) ? f(a[0], a[1], a[2]) : f(a, b, c)).map(n2b);
 }
-function hsl2rgb(h, s3, l) {
-  return calln(hsl2rgbn, h, s3, l);
+function hsl2rgb(h, s2, l) {
+  return calln(hsl2rgbn, h, s2, l);
 }
 function hwb2rgb(h, w, b) {
   return calln(hwb2rgbn, h, w, b);
 }
-function hsv2rgb(h, s3, v) {
-  return calln(hsv2rgbn, h, s3, v);
+function hsv2rgb(h, s2, v) {
+  return calln(hsv2rgbn, h, s2, v);
 }
 function hue(h) {
   return (h % 360 + 360) % 360;
@@ -7209,9 +7209,9 @@ function hslString(v) {
   }
   const a = rgb2hsl(v);
   const h = a[0];
-  const s3 = n2p(a[1]);
+  const s2 = n2p(a[1]);
   const l = n2p(a[2]);
-  return v.a < 255 ? `hsla(${h}, ${s3}%, ${l}%, ${b2n(v.a)})` : `hsl(${h}, ${s3}%, ${l}%)`;
+  return v.a < 255 ? `hsla(${h}, ${s2}%, ${l}%, ${b2n(v.a)})` : `hsl(${h}, ${s2}%, ${l}%)`;
 }
 function unpack() {
   const unpacked = {};
@@ -7245,22 +7245,22 @@ function nameParse(str) {
 function rgbParse(str) {
   const m = RGB_RE.exec(str);
   let a = 255;
-  let r3, g, b;
+  let r, g, b;
   if (!m) {
     return;
   }
-  if (m[7] !== r3) {
+  if (m[7] !== r) {
     const v = +m[7];
     a = m[8] ? p2b(v) : lim(v * 255, 0, 255);
   }
-  r3 = +m[1];
+  r = +m[1];
   g = +m[3];
   b = +m[5];
-  r3 = 255 & (m[2] ? p2b(r3) : lim(r3, 0, 255));
+  r = 255 & (m[2] ? p2b(r) : lim(r, 0, 255));
   g = 255 & (m[4] ? p2b(g) : lim(g, 0, 255));
   b = 255 & (m[6] ? p2b(b) : lim(b, 0, 255));
   return {
-    r: r3,
+    r,
     g,
     b,
     a
@@ -7269,15 +7269,15 @@ function rgbParse(str) {
 function rgbString(v) {
   return v && (v.a < 255 ? `rgba(${v.r}, ${v.g}, ${v.b}, ${b2n(v.a)})` : `rgb(${v.r}, ${v.g}, ${v.b})`);
 }
-function interpolate(rgb1, rgb2, t2) {
-  const r3 = from(b2n(rgb1.r));
+function interpolate(rgb1, rgb2, t) {
+  const r = from(b2n(rgb1.r));
   const g = from(b2n(rgb1.g));
   const b = from(b2n(rgb1.b));
   return {
-    r: n2b(to(r3 + t2 * (from(b2n(rgb2.r)) - r3))),
-    g: n2b(to(g + t2 * (from(b2n(rgb2.g)) - g))),
-    b: n2b(to(b + t2 * (from(b2n(rgb2.b)) - b))),
-    a: rgb1.a + t2 * (rgb2.a - rgb1.a)
+    r: n2b(to(r + t * (from(b2n(rgb2.r)) - r))),
+    g: n2b(to(g + t * (from(b2n(rgb2.g)) - g))),
+    b: n2b(to(b + t * (from(b2n(rgb2.b)) - b))),
+    a: rgb1.a + t * (rgb2.a - rgb1.a)
   };
 }
 function modHSL(v, i, ratio) {
@@ -7563,9 +7563,9 @@ var init_color_esm = __esm({
         }
         return this;
       }
-      interpolate(color2, t2) {
+      interpolate(color2, t) {
         if (color2) {
-          this._rgb = interpolate(this._rgb, color2._rgb, t2);
+          this._rgb = interpolate(this._rgb, color2._rgb, t);
         }
         return this;
       }
@@ -7800,8 +7800,8 @@ function resolveObjectKey(obj, key2) {
 function _capitalize(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
-function _isClickEvent(e3) {
-  return e3.type === "mouseup" || e3.type === "click" || e3.type === "contextmenu";
+function _isClickEvent(e) {
+  return e.type === "mouseup" || e.type === "click" || e.type === "contextmenu";
 }
 function almostEquals(x, y, epsilon) {
   return Math.abs(x - y) < epsilon;
@@ -7830,11 +7830,11 @@ function _factorize(value) {
   result.sort((a, b) => a - b).pop();
   return result;
 }
-function isNonPrimitive(n2) {
-  return typeof n2 === "symbol" || typeof n2 === "object" && n2 !== null && !(Symbol.toPrimitive in n2 || "toString" in n2 || "valueOf" in n2);
+function isNonPrimitive(n) {
+  return typeof n === "symbol" || typeof n === "object" && n !== null && !(Symbol.toPrimitive in n || "toString" in n || "valueOf" in n);
 }
-function isNumber2(n2) {
-  return !isNonPrimitive(n2) && !isNaN(parseFloat(n2)) && isFinite(n2);
+function isNumber2(n) {
+  return !isNonPrimitive(n) && !isNaN(parseFloat(n)) && isFinite(n);
 }
 function almostWhole(x, epsilon) {
   const rounded = Math.round(x);
@@ -7860,10 +7860,10 @@ function _decimalPlaces(x) {
   if (!isNumberFinite(x)) {
     return;
   }
-  let e3 = 1;
+  let e = 1;
   let p = 0;
-  while (Math.round(x * e3) / e3 !== x) {
-    e3 *= 10;
+  while (Math.round(x * e) / e !== x) {
+    e *= 10;
     p++;
   }
   return p;
@@ -7892,13 +7892,13 @@ function _normalizeAngle(a) {
 }
 function _angleBetween(angle, start, end, sameAngleIsFullCircle) {
   const a = _normalizeAngle(angle);
-  const s3 = _normalizeAngle(start);
-  const e3 = _normalizeAngle(end);
-  const angleToStart = _normalizeAngle(s3 - a);
-  const angleToEnd = _normalizeAngle(e3 - a);
-  const startToAngle = _normalizeAngle(a - s3);
-  const endToAngle = _normalizeAngle(a - e3);
-  return a === s3 || a === e3 || sameAngleIsFullCircle && s3 === e3 || angleToStart > angleToEnd && startToAngle < endToAngle;
+  const s2 = _normalizeAngle(start);
+  const e = _normalizeAngle(end);
+  const angleToStart = _normalizeAngle(s2 - a);
+  const angleToEnd = _normalizeAngle(e - a);
+  const startToAngle = _normalizeAngle(a - s2);
+  const endToAngle = _normalizeAngle(a - e);
+  return a === s2 || a === e || sameAngleIsFullCircle && s2 === e || angleToStart > angleToEnd && startToAngle < endToAngle;
 }
 function _limitValue(value, min2, max2) {
   return Math.max(min2, Math.min(max2, value));
@@ -8265,7 +8265,7 @@ function getScope$1(node, key2) {
     return node;
   }
   const keys = key2.split(".");
-  for (let i = 0, n2 = keys.length; i < n2; ++i) {
+  for (let i = 0, n = keys.length; i < n; ++i) {
     const k = keys[i];
     node = node[k] || (node[k] = /* @__PURE__ */ Object.create(null));
   }
@@ -8881,7 +8881,7 @@ function _resolveArray(prop, value, target, isIndexable) {
     return value[_context.index % value.length];
   } else if (isObject(value[0])) {
     const arr = value;
-    const scopes = _proxy._scopes.filter((s3) => s3 !== arr);
+    const scopes = _proxy._scopes.filter((s2) => s2 !== arr);
     value = [];
     for (const item of arr) {
       const resolver = createSubResolver(scopes, _proxy, prop, item);
@@ -8984,7 +8984,7 @@ function resolveKeysFromAllScopes(scopes) {
   }
   return Array.from(set2);
 }
-function splineCurve(firstPoint, middlePoint, afterPoint, t2) {
+function splineCurve(firstPoint, middlePoint, afterPoint, t) {
   const previous = firstPoint.skip ? middlePoint : firstPoint;
   const current = middlePoint;
   const next = afterPoint.skip ? middlePoint : afterPoint;
@@ -8994,8 +8994,8 @@ function splineCurve(firstPoint, middlePoint, afterPoint, t2) {
   let s12 = d12 / (d01 + d12);
   s01 = isNaN(s01) ? 0 : s01;
   s12 = isNaN(s12) ? 0 : s12;
-  const fa = t2 * s01;
-  const fb = t2 * s12;
+  const fa = t * s01;
+  const fb = t * s12;
   return {
     previous: {
       x: current.x - fa * (next.x - previous.x),
@@ -9164,13 +9164,13 @@ function getPositionedStyle(styles, style, suffix) {
   result.height = result.top + result.bottom;
   return result;
 }
-function getCanvasPosition(e3, canvas) {
-  const touches = e3.touches;
-  const source = touches && touches.length ? touches[0] : e3;
+function getCanvasPosition(e, canvas) {
+  const touches = e.touches;
+  const source = touches && touches.length ? touches[0] : e;
   const { offsetX, offsetY } = source;
   let box = false;
   let x, y;
-  if (useOffsetPos(offsetX, offsetY, e3.target)) {
+  if (useOffsetPos(offsetX, offsetY, e.target)) {
     x = offsetX;
     y = offsetY;
   } else {
@@ -9287,19 +9287,19 @@ function readUsedSize(element, property) {
   const matches = value && value.match(/^(\d+)(\.\d+)?px$/);
   return matches ? +matches[1] : void 0;
 }
-function _pointInLine(p1, p2, t2, mode) {
+function _pointInLine(p1, p2, t, mode) {
   return {
-    x: p1.x + t2 * (p2.x - p1.x),
-    y: p1.y + t2 * (p2.y - p1.y)
+    x: p1.x + t * (p2.x - p1.x),
+    y: p1.y + t * (p2.y - p1.y)
   };
 }
-function _steppedInterpolation(p1, p2, t2, mode) {
+function _steppedInterpolation(p1, p2, t, mode) {
   return {
-    x: p1.x + t2 * (p2.x - p1.x),
-    y: mode === "middle" ? t2 < 0.5 ? p1.y : p2.y : mode === "after" ? t2 < 1 ? p1.y : p2.y : t2 > 0 ? p2.y : p1.y
+    x: p1.x + t * (p2.x - p1.x),
+    y: mode === "middle" ? t < 0.5 ? p1.y : p2.y : mode === "after" ? t < 1 ? p1.y : p2.y : t > 0 ? p2.y : p1.y
   };
 }
-function _bezierInterpolation(p1, p2, t2, mode) {
+function _bezierInterpolation(p1, p2, t, mode) {
   const cp1 = {
     x: p1.cp2x,
     y: p1.cp2y
@@ -9308,12 +9308,12 @@ function _bezierInterpolation(p1, p2, t2, mode) {
     x: p2.cp1x,
     y: p2.cp1y
   };
-  const a = _pointInLine(p1, cp1, t2);
-  const b = _pointInLine(cp1, cp2, t2);
-  const c2 = _pointInLine(cp2, p2, t2);
-  const d = _pointInLine(a, b, t2);
-  const e3 = _pointInLine(b, c2, t2);
-  return _pointInLine(d, e3, t2);
+  const a = _pointInLine(p1, cp1, t);
+  const b = _pointInLine(cp1, cp2, t);
+  const c = _pointInLine(cp2, p2, t);
+  const d = _pointInLine(a, b, t);
+  const e = _pointInLine(b, c, t);
+  return _pointInLine(d, e, t);
 }
 function getRtlAdapter(rtl, rectX, width) {
   return rtl ? getRightToLeftAdapter(rectX, width) : getLeftToRightAdapter();
@@ -9549,27 +9549,27 @@ function doSplitByStyles(line, segments, points, segmentOptions) {
   let prevStyle = baseStyle;
   let start = segments[0].start;
   let i = start;
-  function addStyle(s3, e3, l, st) {
+  function addStyle(s2, e, l, st) {
     const dir = spanGaps ? -1 : 1;
-    if (s3 === e3) {
+    if (s2 === e) {
       return;
     }
-    s3 += count;
-    while (points[s3 % count].skip) {
-      s3 -= dir;
+    s2 += count;
+    while (points[s2 % count].skip) {
+      s2 -= dir;
     }
-    while (points[e3 % count].skip) {
-      e3 += dir;
+    while (points[e % count].skip) {
+      e += dir;
     }
-    if (s3 % count !== e3 % count) {
+    if (s2 % count !== e % count) {
       result.push({
-        start: s3 % count,
-        end: e3 % count,
+        start: s2 % count,
+        end: e % count,
         loop: l,
         style: st
       });
       prevStyle = st;
-      start = e3 % count;
+      start = e % count;
     }
   }
   for (const segment of segments) {
@@ -9638,8 +9638,8 @@ var init_helpers_segment = __esm({
       // Chart.helpers.core resolveObjectKey should resolve empty key to root object
       "": (v) => v,
       // default resolvers
-      x: (o2) => o2.x,
-      y: (o2) => o2.y
+      x: (o) => o.x,
+      y: (o) => o.y
     };
     defined = (value) => typeof value !== "undefined";
     isFunction = (value) => typeof value === "function";
@@ -9690,70 +9690,70 @@ var init_helpers_segment = __esm({
       const check = rtl ? "left" : "right";
       return align === check ? right : align === "center" ? (left + right) / 2 : left;
     };
-    atEdge = (t2) => t2 === 0 || t2 === 1;
-    elasticIn = (t2, s3, p) => -(Math.pow(2, 10 * (t2 -= 1)) * Math.sin((t2 - s3) * TAU / p));
-    elasticOut = (t2, s3, p) => Math.pow(2, -10 * t2) * Math.sin((t2 - s3) * TAU / p) + 1;
+    atEdge = (t) => t === 0 || t === 1;
+    elasticIn = (t, s2, p) => -(Math.pow(2, 10 * (t -= 1)) * Math.sin((t - s2) * TAU / p));
+    elasticOut = (t, s2, p) => Math.pow(2, -10 * t) * Math.sin((t - s2) * TAU / p) + 1;
     effects = {
-      linear: (t2) => t2,
-      easeInQuad: (t2) => t2 * t2,
-      easeOutQuad: (t2) => -t2 * (t2 - 2),
-      easeInOutQuad: (t2) => (t2 /= 0.5) < 1 ? 0.5 * t2 * t2 : -0.5 * (--t2 * (t2 - 2) - 1),
-      easeInCubic: (t2) => t2 * t2 * t2,
-      easeOutCubic: (t2) => (t2 -= 1) * t2 * t2 + 1,
-      easeInOutCubic: (t2) => (t2 /= 0.5) < 1 ? 0.5 * t2 * t2 * t2 : 0.5 * ((t2 -= 2) * t2 * t2 + 2),
-      easeInQuart: (t2) => t2 * t2 * t2 * t2,
-      easeOutQuart: (t2) => -((t2 -= 1) * t2 * t2 * t2 - 1),
-      easeInOutQuart: (t2) => (t2 /= 0.5) < 1 ? 0.5 * t2 * t2 * t2 * t2 : -0.5 * ((t2 -= 2) * t2 * t2 * t2 - 2),
-      easeInQuint: (t2) => t2 * t2 * t2 * t2 * t2,
-      easeOutQuint: (t2) => (t2 -= 1) * t2 * t2 * t2 * t2 + 1,
-      easeInOutQuint: (t2) => (t2 /= 0.5) < 1 ? 0.5 * t2 * t2 * t2 * t2 * t2 : 0.5 * ((t2 -= 2) * t2 * t2 * t2 * t2 + 2),
-      easeInSine: (t2) => -Math.cos(t2 * HALF_PI) + 1,
-      easeOutSine: (t2) => Math.sin(t2 * HALF_PI),
-      easeInOutSine: (t2) => -0.5 * (Math.cos(PI * t2) - 1),
-      easeInExpo: (t2) => t2 === 0 ? 0 : Math.pow(2, 10 * (t2 - 1)),
-      easeOutExpo: (t2) => t2 === 1 ? 1 : -Math.pow(2, -10 * t2) + 1,
-      easeInOutExpo: (t2) => atEdge(t2) ? t2 : t2 < 0.5 ? 0.5 * Math.pow(2, 10 * (t2 * 2 - 1)) : 0.5 * (-Math.pow(2, -10 * (t2 * 2 - 1)) + 2),
-      easeInCirc: (t2) => t2 >= 1 ? t2 : -(Math.sqrt(1 - t2 * t2) - 1),
-      easeOutCirc: (t2) => Math.sqrt(1 - (t2 -= 1) * t2),
-      easeInOutCirc: (t2) => (t2 /= 0.5) < 1 ? -0.5 * (Math.sqrt(1 - t2 * t2) - 1) : 0.5 * (Math.sqrt(1 - (t2 -= 2) * t2) + 1),
-      easeInElastic: (t2) => atEdge(t2) ? t2 : elasticIn(t2, 0.075, 0.3),
-      easeOutElastic: (t2) => atEdge(t2) ? t2 : elasticOut(t2, 0.075, 0.3),
-      easeInOutElastic(t2) {
-        const s3 = 0.1125;
+      linear: (t) => t,
+      easeInQuad: (t) => t * t,
+      easeOutQuad: (t) => -t * (t - 2),
+      easeInOutQuad: (t) => (t /= 0.5) < 1 ? 0.5 * t * t : -0.5 * (--t * (t - 2) - 1),
+      easeInCubic: (t) => t * t * t,
+      easeOutCubic: (t) => (t -= 1) * t * t + 1,
+      easeInOutCubic: (t) => (t /= 0.5) < 1 ? 0.5 * t * t * t : 0.5 * ((t -= 2) * t * t + 2),
+      easeInQuart: (t) => t * t * t * t,
+      easeOutQuart: (t) => -((t -= 1) * t * t * t - 1),
+      easeInOutQuart: (t) => (t /= 0.5) < 1 ? 0.5 * t * t * t * t : -0.5 * ((t -= 2) * t * t * t - 2),
+      easeInQuint: (t) => t * t * t * t * t,
+      easeOutQuint: (t) => (t -= 1) * t * t * t * t + 1,
+      easeInOutQuint: (t) => (t /= 0.5) < 1 ? 0.5 * t * t * t * t * t : 0.5 * ((t -= 2) * t * t * t * t + 2),
+      easeInSine: (t) => -Math.cos(t * HALF_PI) + 1,
+      easeOutSine: (t) => Math.sin(t * HALF_PI),
+      easeInOutSine: (t) => -0.5 * (Math.cos(PI * t) - 1),
+      easeInExpo: (t) => t === 0 ? 0 : Math.pow(2, 10 * (t - 1)),
+      easeOutExpo: (t) => t === 1 ? 1 : -Math.pow(2, -10 * t) + 1,
+      easeInOutExpo: (t) => atEdge(t) ? t : t < 0.5 ? 0.5 * Math.pow(2, 10 * (t * 2 - 1)) : 0.5 * (-Math.pow(2, -10 * (t * 2 - 1)) + 2),
+      easeInCirc: (t) => t >= 1 ? t : -(Math.sqrt(1 - t * t) - 1),
+      easeOutCirc: (t) => Math.sqrt(1 - (t -= 1) * t),
+      easeInOutCirc: (t) => (t /= 0.5) < 1 ? -0.5 * (Math.sqrt(1 - t * t) - 1) : 0.5 * (Math.sqrt(1 - (t -= 2) * t) + 1),
+      easeInElastic: (t) => atEdge(t) ? t : elasticIn(t, 0.075, 0.3),
+      easeOutElastic: (t) => atEdge(t) ? t : elasticOut(t, 0.075, 0.3),
+      easeInOutElastic(t) {
+        const s2 = 0.1125;
         const p = 0.45;
-        return atEdge(t2) ? t2 : t2 < 0.5 ? 0.5 * elasticIn(t2 * 2, s3, p) : 0.5 + 0.5 * elasticOut(t2 * 2 - 1, s3, p);
+        return atEdge(t) ? t : t < 0.5 ? 0.5 * elasticIn(t * 2, s2, p) : 0.5 + 0.5 * elasticOut(t * 2 - 1, s2, p);
       },
-      easeInBack(t2) {
-        const s3 = 1.70158;
-        return t2 * t2 * ((s3 + 1) * t2 - s3);
+      easeInBack(t) {
+        const s2 = 1.70158;
+        return t * t * ((s2 + 1) * t - s2);
       },
-      easeOutBack(t2) {
-        const s3 = 1.70158;
-        return (t2 -= 1) * t2 * ((s3 + 1) * t2 + s3) + 1;
+      easeOutBack(t) {
+        const s2 = 1.70158;
+        return (t -= 1) * t * ((s2 + 1) * t + s2) + 1;
       },
-      easeInOutBack(t2) {
-        let s3 = 1.70158;
-        if ((t2 /= 0.5) < 1) {
-          return 0.5 * (t2 * t2 * (((s3 *= 1.525) + 1) * t2 - s3));
+      easeInOutBack(t) {
+        let s2 = 1.70158;
+        if ((t /= 0.5) < 1) {
+          return 0.5 * (t * t * (((s2 *= 1.525) + 1) * t - s2));
         }
-        return 0.5 * ((t2 -= 2) * t2 * (((s3 *= 1.525) + 1) * t2 + s3) + 2);
+        return 0.5 * ((t -= 2) * t * (((s2 *= 1.525) + 1) * t + s2) + 2);
       },
-      easeInBounce: (t2) => 1 - effects.easeOutBounce(1 - t2),
-      easeOutBounce(t2) {
+      easeInBounce: (t) => 1 - effects.easeOutBounce(1 - t),
+      easeOutBounce(t) {
         const m = 7.5625;
         const d = 2.75;
-        if (t2 < 1 / d) {
-          return m * t2 * t2;
+        if (t < 1 / d) {
+          return m * t * t;
         }
-        if (t2 < 2 / d) {
-          return m * (t2 -= 1.5 / d) * t2 + 0.75;
+        if (t < 2 / d) {
+          return m * (t -= 1.5 / d) * t + 0.75;
         }
-        if (t2 < 2.5 / d) {
-          return m * (t2 -= 2.25 / d) * t2 + 0.9375;
+        if (t < 2.5 / d) {
+          return m * (t -= 2.25 / d) * t + 0.9375;
         }
-        return m * (t2 -= 2.625 / d) * t2 + 0.984375;
+        return m * (t -= 2.625 / d) * t + 0.984375;
       },
-      easeInOutBounce: (t2) => t2 < 0.5 ? effects.easeInBounce(t2 * 2) * 0.5 : effects.easeOutBounce(t2 * 2 - 1) * 0.5 + 0.5
+      easeInOutBounce: (t) => t < 0.5 ? effects.easeInBounce(t * 2) * 0.5 : effects.easeOutBounce(t * 2 - 1) * 0.5 + 0.5
     };
     numbers = [
       "x",
@@ -9952,7 +9952,7 @@ var init_helpers_segment = __esm({
           window.addEventListener("test", null, options2);
           window.removeEventListener("test", null, options2);
         }
-      } catch (e3) {
+      } catch (e) {
       }
       return passiveSupported;
     }();
@@ -10052,18 +10052,18 @@ function defaultClip(xScale, yScale, allowedOverflow) {
   };
 }
 function toClip(value) {
-  let t2, r3, b, l;
+  let t, r, b, l;
   if (isObject(value)) {
-    t2 = value.top;
-    r3 = value.right;
+    t = value.top;
+    r = value.right;
     b = value.bottom;
     l = value.left;
   } else {
-    t2 = r3 = b = l = value;
+    t = r = b = l = value;
   }
   return {
-    top: t2,
-    right: r3,
+    top: t,
+    right: r,
     bottom: b,
     left: l,
     disabled: value === false
@@ -11310,14 +11310,14 @@ function moveNumericKeys(obj, start, move) {
     }
   }
 }
-function determineLastEvent(e3, lastEvent, inChartArea, isClick) {
-  if (!inChartArea || e3.type === "mouseout") {
+function determineLastEvent(e, lastEvent, inChartArea, isClick) {
+  if (!inChartArea || e.type === "mouseout") {
     return null;
   }
   if (isClick) {
     return lastEvent;
   }
-  return e3;
+  return e;
 }
 function getSizeForArea(scale, chartArea, field) {
   return scale.options.clip ? scale[field] : chartArea[field];
@@ -12670,7 +12670,7 @@ var init_chart = __esm({
         const chart2 = this.chart;
         const meta = this._cachedMeta;
         const dataset = this.getDataset();
-        const chooseId = (axis, x, y, r3) => axis === "x" ? x : axis === "r" ? r3 : y;
+        const chooseId = (axis, x, y, r) => axis === "x" ? x : axis === "r" ? r : y;
         const xid = meta.xAxisID = valueOrDefault(dataset.xAxisID, getFirstScaleId(chart2, "x"));
         const yid = meta.yAxisID = valueOrDefault(dataset.yAxisID, getFirstScaleId(chart2, "y"));
         const rid = meta.rAxisID = valueOrDefault(dataset.rAxisID, getFirstScaleId(chart2, "r"));
@@ -13374,8 +13374,8 @@ var init_chart = __esm({
     Interaction = {
       evaluateInteractionItems,
       modes: {
-        index(chart2, e3, options2, useFinalPosition) {
-          const position = getRelativePosition(e3, chart2);
+        index(chart2, e, options2, useFinalPosition) {
+          const position = getRelativePosition(e, chart2);
           const axis = options2.axis || "x";
           const includeInvisible = options2.includeInvisible || false;
           const items = options2.intersect ? getIntersectItems(chart2, position, axis, useFinalPosition, includeInvisible) : getNearestItems(chart2, position, axis, false, useFinalPosition, includeInvisible);
@@ -13396,8 +13396,8 @@ var init_chart = __esm({
           });
           return elements;
         },
-        dataset(chart2, e3, options2, useFinalPosition) {
-          const position = getRelativePosition(e3, chart2);
+        dataset(chart2, e, options2, useFinalPosition) {
+          const position = getRelativePosition(e, chart2);
           const axis = options2.axis || "xy";
           const includeInvisible = options2.includeInvisible || false;
           let items = options2.intersect ? getIntersectItems(chart2, position, axis, useFinalPosition, includeInvisible) : getNearestItems(chart2, position, axis, false, useFinalPosition, includeInvisible);
@@ -13415,24 +13415,24 @@ var init_chart = __esm({
           }
           return items;
         },
-        point(chart2, e3, options2, useFinalPosition) {
-          const position = getRelativePosition(e3, chart2);
+        point(chart2, e, options2, useFinalPosition) {
+          const position = getRelativePosition(e, chart2);
           const axis = options2.axis || "xy";
           const includeInvisible = options2.includeInvisible || false;
           return getIntersectItems(chart2, position, axis, useFinalPosition, includeInvisible);
         },
-        nearest(chart2, e3, options2, useFinalPosition) {
-          const position = getRelativePosition(e3, chart2);
+        nearest(chart2, e, options2, useFinalPosition) {
+          const position = getRelativePosition(e, chart2);
           const axis = options2.axis || "xy";
           const includeInvisible = options2.includeInvisible || false;
           return getNearestItems(chart2, position, axis, options2.intersect, useFinalPosition, includeInvisible);
         },
-        x(chart2, e3, options2, useFinalPosition) {
-          const position = getRelativePosition(e3, chart2);
+        x(chart2, e, options2, useFinalPosition) {
+          const position = getRelativePosition(e, chart2);
           return getAxisItems(chart2, position, "x", options2.intersect, useFinalPosition);
         },
-        y(chart2, e3, options2, useFinalPosition) {
-          const position = getRelativePosition(e3, chart2);
+        y(chart2, e, options2, useFinalPosition) {
+          const position = getRelativePosition(e, chart2);
           return getAxisItems(chart2, position, "y", options2.intersect, useFinalPosition);
         }
       }
@@ -14647,7 +14647,7 @@ var init_chart = __esm({
           return 0;
         }
         const ticks = this.ticks;
-        const index7 = ticks.findIndex((t2) => t2.value === value);
+        const index7 = ticks.findIndex((t) => t.value === value);
         if (index7 >= 0) {
           const opts = grid.setContext(this.getContext(index7));
           return opts.lineWidth;
@@ -15231,7 +15231,7 @@ var init_chart = __esm({
     instances = {};
     getChart = (key2) => {
       const canvas = getCanvas(key2);
-      return Object.values(instances).filter((c2) => c2.canvas === canvas).pop();
+      return Object.values(instances).filter((c) => c.canvas === canvas).pop();
     };
     Chart = class {
       static defaults = defaults;
@@ -15588,14 +15588,14 @@ var init_chart = __esm({
         }
         this._dataChanges = [];
         const datasetCount = this.data.datasets.length;
-        const makeSet = (idx) => new Set(_dataChanges.filter((c2) => c2[0] === idx).map((c2, i) => i + "," + c2.splice(1).join(",")));
+        const makeSet = (idx) => new Set(_dataChanges.filter((c) => c[0] === idx).map((c, i) => i + "," + c.splice(1).join(",")));
         const changeSet = makeSet(0);
         for (let i = 1; i < datasetCount; i++) {
           if (!setsEqual(changeSet, makeSet(i))) {
             return;
           }
         }
-        return Array.from(changeSet).map((c2) => c2.split(",")).map((a) => ({
+        return Array.from(changeSet).map((c) => c.split(",")).map((a) => ({
           method: a[1],
           start: +a[2],
           count: +a[3]
@@ -15760,10 +15760,10 @@ var init_chart = __esm({
       isPointInArea(point) {
         return _isPointInArea(point, this.chartArea, this._minPadding);
       }
-      getElementsAtEventForMode(e3, mode, options2, useFinalPosition) {
+      getElementsAtEventForMode(e, mode, options2, useFinalPosition) {
         const method = Interaction.modes[mode];
         if (typeof method === "function") {
-          return method(this, e3, options2, useFinalPosition);
+          return method(this, e, options2, useFinalPosition);
         }
         return [];
       }
@@ -15886,10 +15886,10 @@ var init_chart = __esm({
           platform2.addEventListener(this, type, listener2);
           listeners[type] = listener2;
         };
-        const listener = (e3, x, y) => {
-          e3.offsetX = x;
-          e3.offsetY = y;
-          this._eventHandler(e3);
+        const listener = (e, x, y) => {
+          e.offsetX = x;
+          e.offsetY = y;
+          this._eventHandler(e);
         };
         each2(this.options.events, (type) => _add(type, listener));
       }
@@ -16001,18 +16001,18 @@ var init_chart = __esm({
           this.updateHoverStyle(activated, hoverOptions.mode, true);
         }
       }
-      _eventHandler(e3, replay) {
+      _eventHandler(e, replay) {
         const args = {
-          event: e3,
+          event: e,
           replay,
           cancelable: true,
-          inChartArea: this.isPointInArea(e3)
+          inChartArea: this.isPointInArea(e)
         };
-        const eventFilter = (plugin) => (plugin.options.events || this.options.events).includes(e3.native.type);
+        const eventFilter = (plugin) => (plugin.options.events || this.options.events).includes(e.native.type);
         if (this.notifyPlugins("beforeEvent", args, eventFilter) === false) {
           return;
         }
-        const changed = this._handleEvent(e3, replay, args.inChartArea);
+        const changed = this._handleEvent(e, replay, args.inChartArea);
         args.cancelable = false;
         this.notifyPlugins("afterEvent", args, eventFilter);
         if (changed || args.changed) {
@@ -16020,22 +16020,22 @@ var init_chart = __esm({
         }
         return this;
       }
-      _handleEvent(e3, replay, inChartArea) {
+      _handleEvent(e, replay, inChartArea) {
         const { _active: lastActive = [], options: options2 } = this;
         const useFinalPosition = replay;
-        const active = this._getActiveElements(e3, lastActive, inChartArea, useFinalPosition);
-        const isClick = _isClickEvent(e3);
-        const lastEvent = determineLastEvent(e3, this._lastEvent, inChartArea, isClick);
+        const active = this._getActiveElements(e, lastActive, inChartArea, useFinalPosition);
+        const isClick = _isClickEvent(e);
+        const lastEvent = determineLastEvent(e, this._lastEvent, inChartArea, isClick);
         if (inChartArea) {
           this._lastEvent = null;
           callback(options2.onHover, [
-            e3,
+            e,
             active,
             this
           ], this);
           if (isClick) {
             callback(options2.onClick, [
-              e3,
+              e,
               active,
               this
             ], this);
@@ -16049,15 +16049,15 @@ var init_chart = __esm({
         this._lastEvent = lastEvent;
         return changed;
       }
-      _getActiveElements(e3, lastActive, inChartArea, useFinalPosition) {
-        if (e3.type === "mouseout") {
+      _getActiveElements(e, lastActive, inChartArea, useFinalPosition) {
+        if (e.type === "mouseout") {
           return [];
         }
         if (!inChartArea) {
           return lastActive;
         }
         const hoverOptions = this.options.hover;
-        return this.getElementsAtEventForMode(e3, hoverOptions.mode, hoverOptions, useFinalPosition);
+        return this.getElementsAtEventForMode(e, hoverOptions.mode, hoverOptions, useFinalPosition);
       }
     };
     usePath2D = typeof Path2D === "function";
@@ -16155,8 +16155,8 @@ var init_chart = __esm({
             result.push(p1);
             continue;
           }
-          const t2 = Math.abs((value - p1[property]) / (p2[property] - p1[property]));
-          const interpolated = _interpolate(p1, p2, t2, options2.stepped);
+          const t = Math.abs((value - p1[property]) / (p2[property] - p1[property]));
+          const interpolated = _interpolate(p1, p2, t, options2.stepped);
           interpolated[property] = point[property];
           result.push(interpolated);
         }
@@ -16657,18 +16657,18 @@ var init_chart = __esm({
         }
         return null;
       }
-      handleEvent(e3) {
+      handleEvent(e) {
         const opts = this.options;
-        if (!isListened(e3.type, opts)) {
+        if (!isListened(e.type, opts)) {
           return;
         }
-        const hoveredItem = this._getLegendItemAt(e3.x, e3.y);
-        if (e3.type === "mousemove" || e3.type === "mouseout") {
+        const hoveredItem = this._getLegendItemAt(e.x, e.y);
+        if (e.type === "mousemove" || e.type === "mouseout") {
           const previous = this._hoveredItem;
           const sameItem = itemsEqual(previous, hoveredItem);
           if (previous && !sameItem) {
             callback(opts.onLeave, [
-              e3,
+              e,
               previous,
               this
             ], this);
@@ -16676,14 +16676,14 @@ var init_chart = __esm({
           this._hoveredItem = hoveredItem;
           if (hoveredItem && !sameItem) {
             callback(opts.onHover, [
-              e3,
+              e,
               hoveredItem,
               this
             ], this);
           }
         } else if (hoveredItem) {
           callback(opts.onClick, [
-            e3,
+            e,
             hoveredItem,
             this
           ], this);
@@ -16728,7 +16728,7 @@ var init_chart = __esm({
         fullSize: true,
         reverse: false,
         weight: 1e3,
-        onClick(e3, legendItem, legend) {
+        onClick(e, legendItem, legend) {
           const index7 = legendItem.datasetIndex;
           const ci = legend.chart;
           if (ci.isDatasetVisible(index7)) {
@@ -17537,45 +17537,45 @@ var init_chart = __esm({
           this.update(true);
         }
       }
-      handleEvent(e3, replay, inChartArea = true) {
+      handleEvent(e, replay, inChartArea = true) {
         if (replay && this._ignoreReplayEvents) {
           return false;
         }
         this._ignoreReplayEvents = false;
         const options2 = this.options;
         const lastActive = this._active || [];
-        const active = this._getActiveElements(e3, lastActive, replay, inChartArea);
-        const positionChanged = this._positionChanged(active, e3);
+        const active = this._getActiveElements(e, lastActive, replay, inChartArea);
+        const positionChanged = this._positionChanged(active, e);
         const changed = replay || !_elementsEqual(active, lastActive) || positionChanged;
         if (changed) {
           this._active = active;
           if (options2.enabled || options2.external) {
             this._eventPosition = {
-              x: e3.x,
-              y: e3.y
+              x: e.x,
+              y: e.y
             };
             this.update(true, replay);
           }
         }
         return changed;
       }
-      _getActiveElements(e3, lastActive, replay, inChartArea) {
+      _getActiveElements(e, lastActive, replay, inChartArea) {
         const options2 = this.options;
-        if (e3.type === "mouseout") {
+        if (e.type === "mouseout") {
           return [];
         }
         if (!inChartArea) {
           return lastActive.filter((i) => this.chart.data.datasets[i.datasetIndex] && this.chart.getDatasetMeta(i.datasetIndex).controller.getParsed(i.index) !== void 0);
         }
-        const active = this.chart.getElementsAtEventForMode(e3, options2.mode, options2, replay);
+        const active = this.chart.getElementsAtEventForMode(e, options2.mode, options2, replay);
         if (options2.reverse) {
           active.reverse();
         }
         return active;
       }
-      _positionChanged(active, e3) {
+      _positionChanged(active, e) {
         const { caretX, caretY, options: options2 } = this;
-        const position = positioners[options2.position].call(this, active, e3);
+        const position = positioners[options2.position].call(this, active, e);
         return position !== false && (caretX !== position.x || caretY !== position.y);
       }
     };
@@ -19559,6 +19559,363 @@ var init__6 = __esm({
   }
 });
 
+// .svelte-kit/cloudflare-workers-tmp/node_modules/mime/Mime.js
+var require_Mime = __commonJS({
+  ".svelte-kit/cloudflare-workers-tmp/node_modules/mime/Mime.js"(exports, module) {
+    "use strict";
+    function Mime() {
+      this._types = /* @__PURE__ */ Object.create(null);
+      this._extensions = /* @__PURE__ */ Object.create(null);
+      for (let i = 0; i < arguments.length; i++) {
+        this.define(arguments[i]);
+      }
+      this.define = this.define.bind(this);
+      this.getType = this.getType.bind(this);
+      this.getExtension = this.getExtension.bind(this);
+    }
+    Mime.prototype.define = function(typeMap, force) {
+      for (let type in typeMap) {
+        let extensions = typeMap[type].map(function(t) {
+          return t.toLowerCase();
+        });
+        type = type.toLowerCase();
+        for (let i = 0; i < extensions.length; i++) {
+          const ext = extensions[i];
+          if (ext[0] === "*") {
+            continue;
+          }
+          if (!force && ext in this._types) {
+            throw new Error(
+              'Attempt to change mapping for "' + ext + '" extension from "' + this._types[ext] + '" to "' + type + '". Pass `force=true` to allow this, otherwise remove "' + ext + '" from the list of extensions for "' + type + '".'
+            );
+          }
+          this._types[ext] = type;
+        }
+        if (force || !this._extensions[type]) {
+          const ext = extensions[0];
+          this._extensions[type] = ext[0] !== "*" ? ext : ext.substr(1);
+        }
+      }
+    };
+    Mime.prototype.getType = function(path) {
+      path = String(path);
+      let last = path.replace(/^.*[/\\]/, "").toLowerCase();
+      let ext = last.replace(/^.*\./, "").toLowerCase();
+      let hasPath = last.length < path.length;
+      let hasDot = ext.length < last.length - 1;
+      return (hasDot || !hasPath) && this._types[ext] || null;
+    };
+    Mime.prototype.getExtension = function(type) {
+      type = /^\s*([^;\s]*)/.test(type) && RegExp.$1;
+      return type && this._extensions[type.toLowerCase()] || null;
+    };
+    module.exports = Mime;
+  }
+});
+
+// .svelte-kit/cloudflare-workers-tmp/node_modules/mime/types/standard.js
+var require_standard = __commonJS({
+  ".svelte-kit/cloudflare-workers-tmp/node_modules/mime/types/standard.js"(exports, module) {
+    module.exports = { "application/andrew-inset": ["ez"], "application/applixware": ["aw"], "application/atom+xml": ["atom"], "application/atomcat+xml": ["atomcat"], "application/atomdeleted+xml": ["atomdeleted"], "application/atomsvc+xml": ["atomsvc"], "application/atsc-dwd+xml": ["dwd"], "application/atsc-held+xml": ["held"], "application/atsc-rsat+xml": ["rsat"], "application/bdoc": ["bdoc"], "application/calendar+xml": ["xcs"], "application/ccxml+xml": ["ccxml"], "application/cdfx+xml": ["cdfx"], "application/cdmi-capability": ["cdmia"], "application/cdmi-container": ["cdmic"], "application/cdmi-domain": ["cdmid"], "application/cdmi-object": ["cdmio"], "application/cdmi-queue": ["cdmiq"], "application/cu-seeme": ["cu"], "application/dash+xml": ["mpd"], "application/davmount+xml": ["davmount"], "application/docbook+xml": ["dbk"], "application/dssc+der": ["dssc"], "application/dssc+xml": ["xdssc"], "application/ecmascript": ["es", "ecma"], "application/emma+xml": ["emma"], "application/emotionml+xml": ["emotionml"], "application/epub+zip": ["epub"], "application/exi": ["exi"], "application/express": ["exp"], "application/fdt+xml": ["fdt"], "application/font-tdpfr": ["pfr"], "application/geo+json": ["geojson"], "application/gml+xml": ["gml"], "application/gpx+xml": ["gpx"], "application/gxf": ["gxf"], "application/gzip": ["gz"], "application/hjson": ["hjson"], "application/hyperstudio": ["stk"], "application/inkml+xml": ["ink", "inkml"], "application/ipfix": ["ipfix"], "application/its+xml": ["its"], "application/java-archive": ["jar", "war", "ear"], "application/java-serialized-object": ["ser"], "application/java-vm": ["class"], "application/javascript": ["js", "mjs"], "application/json": ["json", "map"], "application/json5": ["json5"], "application/jsonml+json": ["jsonml"], "application/ld+json": ["jsonld"], "application/lgr+xml": ["lgr"], "application/lost+xml": ["lostxml"], "application/mac-binhex40": ["hqx"], "application/mac-compactpro": ["cpt"], "application/mads+xml": ["mads"], "application/manifest+json": ["webmanifest"], "application/marc": ["mrc"], "application/marcxml+xml": ["mrcx"], "application/mathematica": ["ma", "nb", "mb"], "application/mathml+xml": ["mathml"], "application/mbox": ["mbox"], "application/mediaservercontrol+xml": ["mscml"], "application/metalink+xml": ["metalink"], "application/metalink4+xml": ["meta4"], "application/mets+xml": ["mets"], "application/mmt-aei+xml": ["maei"], "application/mmt-usd+xml": ["musd"], "application/mods+xml": ["mods"], "application/mp21": ["m21", "mp21"], "application/mp4": ["mp4s", "m4p"], "application/msword": ["doc", "dot"], "application/mxf": ["mxf"], "application/n-quads": ["nq"], "application/n-triples": ["nt"], "application/node": ["cjs"], "application/octet-stream": ["bin", "dms", "lrf", "mar", "so", "dist", "distz", "pkg", "bpk", "dump", "elc", "deploy", "exe", "dll", "deb", "dmg", "iso", "img", "msi", "msp", "msm", "buffer"], "application/oda": ["oda"], "application/oebps-package+xml": ["opf"], "application/ogg": ["ogx"], "application/omdoc+xml": ["omdoc"], "application/onenote": ["onetoc", "onetoc2", "onetmp", "onepkg"], "application/oxps": ["oxps"], "application/p2p-overlay+xml": ["relo"], "application/patch-ops-error+xml": ["xer"], "application/pdf": ["pdf"], "application/pgp-encrypted": ["pgp"], "application/pgp-signature": ["asc", "sig"], "application/pics-rules": ["prf"], "application/pkcs10": ["p10"], "application/pkcs7-mime": ["p7m", "p7c"], "application/pkcs7-signature": ["p7s"], "application/pkcs8": ["p8"], "application/pkix-attr-cert": ["ac"], "application/pkix-cert": ["cer"], "application/pkix-crl": ["crl"], "application/pkix-pkipath": ["pkipath"], "application/pkixcmp": ["pki"], "application/pls+xml": ["pls"], "application/postscript": ["ai", "eps", "ps"], "application/provenance+xml": ["provx"], "application/pskc+xml": ["pskcxml"], "application/raml+yaml": ["raml"], "application/rdf+xml": ["rdf", "owl"], "application/reginfo+xml": ["rif"], "application/relax-ng-compact-syntax": ["rnc"], "application/resource-lists+xml": ["rl"], "application/resource-lists-diff+xml": ["rld"], "application/rls-services+xml": ["rs"], "application/route-apd+xml": ["rapd"], "application/route-s-tsid+xml": ["sls"], "application/route-usd+xml": ["rusd"], "application/rpki-ghostbusters": ["gbr"], "application/rpki-manifest": ["mft"], "application/rpki-roa": ["roa"], "application/rsd+xml": ["rsd"], "application/rss+xml": ["rss"], "application/rtf": ["rtf"], "application/sbml+xml": ["sbml"], "application/scvp-cv-request": ["scq"], "application/scvp-cv-response": ["scs"], "application/scvp-vp-request": ["spq"], "application/scvp-vp-response": ["spp"], "application/sdp": ["sdp"], "application/senml+xml": ["senmlx"], "application/sensml+xml": ["sensmlx"], "application/set-payment-initiation": ["setpay"], "application/set-registration-initiation": ["setreg"], "application/shf+xml": ["shf"], "application/sieve": ["siv", "sieve"], "application/smil+xml": ["smi", "smil"], "application/sparql-query": ["rq"], "application/sparql-results+xml": ["srx"], "application/srgs": ["gram"], "application/srgs+xml": ["grxml"], "application/sru+xml": ["sru"], "application/ssdl+xml": ["ssdl"], "application/ssml+xml": ["ssml"], "application/swid+xml": ["swidtag"], "application/tei+xml": ["tei", "teicorpus"], "application/thraud+xml": ["tfi"], "application/timestamped-data": ["tsd"], "application/toml": ["toml"], "application/trig": ["trig"], "application/ttml+xml": ["ttml"], "application/ubjson": ["ubj"], "application/urc-ressheet+xml": ["rsheet"], "application/urc-targetdesc+xml": ["td"], "application/voicexml+xml": ["vxml"], "application/wasm": ["wasm"], "application/widget": ["wgt"], "application/winhlp": ["hlp"], "application/wsdl+xml": ["wsdl"], "application/wspolicy+xml": ["wspolicy"], "application/xaml+xml": ["xaml"], "application/xcap-att+xml": ["xav"], "application/xcap-caps+xml": ["xca"], "application/xcap-diff+xml": ["xdf"], "application/xcap-el+xml": ["xel"], "application/xcap-ns+xml": ["xns"], "application/xenc+xml": ["xenc"], "application/xhtml+xml": ["xhtml", "xht"], "application/xliff+xml": ["xlf"], "application/xml": ["xml", "xsl", "xsd", "rng"], "application/xml-dtd": ["dtd"], "application/xop+xml": ["xop"], "application/xproc+xml": ["xpl"], "application/xslt+xml": ["*xsl", "xslt"], "application/xspf+xml": ["xspf"], "application/xv+xml": ["mxml", "xhvml", "xvml", "xvm"], "application/yang": ["yang"], "application/yin+xml": ["yin"], "application/zip": ["zip"], "audio/3gpp": ["*3gpp"], "audio/adpcm": ["adp"], "audio/amr": ["amr"], "audio/basic": ["au", "snd"], "audio/midi": ["mid", "midi", "kar", "rmi"], "audio/mobile-xmf": ["mxmf"], "audio/mp3": ["*mp3"], "audio/mp4": ["m4a", "mp4a"], "audio/mpeg": ["mpga", "mp2", "mp2a", "mp3", "m2a", "m3a"], "audio/ogg": ["oga", "ogg", "spx", "opus"], "audio/s3m": ["s3m"], "audio/silk": ["sil"], "audio/wav": ["wav"], "audio/wave": ["*wav"], "audio/webm": ["weba"], "audio/xm": ["xm"], "font/collection": ["ttc"], "font/otf": ["otf"], "font/ttf": ["ttf"], "font/woff": ["woff"], "font/woff2": ["woff2"], "image/aces": ["exr"], "image/apng": ["apng"], "image/avif": ["avif"], "image/bmp": ["bmp"], "image/cgm": ["cgm"], "image/dicom-rle": ["drle"], "image/emf": ["emf"], "image/fits": ["fits"], "image/g3fax": ["g3"], "image/gif": ["gif"], "image/heic": ["heic"], "image/heic-sequence": ["heics"], "image/heif": ["heif"], "image/heif-sequence": ["heifs"], "image/hej2k": ["hej2"], "image/hsj2": ["hsj2"], "image/ief": ["ief"], "image/jls": ["jls"], "image/jp2": ["jp2", "jpg2"], "image/jpeg": ["jpeg", "jpg", "jpe"], "image/jph": ["jph"], "image/jphc": ["jhc"], "image/jpm": ["jpm"], "image/jpx": ["jpx", "jpf"], "image/jxr": ["jxr"], "image/jxra": ["jxra"], "image/jxrs": ["jxrs"], "image/jxs": ["jxs"], "image/jxsc": ["jxsc"], "image/jxsi": ["jxsi"], "image/jxss": ["jxss"], "image/ktx": ["ktx"], "image/ktx2": ["ktx2"], "image/png": ["png"], "image/sgi": ["sgi"], "image/svg+xml": ["svg", "svgz"], "image/t38": ["t38"], "image/tiff": ["tif", "tiff"], "image/tiff-fx": ["tfx"], "image/webp": ["webp"], "image/wmf": ["wmf"], "message/disposition-notification": ["disposition-notification"], "message/global": ["u8msg"], "message/global-delivery-status": ["u8dsn"], "message/global-disposition-notification": ["u8mdn"], "message/global-headers": ["u8hdr"], "message/rfc822": ["eml", "mime"], "model/3mf": ["3mf"], "model/gltf+json": ["gltf"], "model/gltf-binary": ["glb"], "model/iges": ["igs", "iges"], "model/mesh": ["msh", "mesh", "silo"], "model/mtl": ["mtl"], "model/obj": ["obj"], "model/step+xml": ["stpx"], "model/step+zip": ["stpz"], "model/step-xml+zip": ["stpxz"], "model/stl": ["stl"], "model/vrml": ["wrl", "vrml"], "model/x3d+binary": ["*x3db", "x3dbz"], "model/x3d+fastinfoset": ["x3db"], "model/x3d+vrml": ["*x3dv", "x3dvz"], "model/x3d+xml": ["x3d", "x3dz"], "model/x3d-vrml": ["x3dv"], "text/cache-manifest": ["appcache", "manifest"], "text/calendar": ["ics", "ifb"], "text/coffeescript": ["coffee", "litcoffee"], "text/css": ["css"], "text/csv": ["csv"], "text/html": ["html", "htm", "shtml"], "text/jade": ["jade"], "text/jsx": ["jsx"], "text/less": ["less"], "text/markdown": ["markdown", "md"], "text/mathml": ["mml"], "text/mdx": ["mdx"], "text/n3": ["n3"], "text/plain": ["txt", "text", "conf", "def", "list", "log", "in", "ini"], "text/richtext": ["rtx"], "text/rtf": ["*rtf"], "text/sgml": ["sgml", "sgm"], "text/shex": ["shex"], "text/slim": ["slim", "slm"], "text/spdx": ["spdx"], "text/stylus": ["stylus", "styl"], "text/tab-separated-values": ["tsv"], "text/troff": ["t", "tr", "roff", "man", "me", "ms"], "text/turtle": ["ttl"], "text/uri-list": ["uri", "uris", "urls"], "text/vcard": ["vcard"], "text/vtt": ["vtt"], "text/xml": ["*xml"], "text/yaml": ["yaml", "yml"], "video/3gpp": ["3gp", "3gpp"], "video/3gpp2": ["3g2"], "video/h261": ["h261"], "video/h263": ["h263"], "video/h264": ["h264"], "video/iso.segment": ["m4s"], "video/jpeg": ["jpgv"], "video/jpm": ["*jpm", "jpgm"], "video/mj2": ["mj2", "mjp2"], "video/mp2t": ["ts"], "video/mp4": ["mp4", "mp4v", "mpg4"], "video/mpeg": ["mpeg", "mpg", "mpe", "m1v", "m2v"], "video/ogg": ["ogv"], "video/quicktime": ["qt", "mov"], "video/webm": ["webm"] };
+  }
+});
+
+// .svelte-kit/cloudflare-workers-tmp/node_modules/mime/types/other.js
+var require_other = __commonJS({
+  ".svelte-kit/cloudflare-workers-tmp/node_modules/mime/types/other.js"(exports, module) {
+    module.exports = { "application/prs.cww": ["cww"], "application/vnd.1000minds.decision-model+xml": ["1km"], "application/vnd.3gpp.pic-bw-large": ["plb"], "application/vnd.3gpp.pic-bw-small": ["psb"], "application/vnd.3gpp.pic-bw-var": ["pvb"], "application/vnd.3gpp2.tcap": ["tcap"], "application/vnd.3m.post-it-notes": ["pwn"], "application/vnd.accpac.simply.aso": ["aso"], "application/vnd.accpac.simply.imp": ["imp"], "application/vnd.acucobol": ["acu"], "application/vnd.acucorp": ["atc", "acutc"], "application/vnd.adobe.air-application-installer-package+zip": ["air"], "application/vnd.adobe.formscentral.fcdt": ["fcdt"], "application/vnd.adobe.fxp": ["fxp", "fxpl"], "application/vnd.adobe.xdp+xml": ["xdp"], "application/vnd.adobe.xfdf": ["xfdf"], "application/vnd.ahead.space": ["ahead"], "application/vnd.airzip.filesecure.azf": ["azf"], "application/vnd.airzip.filesecure.azs": ["azs"], "application/vnd.amazon.ebook": ["azw"], "application/vnd.americandynamics.acc": ["acc"], "application/vnd.amiga.ami": ["ami"], "application/vnd.android.package-archive": ["apk"], "application/vnd.anser-web-certificate-issue-initiation": ["cii"], "application/vnd.anser-web-funds-transfer-initiation": ["fti"], "application/vnd.antix.game-component": ["atx"], "application/vnd.apple.installer+xml": ["mpkg"], "application/vnd.apple.keynote": ["key"], "application/vnd.apple.mpegurl": ["m3u8"], "application/vnd.apple.numbers": ["numbers"], "application/vnd.apple.pages": ["pages"], "application/vnd.apple.pkpass": ["pkpass"], "application/vnd.aristanetworks.swi": ["swi"], "application/vnd.astraea-software.iota": ["iota"], "application/vnd.audiograph": ["aep"], "application/vnd.balsamiq.bmml+xml": ["bmml"], "application/vnd.blueice.multipass": ["mpm"], "application/vnd.bmi": ["bmi"], "application/vnd.businessobjects": ["rep"], "application/vnd.chemdraw+xml": ["cdxml"], "application/vnd.chipnuts.karaoke-mmd": ["mmd"], "application/vnd.cinderella": ["cdy"], "application/vnd.citationstyles.style+xml": ["csl"], "application/vnd.claymore": ["cla"], "application/vnd.cloanto.rp9": ["rp9"], "application/vnd.clonk.c4group": ["c4g", "c4d", "c4f", "c4p", "c4u"], "application/vnd.cluetrust.cartomobile-config": ["c11amc"], "application/vnd.cluetrust.cartomobile-config-pkg": ["c11amz"], "application/vnd.commonspace": ["csp"], "application/vnd.contact.cmsg": ["cdbcmsg"], "application/vnd.cosmocaller": ["cmc"], "application/vnd.crick.clicker": ["clkx"], "application/vnd.crick.clicker.keyboard": ["clkk"], "application/vnd.crick.clicker.palette": ["clkp"], "application/vnd.crick.clicker.template": ["clkt"], "application/vnd.crick.clicker.wordbank": ["clkw"], "application/vnd.criticaltools.wbs+xml": ["wbs"], "application/vnd.ctc-posml": ["pml"], "application/vnd.cups-ppd": ["ppd"], "application/vnd.curl.car": ["car"], "application/vnd.curl.pcurl": ["pcurl"], "application/vnd.dart": ["dart"], "application/vnd.data-vision.rdz": ["rdz"], "application/vnd.dbf": ["dbf"], "application/vnd.dece.data": ["uvf", "uvvf", "uvd", "uvvd"], "application/vnd.dece.ttml+xml": ["uvt", "uvvt"], "application/vnd.dece.unspecified": ["uvx", "uvvx"], "application/vnd.dece.zip": ["uvz", "uvvz"], "application/vnd.denovo.fcselayout-link": ["fe_launch"], "application/vnd.dna": ["dna"], "application/vnd.dolby.mlp": ["mlp"], "application/vnd.dpgraph": ["dpg"], "application/vnd.dreamfactory": ["dfac"], "application/vnd.ds-keypoint": ["kpxx"], "application/vnd.dvb.ait": ["ait"], "application/vnd.dvb.service": ["svc"], "application/vnd.dynageo": ["geo"], "application/vnd.ecowin.chart": ["mag"], "application/vnd.enliven": ["nml"], "application/vnd.epson.esf": ["esf"], "application/vnd.epson.msf": ["msf"], "application/vnd.epson.quickanime": ["qam"], "application/vnd.epson.salt": ["slt"], "application/vnd.epson.ssf": ["ssf"], "application/vnd.eszigno3+xml": ["es3", "et3"], "application/vnd.ezpix-album": ["ez2"], "application/vnd.ezpix-package": ["ez3"], "application/vnd.fdf": ["fdf"], "application/vnd.fdsn.mseed": ["mseed"], "application/vnd.fdsn.seed": ["seed", "dataless"], "application/vnd.flographit": ["gph"], "application/vnd.fluxtime.clip": ["ftc"], "application/vnd.framemaker": ["fm", "frame", "maker", "book"], "application/vnd.frogans.fnc": ["fnc"], "application/vnd.frogans.ltf": ["ltf"], "application/vnd.fsc.weblaunch": ["fsc"], "application/vnd.fujitsu.oasys": ["oas"], "application/vnd.fujitsu.oasys2": ["oa2"], "application/vnd.fujitsu.oasys3": ["oa3"], "application/vnd.fujitsu.oasysgp": ["fg5"], "application/vnd.fujitsu.oasysprs": ["bh2"], "application/vnd.fujixerox.ddd": ["ddd"], "application/vnd.fujixerox.docuworks": ["xdw"], "application/vnd.fujixerox.docuworks.binder": ["xbd"], "application/vnd.fuzzysheet": ["fzs"], "application/vnd.genomatix.tuxedo": ["txd"], "application/vnd.geogebra.file": ["ggb"], "application/vnd.geogebra.tool": ["ggt"], "application/vnd.geometry-explorer": ["gex", "gre"], "application/vnd.geonext": ["gxt"], "application/vnd.geoplan": ["g2w"], "application/vnd.geospace": ["g3w"], "application/vnd.gmx": ["gmx"], "application/vnd.google-apps.document": ["gdoc"], "application/vnd.google-apps.presentation": ["gslides"], "application/vnd.google-apps.spreadsheet": ["gsheet"], "application/vnd.google-earth.kml+xml": ["kml"], "application/vnd.google-earth.kmz": ["kmz"], "application/vnd.grafeq": ["gqf", "gqs"], "application/vnd.groove-account": ["gac"], "application/vnd.groove-help": ["ghf"], "application/vnd.groove-identity-message": ["gim"], "application/vnd.groove-injector": ["grv"], "application/vnd.groove-tool-message": ["gtm"], "application/vnd.groove-tool-template": ["tpl"], "application/vnd.groove-vcard": ["vcg"], "application/vnd.hal+xml": ["hal"], "application/vnd.handheld-entertainment+xml": ["zmm"], "application/vnd.hbci": ["hbci"], "application/vnd.hhe.lesson-player": ["les"], "application/vnd.hp-hpgl": ["hpgl"], "application/vnd.hp-hpid": ["hpid"], "application/vnd.hp-hps": ["hps"], "application/vnd.hp-jlyt": ["jlt"], "application/vnd.hp-pcl": ["pcl"], "application/vnd.hp-pclxl": ["pclxl"], "application/vnd.hydrostatix.sof-data": ["sfd-hdstx"], "application/vnd.ibm.minipay": ["mpy"], "application/vnd.ibm.modcap": ["afp", "listafp", "list3820"], "application/vnd.ibm.rights-management": ["irm"], "application/vnd.ibm.secure-container": ["sc"], "application/vnd.iccprofile": ["icc", "icm"], "application/vnd.igloader": ["igl"], "application/vnd.immervision-ivp": ["ivp"], "application/vnd.immervision-ivu": ["ivu"], "application/vnd.insors.igm": ["igm"], "application/vnd.intercon.formnet": ["xpw", "xpx"], "application/vnd.intergeo": ["i2g"], "application/vnd.intu.qbo": ["qbo"], "application/vnd.intu.qfx": ["qfx"], "application/vnd.ipunplugged.rcprofile": ["rcprofile"], "application/vnd.irepository.package+xml": ["irp"], "application/vnd.is-xpr": ["xpr"], "application/vnd.isac.fcs": ["fcs"], "application/vnd.jam": ["jam"], "application/vnd.jcp.javame.midlet-rms": ["rms"], "application/vnd.jisp": ["jisp"], "application/vnd.joost.joda-archive": ["joda"], "application/vnd.kahootz": ["ktz", "ktr"], "application/vnd.kde.karbon": ["karbon"], "application/vnd.kde.kchart": ["chrt"], "application/vnd.kde.kformula": ["kfo"], "application/vnd.kde.kivio": ["flw"], "application/vnd.kde.kontour": ["kon"], "application/vnd.kde.kpresenter": ["kpr", "kpt"], "application/vnd.kde.kspread": ["ksp"], "application/vnd.kde.kword": ["kwd", "kwt"], "application/vnd.kenameaapp": ["htke"], "application/vnd.kidspiration": ["kia"], "application/vnd.kinar": ["kne", "knp"], "application/vnd.koan": ["skp", "skd", "skt", "skm"], "application/vnd.kodak-descriptor": ["sse"], "application/vnd.las.las+xml": ["lasxml"], "application/vnd.llamagraphics.life-balance.desktop": ["lbd"], "application/vnd.llamagraphics.life-balance.exchange+xml": ["lbe"], "application/vnd.lotus-1-2-3": ["123"], "application/vnd.lotus-approach": ["apr"], "application/vnd.lotus-freelance": ["pre"], "application/vnd.lotus-notes": ["nsf"], "application/vnd.lotus-organizer": ["org"], "application/vnd.lotus-screencam": ["scm"], "application/vnd.lotus-wordpro": ["lwp"], "application/vnd.macports.portpkg": ["portpkg"], "application/vnd.mapbox-vector-tile": ["mvt"], "application/vnd.mcd": ["mcd"], "application/vnd.medcalcdata": ["mc1"], "application/vnd.mediastation.cdkey": ["cdkey"], "application/vnd.mfer": ["mwf"], "application/vnd.mfmp": ["mfm"], "application/vnd.micrografx.flo": ["flo"], "application/vnd.micrografx.igx": ["igx"], "application/vnd.mif": ["mif"], "application/vnd.mobius.daf": ["daf"], "application/vnd.mobius.dis": ["dis"], "application/vnd.mobius.mbk": ["mbk"], "application/vnd.mobius.mqy": ["mqy"], "application/vnd.mobius.msl": ["msl"], "application/vnd.mobius.plc": ["plc"], "application/vnd.mobius.txf": ["txf"], "application/vnd.mophun.application": ["mpn"], "application/vnd.mophun.certificate": ["mpc"], "application/vnd.mozilla.xul+xml": ["xul"], "application/vnd.ms-artgalry": ["cil"], "application/vnd.ms-cab-compressed": ["cab"], "application/vnd.ms-excel": ["xls", "xlm", "xla", "xlc", "xlt", "xlw"], "application/vnd.ms-excel.addin.macroenabled.12": ["xlam"], "application/vnd.ms-excel.sheet.binary.macroenabled.12": ["xlsb"], "application/vnd.ms-excel.sheet.macroenabled.12": ["xlsm"], "application/vnd.ms-excel.template.macroenabled.12": ["xltm"], "application/vnd.ms-fontobject": ["eot"], "application/vnd.ms-htmlhelp": ["chm"], "application/vnd.ms-ims": ["ims"], "application/vnd.ms-lrm": ["lrm"], "application/vnd.ms-officetheme": ["thmx"], "application/vnd.ms-outlook": ["msg"], "application/vnd.ms-pki.seccat": ["cat"], "application/vnd.ms-pki.stl": ["*stl"], "application/vnd.ms-powerpoint": ["ppt", "pps", "pot"], "application/vnd.ms-powerpoint.addin.macroenabled.12": ["ppam"], "application/vnd.ms-powerpoint.presentation.macroenabled.12": ["pptm"], "application/vnd.ms-powerpoint.slide.macroenabled.12": ["sldm"], "application/vnd.ms-powerpoint.slideshow.macroenabled.12": ["ppsm"], "application/vnd.ms-powerpoint.template.macroenabled.12": ["potm"], "application/vnd.ms-project": ["mpp", "mpt"], "application/vnd.ms-word.document.macroenabled.12": ["docm"], "application/vnd.ms-word.template.macroenabled.12": ["dotm"], "application/vnd.ms-works": ["wps", "wks", "wcm", "wdb"], "application/vnd.ms-wpl": ["wpl"], "application/vnd.ms-xpsdocument": ["xps"], "application/vnd.mseq": ["mseq"], "application/vnd.musician": ["mus"], "application/vnd.muvee.style": ["msty"], "application/vnd.mynfc": ["taglet"], "application/vnd.neurolanguage.nlu": ["nlu"], "application/vnd.nitf": ["ntf", "nitf"], "application/vnd.noblenet-directory": ["nnd"], "application/vnd.noblenet-sealer": ["nns"], "application/vnd.noblenet-web": ["nnw"], "application/vnd.nokia.n-gage.ac+xml": ["*ac"], "application/vnd.nokia.n-gage.data": ["ngdat"], "application/vnd.nokia.n-gage.symbian.install": ["n-gage"], "application/vnd.nokia.radio-preset": ["rpst"], "application/vnd.nokia.radio-presets": ["rpss"], "application/vnd.novadigm.edm": ["edm"], "application/vnd.novadigm.edx": ["edx"], "application/vnd.novadigm.ext": ["ext"], "application/vnd.oasis.opendocument.chart": ["odc"], "application/vnd.oasis.opendocument.chart-template": ["otc"], "application/vnd.oasis.opendocument.database": ["odb"], "application/vnd.oasis.opendocument.formula": ["odf"], "application/vnd.oasis.opendocument.formula-template": ["odft"], "application/vnd.oasis.opendocument.graphics": ["odg"], "application/vnd.oasis.opendocument.graphics-template": ["otg"], "application/vnd.oasis.opendocument.image": ["odi"], "application/vnd.oasis.opendocument.image-template": ["oti"], "application/vnd.oasis.opendocument.presentation": ["odp"], "application/vnd.oasis.opendocument.presentation-template": ["otp"], "application/vnd.oasis.opendocument.spreadsheet": ["ods"], "application/vnd.oasis.opendocument.spreadsheet-template": ["ots"], "application/vnd.oasis.opendocument.text": ["odt"], "application/vnd.oasis.opendocument.text-master": ["odm"], "application/vnd.oasis.opendocument.text-template": ["ott"], "application/vnd.oasis.opendocument.text-web": ["oth"], "application/vnd.olpc-sugar": ["xo"], "application/vnd.oma.dd2+xml": ["dd2"], "application/vnd.openblox.game+xml": ["obgx"], "application/vnd.openofficeorg.extension": ["oxt"], "application/vnd.openstreetmap.data+xml": ["osm"], "application/vnd.openxmlformats-officedocument.presentationml.presentation": ["pptx"], "application/vnd.openxmlformats-officedocument.presentationml.slide": ["sldx"], "application/vnd.openxmlformats-officedocument.presentationml.slideshow": ["ppsx"], "application/vnd.openxmlformats-officedocument.presentationml.template": ["potx"], "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": ["xlsx"], "application/vnd.openxmlformats-officedocument.spreadsheetml.template": ["xltx"], "application/vnd.openxmlformats-officedocument.wordprocessingml.document": ["docx"], "application/vnd.openxmlformats-officedocument.wordprocessingml.template": ["dotx"], "application/vnd.osgeo.mapguide.package": ["mgp"], "application/vnd.osgi.dp": ["dp"], "application/vnd.osgi.subsystem": ["esa"], "application/vnd.palm": ["pdb", "pqa", "oprc"], "application/vnd.pawaafile": ["paw"], "application/vnd.pg.format": ["str"], "application/vnd.pg.osasli": ["ei6"], "application/vnd.picsel": ["efif"], "application/vnd.pmi.widget": ["wg"], "application/vnd.pocketlearn": ["plf"], "application/vnd.powerbuilder6": ["pbd"], "application/vnd.previewsystems.box": ["box"], "application/vnd.proteus.magazine": ["mgz"], "application/vnd.publishare-delta-tree": ["qps"], "application/vnd.pvi.ptid1": ["ptid"], "application/vnd.quark.quarkxpress": ["qxd", "qxt", "qwd", "qwt", "qxl", "qxb"], "application/vnd.rar": ["rar"], "application/vnd.realvnc.bed": ["bed"], "application/vnd.recordare.musicxml": ["mxl"], "application/vnd.recordare.musicxml+xml": ["musicxml"], "application/vnd.rig.cryptonote": ["cryptonote"], "application/vnd.rim.cod": ["cod"], "application/vnd.rn-realmedia": ["rm"], "application/vnd.rn-realmedia-vbr": ["rmvb"], "application/vnd.route66.link66+xml": ["link66"], "application/vnd.sailingtracker.track": ["st"], "application/vnd.seemail": ["see"], "application/vnd.sema": ["sema"], "application/vnd.semd": ["semd"], "application/vnd.semf": ["semf"], "application/vnd.shana.informed.formdata": ["ifm"], "application/vnd.shana.informed.formtemplate": ["itp"], "application/vnd.shana.informed.interchange": ["iif"], "application/vnd.shana.informed.package": ["ipk"], "application/vnd.simtech-mindmapper": ["twd", "twds"], "application/vnd.smaf": ["mmf"], "application/vnd.smart.teacher": ["teacher"], "application/vnd.software602.filler.form+xml": ["fo"], "application/vnd.solent.sdkm+xml": ["sdkm", "sdkd"], "application/vnd.spotfire.dxp": ["dxp"], "application/vnd.spotfire.sfs": ["sfs"], "application/vnd.stardivision.calc": ["sdc"], "application/vnd.stardivision.draw": ["sda"], "application/vnd.stardivision.impress": ["sdd"], "application/vnd.stardivision.math": ["smf"], "application/vnd.stardivision.writer": ["sdw", "vor"], "application/vnd.stardivision.writer-global": ["sgl"], "application/vnd.stepmania.package": ["smzip"], "application/vnd.stepmania.stepchart": ["sm"], "application/vnd.sun.wadl+xml": ["wadl"], "application/vnd.sun.xml.calc": ["sxc"], "application/vnd.sun.xml.calc.template": ["stc"], "application/vnd.sun.xml.draw": ["sxd"], "application/vnd.sun.xml.draw.template": ["std"], "application/vnd.sun.xml.impress": ["sxi"], "application/vnd.sun.xml.impress.template": ["sti"], "application/vnd.sun.xml.math": ["sxm"], "application/vnd.sun.xml.writer": ["sxw"], "application/vnd.sun.xml.writer.global": ["sxg"], "application/vnd.sun.xml.writer.template": ["stw"], "application/vnd.sus-calendar": ["sus", "susp"], "application/vnd.svd": ["svd"], "application/vnd.symbian.install": ["sis", "sisx"], "application/vnd.syncml+xml": ["xsm"], "application/vnd.syncml.dm+wbxml": ["bdm"], "application/vnd.syncml.dm+xml": ["xdm"], "application/vnd.syncml.dmddf+xml": ["ddf"], "application/vnd.tao.intent-module-archive": ["tao"], "application/vnd.tcpdump.pcap": ["pcap", "cap", "dmp"], "application/vnd.tmobile-livetv": ["tmo"], "application/vnd.trid.tpt": ["tpt"], "application/vnd.triscape.mxs": ["mxs"], "application/vnd.trueapp": ["tra"], "application/vnd.ufdl": ["ufd", "ufdl"], "application/vnd.uiq.theme": ["utz"], "application/vnd.umajin": ["umj"], "application/vnd.unity": ["unityweb"], "application/vnd.uoml+xml": ["uoml"], "application/vnd.vcx": ["vcx"], "application/vnd.visio": ["vsd", "vst", "vss", "vsw"], "application/vnd.visionary": ["vis"], "application/vnd.vsf": ["vsf"], "application/vnd.wap.wbxml": ["wbxml"], "application/vnd.wap.wmlc": ["wmlc"], "application/vnd.wap.wmlscriptc": ["wmlsc"], "application/vnd.webturbo": ["wtb"], "application/vnd.wolfram.player": ["nbp"], "application/vnd.wordperfect": ["wpd"], "application/vnd.wqd": ["wqd"], "application/vnd.wt.stf": ["stf"], "application/vnd.xara": ["xar"], "application/vnd.xfdl": ["xfdl"], "application/vnd.yamaha.hv-dic": ["hvd"], "application/vnd.yamaha.hv-script": ["hvs"], "application/vnd.yamaha.hv-voice": ["hvp"], "application/vnd.yamaha.openscoreformat": ["osf"], "application/vnd.yamaha.openscoreformat.osfpvg+xml": ["osfpvg"], "application/vnd.yamaha.smaf-audio": ["saf"], "application/vnd.yamaha.smaf-phrase": ["spf"], "application/vnd.yellowriver-custom-menu": ["cmp"], "application/vnd.zul": ["zir", "zirz"], "application/vnd.zzazz.deck+xml": ["zaz"], "application/x-7z-compressed": ["7z"], "application/x-abiword": ["abw"], "application/x-ace-compressed": ["ace"], "application/x-apple-diskimage": ["*dmg"], "application/x-arj": ["arj"], "application/x-authorware-bin": ["aab", "x32", "u32", "vox"], "application/x-authorware-map": ["aam"], "application/x-authorware-seg": ["aas"], "application/x-bcpio": ["bcpio"], "application/x-bdoc": ["*bdoc"], "application/x-bittorrent": ["torrent"], "application/x-blorb": ["blb", "blorb"], "application/x-bzip": ["bz"], "application/x-bzip2": ["bz2", "boz"], "application/x-cbr": ["cbr", "cba", "cbt", "cbz", "cb7"], "application/x-cdlink": ["vcd"], "application/x-cfs-compressed": ["cfs"], "application/x-chat": ["chat"], "application/x-chess-pgn": ["pgn"], "application/x-chrome-extension": ["crx"], "application/x-cocoa": ["cco"], "application/x-conference": ["nsc"], "application/x-cpio": ["cpio"], "application/x-csh": ["csh"], "application/x-debian-package": ["*deb", "udeb"], "application/x-dgc-compressed": ["dgc"], "application/x-director": ["dir", "dcr", "dxr", "cst", "cct", "cxt", "w3d", "fgd", "swa"], "application/x-doom": ["wad"], "application/x-dtbncx+xml": ["ncx"], "application/x-dtbook+xml": ["dtb"], "application/x-dtbresource+xml": ["res"], "application/x-dvi": ["dvi"], "application/x-envoy": ["evy"], "application/x-eva": ["eva"], "application/x-font-bdf": ["bdf"], "application/x-font-ghostscript": ["gsf"], "application/x-font-linux-psf": ["psf"], "application/x-font-pcf": ["pcf"], "application/x-font-snf": ["snf"], "application/x-font-type1": ["pfa", "pfb", "pfm", "afm"], "application/x-freearc": ["arc"], "application/x-futuresplash": ["spl"], "application/x-gca-compressed": ["gca"], "application/x-glulx": ["ulx"], "application/x-gnumeric": ["gnumeric"], "application/x-gramps-xml": ["gramps"], "application/x-gtar": ["gtar"], "application/x-hdf": ["hdf"], "application/x-httpd-php": ["php"], "application/x-install-instructions": ["install"], "application/x-iso9660-image": ["*iso"], "application/x-iwork-keynote-sffkey": ["*key"], "application/x-iwork-numbers-sffnumbers": ["*numbers"], "application/x-iwork-pages-sffpages": ["*pages"], "application/x-java-archive-diff": ["jardiff"], "application/x-java-jnlp-file": ["jnlp"], "application/x-keepass2": ["kdbx"], "application/x-latex": ["latex"], "application/x-lua-bytecode": ["luac"], "application/x-lzh-compressed": ["lzh", "lha"], "application/x-makeself": ["run"], "application/x-mie": ["mie"], "application/x-mobipocket-ebook": ["prc", "mobi"], "application/x-ms-application": ["application"], "application/x-ms-shortcut": ["lnk"], "application/x-ms-wmd": ["wmd"], "application/x-ms-wmz": ["wmz"], "application/x-ms-xbap": ["xbap"], "application/x-msaccess": ["mdb"], "application/x-msbinder": ["obd"], "application/x-mscardfile": ["crd"], "application/x-msclip": ["clp"], "application/x-msdos-program": ["*exe"], "application/x-msdownload": ["*exe", "*dll", "com", "bat", "*msi"], "application/x-msmediaview": ["mvb", "m13", "m14"], "application/x-msmetafile": ["*wmf", "*wmz", "*emf", "emz"], "application/x-msmoney": ["mny"], "application/x-mspublisher": ["pub"], "application/x-msschedule": ["scd"], "application/x-msterminal": ["trm"], "application/x-mswrite": ["wri"], "application/x-netcdf": ["nc", "cdf"], "application/x-ns-proxy-autoconfig": ["pac"], "application/x-nzb": ["nzb"], "application/x-perl": ["pl", "pm"], "application/x-pilot": ["*prc", "*pdb"], "application/x-pkcs12": ["p12", "pfx"], "application/x-pkcs7-certificates": ["p7b", "spc"], "application/x-pkcs7-certreqresp": ["p7r"], "application/x-rar-compressed": ["*rar"], "application/x-redhat-package-manager": ["rpm"], "application/x-research-info-systems": ["ris"], "application/x-sea": ["sea"], "application/x-sh": ["sh"], "application/x-shar": ["shar"], "application/x-shockwave-flash": ["swf"], "application/x-silverlight-app": ["xap"], "application/x-sql": ["sql"], "application/x-stuffit": ["sit"], "application/x-stuffitx": ["sitx"], "application/x-subrip": ["srt"], "application/x-sv4cpio": ["sv4cpio"], "application/x-sv4crc": ["sv4crc"], "application/x-t3vm-image": ["t3"], "application/x-tads": ["gam"], "application/x-tar": ["tar"], "application/x-tcl": ["tcl", "tk"], "application/x-tex": ["tex"], "application/x-tex-tfm": ["tfm"], "application/x-texinfo": ["texinfo", "texi"], "application/x-tgif": ["*obj"], "application/x-ustar": ["ustar"], "application/x-virtualbox-hdd": ["hdd"], "application/x-virtualbox-ova": ["ova"], "application/x-virtualbox-ovf": ["ovf"], "application/x-virtualbox-vbox": ["vbox"], "application/x-virtualbox-vbox-extpack": ["vbox-extpack"], "application/x-virtualbox-vdi": ["vdi"], "application/x-virtualbox-vhd": ["vhd"], "application/x-virtualbox-vmdk": ["vmdk"], "application/x-wais-source": ["src"], "application/x-web-app-manifest+json": ["webapp"], "application/x-x509-ca-cert": ["der", "crt", "pem"], "application/x-xfig": ["fig"], "application/x-xliff+xml": ["*xlf"], "application/x-xpinstall": ["xpi"], "application/x-xz": ["xz"], "application/x-zmachine": ["z1", "z2", "z3", "z4", "z5", "z6", "z7", "z8"], "audio/vnd.dece.audio": ["uva", "uvva"], "audio/vnd.digital-winds": ["eol"], "audio/vnd.dra": ["dra"], "audio/vnd.dts": ["dts"], "audio/vnd.dts.hd": ["dtshd"], "audio/vnd.lucent.voice": ["lvp"], "audio/vnd.ms-playready.media.pya": ["pya"], "audio/vnd.nuera.ecelp4800": ["ecelp4800"], "audio/vnd.nuera.ecelp7470": ["ecelp7470"], "audio/vnd.nuera.ecelp9600": ["ecelp9600"], "audio/vnd.rip": ["rip"], "audio/x-aac": ["aac"], "audio/x-aiff": ["aif", "aiff", "aifc"], "audio/x-caf": ["caf"], "audio/x-flac": ["flac"], "audio/x-m4a": ["*m4a"], "audio/x-matroska": ["mka"], "audio/x-mpegurl": ["m3u"], "audio/x-ms-wax": ["wax"], "audio/x-ms-wma": ["wma"], "audio/x-pn-realaudio": ["ram", "ra"], "audio/x-pn-realaudio-plugin": ["rmp"], "audio/x-realaudio": ["*ra"], "audio/x-wav": ["*wav"], "chemical/x-cdx": ["cdx"], "chemical/x-cif": ["cif"], "chemical/x-cmdf": ["cmdf"], "chemical/x-cml": ["cml"], "chemical/x-csml": ["csml"], "chemical/x-xyz": ["xyz"], "image/prs.btif": ["btif"], "image/prs.pti": ["pti"], "image/vnd.adobe.photoshop": ["psd"], "image/vnd.airzip.accelerator.azv": ["azv"], "image/vnd.dece.graphic": ["uvi", "uvvi", "uvg", "uvvg"], "image/vnd.djvu": ["djvu", "djv"], "image/vnd.dvb.subtitle": ["*sub"], "image/vnd.dwg": ["dwg"], "image/vnd.dxf": ["dxf"], "image/vnd.fastbidsheet": ["fbs"], "image/vnd.fpx": ["fpx"], "image/vnd.fst": ["fst"], "image/vnd.fujixerox.edmics-mmr": ["mmr"], "image/vnd.fujixerox.edmics-rlc": ["rlc"], "image/vnd.microsoft.icon": ["ico"], "image/vnd.ms-dds": ["dds"], "image/vnd.ms-modi": ["mdi"], "image/vnd.ms-photo": ["wdp"], "image/vnd.net-fpx": ["npx"], "image/vnd.pco.b16": ["b16"], "image/vnd.tencent.tap": ["tap"], "image/vnd.valve.source.texture": ["vtf"], "image/vnd.wap.wbmp": ["wbmp"], "image/vnd.xiff": ["xif"], "image/vnd.zbrush.pcx": ["pcx"], "image/x-3ds": ["3ds"], "image/x-cmu-raster": ["ras"], "image/x-cmx": ["cmx"], "image/x-freehand": ["fh", "fhc", "fh4", "fh5", "fh7"], "image/x-icon": ["*ico"], "image/x-jng": ["jng"], "image/x-mrsid-image": ["sid"], "image/x-ms-bmp": ["*bmp"], "image/x-pcx": ["*pcx"], "image/x-pict": ["pic", "pct"], "image/x-portable-anymap": ["pnm"], "image/x-portable-bitmap": ["pbm"], "image/x-portable-graymap": ["pgm"], "image/x-portable-pixmap": ["ppm"], "image/x-rgb": ["rgb"], "image/x-tga": ["tga"], "image/x-xbitmap": ["xbm"], "image/x-xpixmap": ["xpm"], "image/x-xwindowdump": ["xwd"], "message/vnd.wfa.wsc": ["wsc"], "model/vnd.collada+xml": ["dae"], "model/vnd.dwf": ["dwf"], "model/vnd.gdl": ["gdl"], "model/vnd.gtw": ["gtw"], "model/vnd.mts": ["mts"], "model/vnd.opengex": ["ogex"], "model/vnd.parasolid.transmit.binary": ["x_b"], "model/vnd.parasolid.transmit.text": ["x_t"], "model/vnd.sap.vds": ["vds"], "model/vnd.usdz+zip": ["usdz"], "model/vnd.valve.source.compiled-map": ["bsp"], "model/vnd.vtu": ["vtu"], "text/prs.lines.tag": ["dsc"], "text/vnd.curl": ["curl"], "text/vnd.curl.dcurl": ["dcurl"], "text/vnd.curl.mcurl": ["mcurl"], "text/vnd.curl.scurl": ["scurl"], "text/vnd.dvb.subtitle": ["sub"], "text/vnd.fly": ["fly"], "text/vnd.fmi.flexstor": ["flx"], "text/vnd.graphviz": ["gv"], "text/vnd.in3d.3dml": ["3dml"], "text/vnd.in3d.spot": ["spot"], "text/vnd.sun.j2me.app-descriptor": ["jad"], "text/vnd.wap.wml": ["wml"], "text/vnd.wap.wmlscript": ["wmls"], "text/x-asm": ["s", "asm"], "text/x-c": ["c", "cc", "cxx", "cpp", "h", "hh", "dic"], "text/x-component": ["htc"], "text/x-fortran": ["f", "for", "f77", "f90"], "text/x-handlebars-template": ["hbs"], "text/x-java-source": ["java"], "text/x-lua": ["lua"], "text/x-markdown": ["mkd"], "text/x-nfo": ["nfo"], "text/x-opml": ["opml"], "text/x-org": ["*org"], "text/x-pascal": ["p", "pas"], "text/x-processing": ["pde"], "text/x-sass": ["sass"], "text/x-scss": ["scss"], "text/x-setext": ["etx"], "text/x-sfv": ["sfv"], "text/x-suse-ymp": ["ymp"], "text/x-uuencode": ["uu"], "text/x-vcalendar": ["vcs"], "text/x-vcard": ["vcf"], "video/vnd.dece.hd": ["uvh", "uvvh"], "video/vnd.dece.mobile": ["uvm", "uvvm"], "video/vnd.dece.pd": ["uvp", "uvvp"], "video/vnd.dece.sd": ["uvs", "uvvs"], "video/vnd.dece.video": ["uvv", "uvvv"], "video/vnd.dvb.file": ["dvb"], "video/vnd.fvt": ["fvt"], "video/vnd.mpegurl": ["mxu", "m4u"], "video/vnd.ms-playready.media.pyv": ["pyv"], "video/vnd.uvvu.mp4": ["uvu", "uvvu"], "video/vnd.vivo": ["viv"], "video/x-f4v": ["f4v"], "video/x-fli": ["fli"], "video/x-flv": ["flv"], "video/x-m4v": ["m4v"], "video/x-matroska": ["mkv", "mk3d", "mks"], "video/x-mng": ["mng"], "video/x-ms-asf": ["asf", "asx"], "video/x-ms-vob": ["vob"], "video/x-ms-wm": ["wm"], "video/x-ms-wmv": ["wmv"], "video/x-ms-wmx": ["wmx"], "video/x-ms-wvx": ["wvx"], "video/x-msvideo": ["avi"], "video/x-sgi-movie": ["movie"], "video/x-smv": ["smv"], "x-conference/x-cooltalk": ["ice"] };
+  }
+});
+
+// .svelte-kit/cloudflare-workers-tmp/node_modules/mime/index.js
+var require_mime = __commonJS({
+  ".svelte-kit/cloudflare-workers-tmp/node_modules/mime/index.js"(exports, module) {
+    "use strict";
+    var Mime = require_Mime();
+    module.exports = new Mime(require_standard(), require_other());
+  }
+});
+
+// .svelte-kit/cloudflare-workers-tmp/node_modules/@cloudflare/kv-asset-handler/dist/types.js
+var require_types = __commonJS({
+  ".svelte-kit/cloudflare-workers-tmp/node_modules/@cloudflare/kv-asset-handler/dist/types.js"(exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.InternalError = exports.NotFoundError = exports.MethodNotAllowedError = exports.KVError = void 0;
+    var KVError = class _KVError extends Error {
+      constructor(message, status = 500) {
+        super(message);
+        Object.setPrototypeOf(this, new.target.prototype);
+        this.name = _KVError.name;
+        this.status = status;
+      }
+    };
+    exports.KVError = KVError;
+    var MethodNotAllowedError = class extends KVError {
+      constructor(message = `Not a valid request method`, status = 405) {
+        super(message, status);
+      }
+    };
+    exports.MethodNotAllowedError = MethodNotAllowedError;
+    var NotFoundError = class extends KVError {
+      constructor(message = `Not Found`, status = 404) {
+        super(message, status);
+      }
+    };
+    exports.NotFoundError = NotFoundError;
+    var InternalError = class extends KVError {
+      constructor(message = `Internal Error in KV Asset Handler`, status = 500) {
+        super(message, status);
+      }
+    };
+    exports.InternalError = InternalError;
+  }
+});
+
+// .svelte-kit/cloudflare-workers-tmp/node_modules/@cloudflare/kv-asset-handler/dist/index.js
+var require_dist = __commonJS({
+  ".svelte-kit/cloudflare-workers-tmp/node_modules/@cloudflare/kv-asset-handler/dist/index.js"(exports) {
+    "use strict";
+    var __awaiter = exports && exports.__awaiter || function(thisArg, _arguments, P, generator) {
+      function adopt(value) {
+        return value instanceof P ? value : new P(function(resolve3) {
+          resolve3(value);
+        });
+      }
+      return new (P || (P = Promise))(function(resolve3, reject) {
+        function fulfilled(value) {
+          try {
+            step(generator.next(value));
+          } catch (e) {
+            reject(e);
+          }
+        }
+        function rejected(value) {
+          try {
+            step(generator["throw"](value));
+          } catch (e) {
+            reject(e);
+          }
+        }
+        function step(result) {
+          result.done ? resolve3(result.value) : adopt(result.value).then(fulfilled, rejected);
+        }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+      });
+    };
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.InternalError = exports.NotFoundError = exports.MethodNotAllowedError = exports.serveSinglePageApp = exports.mapRequestToAsset = exports.getAssetFromKV = void 0;
+    var mime = require_mime();
+    var types_1 = require_types();
+    Object.defineProperty(exports, "MethodNotAllowedError", { enumerable: true, get: function() {
+      return types_1.MethodNotAllowedError;
+    } });
+    Object.defineProperty(exports, "NotFoundError", { enumerable: true, get: function() {
+      return types_1.NotFoundError;
+    } });
+    Object.defineProperty(exports, "InternalError", { enumerable: true, get: function() {
+      return types_1.InternalError;
+    } });
+    var defaultCacheControl = {
+      browserTTL: null,
+      edgeTTL: 2 * 60 * 60 * 24,
+      bypassCache: false
+      // do not bypass Cloudflare's cache
+    };
+    var parseStringAsObject = (maybeString) => typeof maybeString === "string" ? JSON.parse(maybeString) : maybeString;
+    var getAssetFromKVDefaultOptions = {
+      ASSET_NAMESPACE: typeof __STATIC_CONTENT !== "undefined" ? __STATIC_CONTENT : void 0,
+      ASSET_MANIFEST: typeof __STATIC_CONTENT_MANIFEST !== "undefined" ? parseStringAsObject(__STATIC_CONTENT_MANIFEST) : void 0,
+      cacheControl: defaultCacheControl,
+      defaultMimeType: "text/plain",
+      defaultDocument: "index.html"
+    };
+    function assignOptions(options2) {
+      return Object.assign({}, getAssetFromKVDefaultOptions, options2);
+    }
+    var mapRequestToAsset2 = (request, options2) => {
+      options2 = assignOptions(options2);
+      const parsedUrl = new URL(request.url);
+      let pathname = parsedUrl.pathname;
+      if (pathname.endsWith("/")) {
+        pathname = pathname.concat(options2.defaultDocument);
+      } else if (!mime.getType(pathname)) {
+        pathname = pathname.concat("/" + options2.defaultDocument);
+      }
+      parsedUrl.pathname = pathname;
+      return new Request(parsedUrl.toString(), request);
+    };
+    exports.mapRequestToAsset = mapRequestToAsset2;
+    function serveSinglePageApp(request, options2) {
+      options2 = assignOptions(options2);
+      request = mapRequestToAsset2(request, options2);
+      const parsedUrl = new URL(request.url);
+      if (parsedUrl.pathname.endsWith(".html")) {
+        return new Request(`${parsedUrl.origin}/${options2.defaultDocument}`, request);
+      } else {
+        return request;
+      }
+    }
+    exports.serveSinglePageApp = serveSinglePageApp;
+    var getAssetFromKV2 = (event, options2) => __awaiter(void 0, void 0, void 0, function* () {
+      options2 = assignOptions(options2);
+      const request = event.request;
+      const ASSET_NAMESPACE = options2.ASSET_NAMESPACE;
+      const ASSET_MANIFEST = parseStringAsObject(options2.ASSET_MANIFEST);
+      if (typeof ASSET_NAMESPACE === "undefined") {
+        throw new types_1.InternalError(`there is no KV namespace bound to the script`);
+      }
+      const rawPathKey = new URL(request.url).pathname.replace(/^\/+/, "");
+      let pathIsEncoded = false;
+      let requestKey;
+      if (options2.mapRequestToAsset) {
+        requestKey = options2.mapRequestToAsset(request);
+      } else if (ASSET_MANIFEST[rawPathKey]) {
+        requestKey = request;
+      } else if (ASSET_MANIFEST[decodeURIComponent(rawPathKey)]) {
+        pathIsEncoded = true;
+        requestKey = request;
+      } else {
+        const mappedRequest = mapRequestToAsset2(request);
+        const mappedRawPathKey = new URL(mappedRequest.url).pathname.replace(/^\/+/, "");
+        if (ASSET_MANIFEST[decodeURIComponent(mappedRawPathKey)]) {
+          pathIsEncoded = true;
+          requestKey = mappedRequest;
+        } else {
+          requestKey = mapRequestToAsset2(request, options2);
+        }
+      }
+      const SUPPORTED_METHODS = ["GET", "HEAD"];
+      if (!SUPPORTED_METHODS.includes(requestKey.method)) {
+        throw new types_1.MethodNotAllowedError(`${requestKey.method} is not a valid request method`);
+      }
+      const parsedUrl = new URL(requestKey.url);
+      const pathname = pathIsEncoded ? decodeURIComponent(parsedUrl.pathname) : parsedUrl.pathname;
+      let pathKey = pathname.replace(/^\/+/, "");
+      const cache = caches.default;
+      let mimeType = mime.getType(pathKey) || options2.defaultMimeType;
+      if (mimeType.startsWith("text") || mimeType === "application/javascript") {
+        mimeType += "; charset=utf-8";
+      }
+      let shouldEdgeCache = false;
+      if (typeof ASSET_MANIFEST !== "undefined") {
+        if (ASSET_MANIFEST[pathKey]) {
+          pathKey = ASSET_MANIFEST[pathKey];
+          shouldEdgeCache = true;
+        }
+      }
+      let cacheKey = new Request(`${parsedUrl.origin}/${pathKey}`, request);
+      const evalCacheOpts = (() => {
+        switch (typeof options2.cacheControl) {
+          case "function":
+            return options2.cacheControl(request);
+          case "object":
+            return options2.cacheControl;
+          default:
+            return defaultCacheControl;
+        }
+      })();
+      const formatETag = (entityId = pathKey, validatorType = "strong") => {
+        if (!entityId) {
+          return "";
+        }
+        switch (validatorType) {
+          case "weak":
+            if (!entityId.startsWith("W/")) {
+              return `W/${entityId}`;
+            }
+            return entityId;
+          case "strong":
+            if (entityId.startsWith(`W/"`)) {
+              entityId = entityId.replace("W/", "");
+            }
+            if (!entityId.endsWith(`"`)) {
+              entityId = `"${entityId}"`;
+            }
+            return entityId;
+          default:
+            return "";
+        }
+      };
+      options2.cacheControl = Object.assign({}, defaultCacheControl, evalCacheOpts);
+      if (options2.cacheControl.bypassCache || options2.cacheControl.edgeTTL === null || request.method == "HEAD") {
+        shouldEdgeCache = false;
+      }
+      const shouldSetBrowserCache = typeof options2.cacheControl.browserTTL === "number";
+      let response = null;
+      if (shouldEdgeCache) {
+        response = yield cache.match(cacheKey);
+      }
+      if (response) {
+        if (response.status > 300 && response.status < 400) {
+          if (response.body && "cancel" in Object.getPrototypeOf(response.body)) {
+            response.body.cancel();
+            console.log("Body exists and environment supports readable streams. Body cancelled");
+          } else {
+            console.log("Environment doesnt support readable streams");
+          }
+          response = new Response(null, response);
+        } else {
+          let opts = {
+            headers: new Headers(response.headers),
+            status: 0,
+            statusText: ""
+          };
+          opts.headers.set("cf-cache-status", "HIT");
+          if (response.status) {
+            opts.status = response.status;
+            opts.statusText = response.statusText;
+          } else if (opts.headers.has("Content-Range")) {
+            opts.status = 206;
+            opts.statusText = "Partial Content";
+          } else {
+            opts.status = 200;
+            opts.statusText = "OK";
+          }
+          response = new Response(response.body, opts);
+        }
+      } else {
+        const body2 = yield ASSET_NAMESPACE.get(pathKey, "arrayBuffer");
+        if (body2 === null) {
+          throw new types_1.NotFoundError(`could not find ${pathKey} in your content namespace`);
+        }
+        response = new Response(body2);
+        if (shouldEdgeCache) {
+          response.headers.set("Accept-Ranges", "bytes");
+          response.headers.set("Content-Length", body2.length);
+          if (!response.headers.has("etag")) {
+            response.headers.set("etag", formatETag(pathKey, "strong"));
+          }
+          response.headers.set("Cache-Control", `max-age=${options2.cacheControl.edgeTTL}`);
+          event.waitUntil(cache.put(cacheKey, response.clone()));
+          response.headers.set("CF-Cache-Status", "MISS");
+        }
+      }
+      response.headers.set("Content-Type", mimeType);
+      if (response.status === 304) {
+        let etag2 = formatETag(response.headers.get("etag"), "strong");
+        let ifNoneMatch = cacheKey.headers.get("if-none-match");
+        let proxyCacheStatus = response.headers.get("CF-Cache-Status");
+        if (etag2) {
+          if (ifNoneMatch && ifNoneMatch === etag2 && proxyCacheStatus === "MISS") {
+            response.headers.set("CF-Cache-Status", "EXPIRED");
+          } else {
+            response.headers.set("CF-Cache-Status", "REVALIDATED");
+          }
+          response.headers.set("etag", formatETag(etag2, "weak"));
+        }
+      }
+      if (shouldSetBrowserCache) {
+        response.headers.set("Cache-Control", `max-age=${options2.cacheControl.browserTTL}`);
+      } else {
+        response.headers.delete("Cache-Control");
+      }
+      return response;
+    });
+    exports.getAssetFromKV = getAssetFromKV2;
+  }
+});
+
 // .svelte-kit/output/server/chunks/internal.js
 init_ssr();
 init_ssr2();
@@ -19741,7 +20098,7 @@ var options = {
 		<div class="error">
 			<span class="status">` + status + '</span>\n			<div class="message">\n				<h1>' + message + "</h1>\n			</div>\n		</div>\n	</body>\n</html>\n"
   },
-  version_hash: "1yhfvju"
+  version_hash: "wsq8j8"
 };
 async function get_hooks() {
   let handle;
@@ -20074,8 +20431,8 @@ function get_name(num) {
   } while (num >= 0);
   return reserved.test(name) ? `${name}0` : name;
 }
-function escape_unsafe_char(c2) {
-  return escaped[c2] || c2;
+function escape_unsafe_char(c) {
+  return escaped[c] || c;
 }
 function escape_unsafe_chars(str) {
   return str.replace(unsafe_chars, escape_unsafe_char);
@@ -20632,14 +20989,14 @@ async function render_endpoint(event, mod, state) {
       response.headers.set("x-sveltekit-prerender", String(prerender2));
     }
     return response;
-  } catch (e3) {
-    if (e3 instanceof Redirect) {
+  } catch (e) {
+    if (e instanceof Redirect) {
       return new Response(void 0, {
-        status: e3.status,
-        headers: { location: e3.location }
+        status: e.status,
+        headers: { location: e.location }
       });
     }
-    throw e3;
+    throw e;
   }
 }
 function is_endpoint_request(event) {
@@ -20718,8 +21075,8 @@ async function handle_action_json_request(event, options2, server2) {
         )
       });
     }
-  } catch (e3) {
-    const err = normalize_error(e3);
+  } catch (e) {
+    const err = normalize_error(e);
     if (err instanceof Redirect) {
       return action_json_redirect(err);
     }
@@ -20785,8 +21142,8 @@ async function handle_action_request(event, server2) {
         data
       };
     }
-  } catch (e3) {
-    const err = normalize_error(e3);
+  } catch (e) {
+    const err = normalize_error(e);
     if (err instanceof Redirect) {
       return {
         type: "redirect",
@@ -20854,10 +21211,10 @@ function stringify_action_response(data, route_id, transport) {
 function try_serialize(data, fn, route_id) {
   try {
     return fn(data);
-  } catch (e3) {
+  } catch (e) {
     const error = (
       /** @type {any} */
-      e3
+      e
     );
     if (data instanceof Response) {
       throw new Error(
@@ -21280,10 +21637,10 @@ function reverse_endianness(bytes) {
   for (let i = 0; i < bytes.length; i += 4) {
     const a = bytes[i + 0];
     const b = bytes[i + 1];
-    const c2 = bytes[i + 2];
+    const c = bytes[i + 2];
     const d = bytes[i + 3];
     bytes[i + 0] = d;
-    bytes[i + 1] = c2;
+    bytes[i + 1] = c;
     bytes[i + 2] = b;
     bytes[i + 3] = a;
   }
@@ -21560,9 +21917,9 @@ var Csp = class {
 function defer() {
   let fulfil;
   let reject;
-  const promise = new Promise((f, r3) => {
+  const promise = new Promise((f, r) => {
     fulfil = f;
-    reject = r3;
+    reject = r;
   });
   return { promise, fulfil, reject };
 }
@@ -21601,7 +21958,7 @@ function exec(match, params, matchers) {
     const param = params[i];
     let value = values[i - buffered];
     if (param.chained && param.rest && buffered) {
-      value = values.slice(i - buffered, i + 1).filter((s22) => s22).join("/");
+      value = values.slice(i - buffered, i + 1).filter((s2) => s2).join("/");
       buffered = 0;
     }
     if (value === void 0) {
@@ -21631,7 +21988,7 @@ function exec(match, params, matchers) {
 }
 function generate_route_object(route, url, manifest2) {
   const { errors, layouts: layouts2, leaf } = route;
-  const nodes = [...errors, ...layouts2.map((l) => l?.[1]), leaf[1]].filter((n2) => typeof n2 === "number").map((n2) => `'${n2}': () => ${create_client_import(manifest2._.client.nodes?.[n2], url)}`).join(",\n		");
+  const nodes = [...errors, ...layouts2.map((l) => l?.[1]), leaf[1]].filter((n) => typeof n === "number").map((n) => `'${n}': () => ${create_client_import(manifest2._.client.nodes?.[n], url)}`).join(",\n		");
   return [
     `{
 	id: ${s(route.id)}`,
@@ -21874,7 +22231,7 @@ async function render_response({
     ).join("\n			")}`;
   }
   if (page_config.csr) {
-    const route = manifest2._.client.routes?.find((r3) => r3.id === event.route.id) ?? null;
+    const route = manifest2._.client.routes?.find((r) => r.id === event.route.id) ?? null;
     if (client.uses_env_dynamic_public && state.prerendering) {
       modulepreloads.add(`${app_dir}/env.js`);
     }
@@ -22134,11 +22491,11 @@ function get_data(event, options2, nodes, csp, global) {
       data: `[${strings.join(",")}]`,
       chunks: count > 0 ? iterator : null
     };
-  } catch (e3) {
+  } catch (e) {
     throw new Error(clarify_devalue_error(
       event,
       /** @type {any} */
-      e3
+      e
     ));
   }
 }
@@ -22227,14 +22584,14 @@ async function respond_with_error({
       event,
       resolve_opts
     });
-  } catch (e3) {
-    if (e3 instanceof Redirect) {
-      return redirect_response(e3.status, e3.location);
+  } catch (e) {
+    if (e instanceof Redirect) {
+      return redirect_response(e.status, e.location);
     }
     return static_error_page(
       options2,
-      get_status(e3),
-      (await handle_error_and_jsonify(event, options2, e3)).message
+      get_status(e),
+      (await handle_error_and_jsonify(event, options2, e)).message
     );
   }
 }
@@ -22261,7 +22618,7 @@ async function render_data(event, route, options2, manifest2, state, invalidated
     const url = new URL(event.url);
     url.pathname = normalize_path(url.pathname, trailing_slash);
     const new_event = { ...event, url };
-    const functions = node_ids.map((n2, i) => {
+    const functions = node_ids.map((n, i) => {
       return once(async () => {
         try {
           if (aborted) {
@@ -22272,7 +22629,7 @@ async function render_data(event, route, options2, manifest2, state, invalidated
               }
             );
           }
-          const node = n2 == void 0 ? n2 : await manifest2._.nodes[n2]();
+          const node = n == void 0 ? n : await manifest2._.nodes[n]();
           return load_server_data({
             event: new_event,
             state,
@@ -22291,9 +22648,9 @@ async function render_data(event, route, options2, manifest2, state, invalidated
               return data2;
             }
           });
-        } catch (e3) {
+        } catch (e) {
           aborted = true;
-          throw e3;
+          throw e;
         }
       });
     });
@@ -22351,8 +22708,8 @@ async function render_data(event, route, options2, manifest2, state, invalidated
         }
       }
     );
-  } catch (e3) {
-    const error = normalize_error(e3);
+  } catch (e) {
+    const error = normalize_error(e);
     if (error instanceof Redirect) {
       return redirect_json_response(error);
     } else {
@@ -22391,13 +22748,13 @@ function get_data_json(event, options2, nodes) {
         let key2 = "data";
         thing.catch(
           /** @param {any} e */
-          async (e3) => {
+          async (e) => {
             key2 = "error";
             return handle_error_and_jsonify(
               event,
               options2,
               /** @type {any} */
-              e3
+              e
             );
           }
         ).then(
@@ -22440,18 +22797,18 @@ function get_data_json(event, options2, nodes) {
 `,
       chunks: count > 0 ? iterator : null
     };
-  } catch (e3) {
+  } catch (e) {
     throw new Error(clarify_devalue_error(
       event,
       /** @type {any} */
-      e3
+      e
     ));
   }
 }
 function load_page_nodes(page2, manifest2) {
   return Promise.all([
     // we use == here rather than === because [undefined] serializes as "[null]"
-    ...page2.layouts.map((n2) => n2 == void 0 ? n2 : manifest2._.nodes[n2]()),
+    ...page2.layouts.map((n) => n == void 0 ? n : manifest2._.nodes[n]()),
     manifest2._.nodes[page2.leaf]()
   ]);
 }
@@ -22547,9 +22904,9 @@ async function render_page(event, page2, options2, manifest2, state, resolve_opt
               return data;
             }
           });
-        } catch (e3) {
+        } catch (e) {
           load_error = /** @type {Error} */
-          e3;
+          e;
           throw load_error;
         }
       });
@@ -22575,9 +22932,9 @@ async function render_page(event, page2, options2, manifest2, state, resolve_opt
             state,
             csr
           });
-        } catch (e3) {
+        } catch (e) {
           load_error = /** @type {Error} */
-          e3;
+          e;
           throw load_error;
         }
       });
@@ -22593,8 +22950,8 @@ async function render_page(event, page2, options2, manifest2, state, resolve_opt
           const server_data = await server_promises[i];
           const data = await load_promises[i];
           branch.push({ node, server_data, data });
-        } catch (e3) {
-          const err = normalize_error(e3);
+        } catch (e) {
+          const err = normalize_error(e);
           if (err instanceof Redirect) {
             if (state.prerendering && should_prerender_data) {
               const body2 = JSON.stringify({
@@ -22676,14 +23033,14 @@ async function render_page(event, page2, options2, manifest2, state, resolve_opt
       action_result,
       fetched
     });
-  } catch (e3) {
+  } catch (e) {
     return await respond_with_error({
       event,
       options: options2,
       manifest: manifest2,
       state,
       status: 500,
-      error: e3,
+      error: e,
       resolve_opts
     });
   }
@@ -22714,9 +23071,9 @@ function get_cookies(request, url, trailing_slash) {
      * @param {import('cookie').CookieParseOptions} [opts]
      */
     get(name, opts) {
-      const c2 = new_cookies[name];
-      if (c2 && domain_matches(url.hostname, c2.options.domain) && path_matches(url.pathname, c2.options.path)) {
-        return c2.value;
+      const c = new_cookies[name];
+      if (c && domain_matches(url.hostname, c.options.domain) && path_matches(url.pathname, c.options.path)) {
+        return c.value;
       }
       const req_cookies = (0, import_cookie.parse)(header, { decode: opts?.decode });
       const cookie = req_cookies[name];
@@ -22727,9 +23084,9 @@ function get_cookies(request, url, trailing_slash) {
      */
     getAll(opts) {
       const cookies2 = (0, import_cookie.parse)(header, { decode: opts?.decode });
-      for (const c2 of Object.values(new_cookies)) {
-        if (domain_matches(url.hostname, c2.options.domain) && path_matches(url.pathname, c2.options.path)) {
-          cookies2[c2.name] = c2.value;
+      for (const c of Object.values(new_cookies)) {
+        if (domain_matches(url.hostname, c.options.domain) && path_matches(url.pathname, c.options.path)) {
+          cookies2[c.name] = c.value;
         }
       }
       return Object.entries(cookies2).map(([name, value]) => ({ name, value }));
@@ -23052,7 +23409,7 @@ async function respond(request, options2, manifest2, state) {
     fetch: null,
     getClientAddress: state.getClientAddress || (() => {
       throw new Error(
-        `${"@sveltejs/adapter-cloudflare"} does not specify getClientAddress. Please raise an issue`
+        `${"@sveltejs/adapter-cloudflare-workers"} does not specify getClientAddress. Please raise an issue`
       );
     }),
     locals: {},
@@ -23214,13 +23571,13 @@ async function respond(request, options2, manifest2, state) {
       }
     }
     return response;
-  } catch (e3) {
-    if (e3 instanceof Redirect) {
-      const response = is_data_request ? redirect_json_response(e3) : route?.page && is_action_json_request(event) ? action_json_redirect(e3) : redirect_response(e3.status, e3.location);
+  } catch (e) {
+    if (e instanceof Redirect) {
+      const response = is_data_request ? redirect_json_response(e) : route?.page && is_action_json_request(event) ? action_json_redirect(e) : redirect_response(e.status, e.location);
       add_cookies_to_headers(response.headers, Object.values(cookies_to_add));
       return response;
     }
-    return await handle_fatal_error(event, options2, e3);
+    return await handle_fatal_error(event, options2, e);
   }
   async function resolve22(event2, opts) {
     try {
@@ -23332,8 +23689,8 @@ async function respond(request, options2, manifest2, state) {
         return text("not found", { status: 404 });
       }
       return await fetch(request);
-    } catch (e3) {
-      return await handle_fatal_error(event2, options2, e3);
+    } catch (e) {
+      return await handle_fatal_error(event2, options2, e);
     } finally {
       event2.cookies.set = () => {
         throw new Error("Cannot use `cookies.set(...)` after the response has been generated");
@@ -23433,7 +23790,7 @@ var Server = class {
   }
 };
 
-// .svelte-kit/cloudflare-tmp/manifest.js
+// .svelte-kit/cloudflare-workers-tmp/manifest.js
 var manifest = (() => {
   function __memo(fn) {
     let value;
@@ -23445,7 +23802,7 @@ var manifest = (() => {
     assets: /* @__PURE__ */ new Set([".nojekyll"]),
     mimeTypes: {},
     _: {
-      client: { start: "_app/immutable/entry/start.CdHtV54M.js", app: "_app/immutable/entry/app.BDQkOTW-.js", imports: ["_app/immutable/entry/start.CdHtV54M.js", "_app/immutable/chunks/D3cSA9yg.js", "_app/immutable/chunks/CE_swLSu.js", "_app/immutable/chunks/J6ZmAdDH.js", "_app/immutable/entry/app.BDQkOTW-.js", "_app/immutable/chunks/CE_swLSu.js", "_app/immutable/chunks/BYLTsbat.js"], stylesheets: [], fonts: [], uses_env_dynamic_public: false },
+      client: { start: "_app/immutable/entry/start.n5OF2YHI.js", app: "_app/immutable/entry/app.bN7uUzvf.js", imports: ["_app/immutable/entry/start.n5OF2YHI.js", "_app/immutable/chunks/ETQbwrEZ.js", "_app/immutable/chunks/CE_swLSu.js", "_app/immutable/chunks/J6ZmAdDH.js", "_app/immutable/entry/app.bN7uUzvf.js", "_app/immutable/chunks/CE_swLSu.js", "_app/immutable/chunks/BYLTsbat.js"], stylesheets: [], fonts: [], uses_env_dynamic_public: false },
       nodes: [
         __memo(() => Promise.resolve().then(() => (init__(), __exports))),
         __memo(() => Promise.resolve().then(() => (init__2(), __exports2))),
@@ -23492,50 +23849,41 @@ var manifest = (() => {
     }
   };
 })();
-var prerendered = /* @__PURE__ */ new Set([]);
+var prerendered = /* @__PURE__ */ new Map([]);
 var base_path = "";
 
-// .svelte-kit/cloudflare-tmp/_worker.js
-async function e(e3, t2) {
-  let n2 = "string" != typeof t2 && "HEAD" === t2.method;
-  n2 && (t2 = new Request(t2, { method: "GET" }));
-  let r3 = await e3.match(t2);
-  return n2 && r3 && (r3 = new Response(null, r3)), r3;
-}
-function t(e3, t2, n2, o2) {
-  return ("string" == typeof t2 || "GET" === t2.method) && r(n2) && (n2.headers.has("Set-Cookie") && (n2 = new Response(n2.body, n2)).headers.append("Cache-Control", "private=Set-Cookie"), o2.waitUntil(e3.put(t2, n2.clone()))), n2;
-}
-var n = /* @__PURE__ */ new Set([200, 203, 204, 300, 301, 404, 405, 410, 414, 501]);
-function r(e3) {
-  if (!n.has(e3.status)) return false;
-  if (~(e3.headers.get("Vary") || "").indexOf("*")) return false;
-  let t2 = e3.headers.get("Cache-Control") || "";
-  return !/(private|no-cache|no-store)/i.test(t2);
-}
-function o(n2) {
-  return async function(r3, o2) {
-    let a = await e(n2, r3);
-    if (a) return a;
-    o2.defer((e3) => {
-      t(n2, r3, e3, o2);
-    });
-  };
-}
-var s2 = caches.default;
-var c = t.bind(0, s2);
-var r2 = e.bind(0, s2);
-var e2 = o.bind(0, s2);
+// .svelte-kit/cloudflare-workers-tmp/entry.js
+var import_kv_asset_handler = __toESM(require_dist());
+import static_asset_manifest_json from "__STATIC_CONTENT_MANIFEST";
+var static_asset_manifest = JSON.parse(static_asset_manifest_json);
 var server = new Server(manifest);
 var app_path = `/${manifest.appPath}`;
 var immutable = `${app_path}/immutable/`;
 var version_file = `${app_path}/version.json`;
-var worker = {
+var entry_default = {
+  /**
+   * @param {Request} req
+   * @param {any} env
+   * @param {any} context
+   */
   async fetch(req, env, context) {
     await server.init({ env });
-    let pragma = req.headers.get("cache-control") || "";
-    let res = !pragma.includes("no-cache") && await r2(req);
-    if (res) return res;
-    let { pathname, search } = new URL(req.url);
+    const url = new URL(req.url);
+    if (url.pathname.startsWith(app_path)) {
+      const res = await get_asset_from_kv(req, env, context);
+      if (is_error(res.status)) return res;
+      const cache_control = url.pathname.startsWith(immutable) ? "public, immutable, max-age=31536000" : "no-cache";
+      return new Response(res.body, {
+        headers: {
+          // include original headers, minus cache-control which
+          // is overridden, and etag which is no longer useful
+          "cache-control": cache_control,
+          "content-type": res.headers.get("content-type"),
+          "x-robots-tag": "noindex"
+        }
+      });
+    }
+    let { pathname, search } = url;
     try {
       pathname = decodeURIComponent(pathname);
     } catch {
@@ -23548,31 +23896,57 @@ var worker = {
     }
     let location = pathname.at(-1) === "/" ? stripped_pathname : pathname + "/";
     if (is_static_asset || prerendered.has(pathname) || pathname === version_file || pathname.startsWith(immutable)) {
-      res = await env.ASSETS.fetch(req);
+      return get_asset_from_kv(req, env, context, (request, options2) => {
+        if (prerendered.has(pathname)) {
+          url.pathname = "/" + prerendered.get(pathname).file;
+          return new Request(url.toString(), request);
+        }
+        return (0, import_kv_asset_handler.mapRequestToAsset)(request, options2);
+      });
     } else if (location && prerendered.has(location)) {
       if (search) location += search;
-      res = new Response("", {
+      return new Response("", {
         status: 308,
         headers: {
           location
         }
       });
-    } else {
-      res = await server.respond(req, {
-        // @ts-ignore
-        platform: { env, context, caches, cf: req.cf },
-        getClientAddress() {
-          return req.headers.get("cf-connecting-ip");
-        }
-      });
     }
-    pragma = res.headers.get("cache-control") || "";
-    return pragma && res.status < 400 ? c(req, res, context) : res;
+    return await server.respond(req, {
+      platform: {
+        env,
+        context,
+        // @ts-expect-error lib.dom is interfering with workers-types
+        caches,
+        // @ts-expect-error req is actually a Cloudflare request not a standard request
+        cf: req.cf
+      },
+      getClientAddress() {
+        return req.headers.get("cf-connecting-ip");
+      }
+    });
   }
 };
-var worker_default = worker;
+async function get_asset_from_kv(req, env, context, map2 = import_kv_asset_handler.mapRequestToAsset) {
+  return await (0, import_kv_asset_handler.getAssetFromKV)(
+    {
+      request: req,
+      waitUntil(promise) {
+        return context.waitUntil(promise);
+      }
+    },
+    {
+      ASSET_NAMESPACE: env.__STATIC_CONTENT,
+      ASSET_MANIFEST: static_asset_manifest,
+      mapRequestToAsset: map2
+    }
+  );
+}
+function is_error(status) {
+  return status > 399;
+}
 export {
-  worker_default as default
+  entry_default as default
 };
 /*! Bundled license information:
 
@@ -23608,4 +23982,4 @@ chart.js/dist/chart.js:
    * Released under the MIT License
    *)
 */
-//# sourceMappingURL=_worker.js.map
+//# sourceMappingURL=worker.js.map

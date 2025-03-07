@@ -2761,7 +2761,7 @@ async function respond(request, options2, manifest, state) {
     fetch: null,
     getClientAddress: state.getClientAddress || (() => {
       throw new Error(
-        `${"@sveltejs/adapter-cloudflare"} does not specify getClientAddress. Please raise an issue`
+        `${"@sveltejs/adapter-cloudflare-workers"} does not specify getClientAddress. Please raise an issue`
       );
     }),
     locals: {},

@@ -1,0 +1,12 @@
+{
+	"name": "gfriend",
+	"account_id": "1fb4701aef5d497be77f6d7e65ee5154",
+	"main": "./.cloudflare/worker.js",
+	"site": {
+		"bucket": "./.cloudflare/public"
+	},
+	"build": {
+		"command": "npm run build"
+	},
+	"compatibility_date": "2025-03-07"
+}
