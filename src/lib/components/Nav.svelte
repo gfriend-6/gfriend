@@ -8,7 +8,7 @@
 <Navbar color="primary" class="w-4/5 place-self-center mx-auto">
   <NavBrand href="/">
     <img src="https://i.imgur.com/TModnbu.png" class="me-3 h-6 sm:h-9" alt="GFRIEND Logo" />
-    <span class="self-center whitespace-nowrap text-xl font-semibold text-black">gfriend-6.github.io</span>
+    <span class="self-center whitespace-nowrap text-xl font-semibold text-black">Buddyville</span>
   </NavBrand>
   <NavHamburger />
   <NavUl {activeUrl} activeClass="text-gfriend-purple-500" nonActiveClass="hover:text-gfriend-purple-500">
