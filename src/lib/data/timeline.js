@@ -9,7 +9,7 @@ export const hybe_timeline = {
     events: [
         {
             title: "Source Music Casts Minji",
-            date: "2018",
+            date: "2017",
             labels: {
                 groups: [],
                 other: ['Team N'],
