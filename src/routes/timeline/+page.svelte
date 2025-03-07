@@ -148,14 +148,15 @@
   <Timeline order="default">
     {#each timeline_events as item}
       {#if checkCheckbox(item["labels"])}
-        <TimelineItem title={item["title"]} date={item["date"]} desc={item["text"] ? true : false }>
-          <p class="mb-4 text-base font-normal text-gray-500">
+        <TimelineItem title={item["title"]} date={item["date"]} desc={(item["text"] || item["sources"].length != 0) ? true : false }>
+          <p class="mb-4 text-base font-normal text-gray-500 text-sm">
+            <br />
             {item["text"]}
             {#if item["notes"] != ""}
-              <br /><br /><i>Note: {item["notes"]}</i>
-              {#if item["sources"].length != 0}
-              <br />
-              {/if}
+              <br /><i>Note: {item["notes"]}</i>
+            {/if}
+            {#if item["text"] != ""}
+            <br /><br />
             {/if}
             {#if item["sources"].length != 0}
               <small>Sources:

@@ -17,6 +17,7 @@ export const hybe_timeline = {
                 type: ['Trainee'],
             },
             text: "",
+            notes: "",
             sources: ["https://m.entertain.naver.com/article/433/0000106807", "https://www.koreatimes.co.kr/www/art/2025/03/398_362674.html"]
         },
         {
@@ -29,6 +30,7 @@ export const hybe_timeline = {
                 type: ['Music'],
             },
             text: 'Time For Us is release with positive reactions.',
+            notes: "",
             sources: ["https://kpopreviewed.com/2019/01/14/sunrise-gfriend/"]
         },
         {
@@ -66,6 +68,7 @@ export const hybe_timeline = {
                 type: ['Music'],
             },      
             text: 'Fallin\' Light is release with positive reactions. This is GFriend\'s first release uder HYBE and the debut of their mature concept.',
+            notes: "",
             sources: ["https://kpopreviewed.com/2019/11/16/fallin-light-gfriend/"]
         },
         {
@@ -78,6 +81,7 @@ export const hybe_timeline = {
                 type: ['Trainee'],
             },
             text: 'Hanni is cast as a Source Music trainee in November 2019 through Source Music and Bit Hit\'s "Plus Global Audition".',
+            notes: "",
             sources: ["https://m.entertain.naver.com/article/433/0000106807"]
         },
         {
@@ -90,6 +94,7 @@ export const hybe_timeline = {
                 type: ['Music'],
             },
             text: '回:Labyrinth is release with positive reactions. This is GFriend\'s first Korean release uder HYBE and introduces the mature concept to their Korean fanbase.',
+            notes: "",
             sources: ["https://thebiaslist.com/2020/02/04/buried-treasure-gfriend-labyrinth/"]
         },
         {
@@ -102,6 +107,7 @@ export const hybe_timeline = {
                 type: ['Trainee'],
             },
             text: 'Haerin first discovered in November 2019, at the time she was a trainee under another company. However in December of that year her mother reached out to Source Music and she signed with Source Music in February of 2020.',
+            notes: "",
             sources: ["https://m.entertain.naver.com/article/433/0000106807"]
         },
         {
@@ -114,6 +120,7 @@ export const hybe_timeline = {
                 type: ['Music'],
             },
             text: '回:Song of the Sirens is release with positive reactions.',
+            notes: "",
             sources: ["https://kpopreviewed.com/2020/07/14/apple-gfriend/"]
         },
         {
@@ -126,6 +133,7 @@ export const hybe_timeline = {
                 type: ['Trainee'],
             },
             text: 'Danielle signed in July 2020 and was a former YG trainee.',
+            notes: "",
             sources: ["https://m.entertain.naver.com/article/433/0000106807"]
         },
         {
@@ -138,6 +146,7 @@ export const hybe_timeline = {
                 type: ['Trainee'],
             },
             text: 'Hyein signed in January 2021 after the CEO of Source Music took it upon himself to persuade her parents.',
+            notes: "",
             sources: ["https://m.entertain.naver.com/article/433/0000106807"]
         },
         {
@@ -150,6 +159,7 @@ export const hybe_timeline = {
                 type: ['Trainee'],
             },
             text: 'Eunchae leaves her dance school to join Source Music as a trainee.',
+            notes: "",
             sources: ["https://magazine.weverse.io/article/view/401?lang=en&ref=main&artist=LESSERAFIM"]
         },
         {
@@ -162,6 +172,7 @@ export const hybe_timeline = {
                 type: ['Music'],
             },
             text: '回:Song of the Sirens is release with positive reactions.',
+            notes: "",
             sources: ["https://kpopreviewed.com/2020/12/30/album-walpurgis-night-gfriend/"]
         },
         {
@@ -174,6 +185,7 @@ export const hybe_timeline = {
                 type: [],
             },
             text: 'Source Music Submits Trademarks for \"GFriend\", all of which have been rejected due to the group no longer being under Source Music.',
+            notes: "",
             sources: ["https://www.koreaboo.com/news/source-music-copyright-fail-file-gfriend/"]
         },
         {
@@ -186,6 +198,7 @@ export const hybe_timeline = {
                 type: [],
             },
             text: 'It\'s reported that Sakura will be going to Bit Hit after Iz*One disbands.',
+            notes: "",
             sources: ["https://m.entertain.naver.com/now/article/015/0004511578"]
         },
         {
@@ -198,6 +211,7 @@ export const hybe_timeline = {
                 type: [],
             },
             text: 'N Teams Debut Evaluation was conducted with the song \"Attention\". In the debut evaluation Minji, Hanni, Haerin, Danielle, and Hyein can be seen along side 2 other trainees.',
+            notes: "",
             sources: ["https://m.entertain.naver.com/ranking/article/433/0000106807"]
         },
         {
@@ -210,6 +224,7 @@ export const hybe_timeline = {
                 type: [],
             },
             text: 'Roughly a month prior to GFriend\'s disbandment under Source Music, GFriend were notified their contract would be ending. GFriend can be seen crying on VLIVE from April until their contract ended.',
+            notes: "",
             sources: ["https://www.soompi.com/article/1515881wpp/sinb-reveals-she-didnt-know-mago-would-be-gfriends-final-round-of-promotions-says-shes-confident-they-will-reunite"]
         },
         {
@@ -222,6 +237,7 @@ export const hybe_timeline = {
                 type: ['Trainee'],
             },
             text: 'Garam joins Source Music as a trainee.',
+            notes: "",
             sources: ["https://magazine.weverse.io/article/view/401?lang=en&ref=main&artist=LESSERAFIM"]
         },
         {
@@ -247,6 +263,7 @@ export const hybe_timeline = {
                 type: [],
             },
             text: 'GFriend\'s contract under Source Music end and all members leave.',
+            notes: "",
             sources: []
         },
         {
@@ -272,6 +289,7 @@ export const hybe_timeline = {
                 type: ['Trainee'],
             },
             text: 'Source Music reportedly signs Chaewon and is negotiating with Sakura\'s Japanese management regarding her joining the agency.',
+            notes: "",
             sources: ['https://www.nme.com/news/music/hybe-girl-group-reportedly-recruit-izone-kim-chae-won-miyawaki-sakura-3021027']
         },
         {
@@ -284,6 +302,7 @@ export const hybe_timeline = {
                 type: ['Trainee'],
             },
             text: 'Yunjin reportedly transfers from PLEDIS to Source Music.',
+            notes: "",
             sources: ['https://www.nme.com/news/music/heo-yun-jin-produce-48-source-music-hybe-upcoming-girl-group-3028474']
         },
         {
@@ -309,6 +328,7 @@ export const hybe_timeline = {
                 type: [],
             },
             text: 'HYBE\'s New Label \"ADOR\" is established with Min Hee-Jin apointed as the CEO. ADOR was set to introduce a new girl group in 2022 with the members selected from Source Music and Bit Hit\'s "Plus Global Audition" back in 2019.',
+            notes: "",
             sources: ['https://sports.khan.co.kr/article/202111120921003', 'https://m.entertain.naver.com/now/article/081/0003010589']
         },
         {
@@ -321,6 +341,7 @@ export const hybe_timeline = {
                 type: ['Trainee'],
             },
             text: 'Kazuha is said to have trained for approximately 6 months prior to Le Sserafim\'s debut, placing her recuitment in November 2021.',
+            notes: "",
             sources: ['https://www.envimedia.co/7-things-to-know-about-le-sserafims-kazuha/']
         },
     ]
