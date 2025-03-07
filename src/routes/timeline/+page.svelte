@@ -151,7 +151,7 @@
         <TimelineItem title={item["title"]} date={item["date"]} desc={item["text"] || item["sources"] ? true : false }>
           <p class="mb-4 text-base font-normal text-gray-500">
             {item["text"]}
-            {#if item["notes"]}
+            {#if item["text"] != ""}
               <br /><br /><i>Note: {item["notes"]}</i>
             {/if}
             {#if item["sources"].length != 0}

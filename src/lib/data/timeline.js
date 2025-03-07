@@ -16,6 +16,7 @@ export const hybe_timeline = {
                 companies: ['Source Music'],
                 type: ['Trainee'],
             },
+            text: "",
             sources: ["https://m.entertain.naver.com/article/433/0000106807", "https://www.koreatimes.co.kr/www/art/2025/03/398_362674.html"]
         },
         {
