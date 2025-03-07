@@ -1,0 +1,7 @@
+# Top-level configuration
+name = "gfriend"
+main = "src/routes/+layout.js"
+compatibility_date = "2025-03-07"
+
+workers_dev = false
+route = { pattern = "www.buddyville.xyz/*", zone_name = "www.buddyville.xyz" }
