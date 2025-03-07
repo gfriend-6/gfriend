@@ -24,8 +24,8 @@ export default {
           3: "#005965"
         },
         background: "#eCeCeC",      
+      }
     }
-	},
-
+  },
 	plugins: [flowbitePlugin]
 } as Config;
