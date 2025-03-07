@@ -151,14 +151,14 @@
         <TimelineItem title={item["title"]} date={item["date"]} desc={item["text"] ? true : false }>
           <p class="mb-4 text-base font-normal text-gray-500">
             {item["text"]}
-            {#if item["text"] != ""}
+            {#if item["notes"] != ""}
               <br /><br /><i>Note: {item["notes"]}</i>
               {#if item["sources"].length != 0}
               <br />
               {/if}
             {/if}
             {#if item["sources"].length != 0}
-              <br /><small>Sources:
+              <small>Sources:
               {#each item["sources"] as source}
                 <a class="text-primary-600" href={source} target="_blank"
                   >({item["sources"].indexOf(source) + 1})</a

@@ -142,7 +142,7 @@ export const hybe_timeline = {
         },
         {
             title: "Source Music Casts Eunchae",
-            date: "January 2021",
+            date: "January 9, 2021",
             labels: {
                 groups: [],
                 other: ['Team S'],
@@ -154,7 +154,7 @@ export const hybe_timeline = {
         },
         {
             title: "GFriend's 3rd Album: \"回:Walpurgis Night\" is Released",
-            date: "Febuary 3, 2021",
+            date: "November 9, 2020",
             labels: {
                 group: ['GFriend'],
                 other: [],
@@ -233,9 +233,9 @@ export const hybe_timeline = {
                 companies: ['Source Music'],
                 type: [],
             },
-            text: 'Source Music announced that GFriend\'s contract would be ending on the May 22nd. Suprising everyone including most of their own staff. Source Music claims the disbandment is after a "mutual agreement", however, the members have said they were fired, with SinB even saying they they didn\'t know MAGO would be their last comeback. GFriend\'s upcoming schedule is also deleted.',
-            notes: 'GFRIEND debuted on January 15th, 2015 and their contracts ended on May 22, 2021. The fact that they were a group for only 6.35 years and that the members had no idea leading up to a month before their disbandment eludes to the fact that Source Music and HYBE terminated their contract early.',
-            sources: ['https://weverse.io/gfriend/notice/1282', 'http://www.heraldpop.com/view.php?ud=202105181644230496316_1']
+            text: 'Source Music announced that GFriend\'s contract would be ending on the May 22nd despite debuting in January of 2015. Suprising everyone including most of their own staff. Additionally GFriend\'s upcoming schedule was deleted.',
+            notes: 'The members have said they were fired, with SinB saying they they didn\'t know MAGO would be their last comeback. In a HYBE investment report it had GFriend down for a 10th mini album in June and contract renewal in Q4 of 2021.',
+            sources: ['https://weverse.io/gfriend/notice/1282', 'http://www.heraldpop.com/view.php?ud=202105181644230496316_1', 'https://securities.miraeasset.com/bbs/download/2084380.pdf?attachmentId=2084380']
         },
         {
             title: "GFriend's Contract Ends",
