@@ -14,25 +14,20 @@
   <NavUl {activeUrl} activeClass="font-bold text-accent-1" nonActiveClass="text-accent-5 hover:text-white">
     <NavLi href="/">Home</NavLi>
     <NavLi class="cursor-pointer">
-      Profiles<ChevronDownOutline class="w-6 h-6 ms-2 text-accent-5 inline" />
-    </NavLi>
-    <Dropdown class="w-44 z-20">
-      <DropdownItem href="/profile">GFRIEND</DropdownItem>
-      <DropdownItem href="/newjeans">NewJeans</DropdownItem>
-      <DropdownItem href="/lesserafim">LE SSERAFIM</DropdownItem>
-      <DropdownDivider />
-      <DropdownItem href="/source-music">Source Music</DropdownItem>
-      <DropdownItem href="/ador">ADOR</DropdownItem>
-      <DropdownItem href="/hybe">HYBE</DropdownItem>
-    </Dropdown>
-    <NavLi class="cursor-pointer">
       Achivements<ChevronDownOutline class="w-6 h-6 ms-2 text-accent-5 inline" />
     </NavLi>
-    <Dropdown class="w-44 z-20">
+    <Dropdown class="w-45 z-20">
       <DropdownItem href="/wins">Music Show Wins</DropdownItem>
       <DropdownItem href="/accomplishments">Accomplishments</DropdownItem>
     </Dropdown>
-    <NavLi href="/timeline">Timeline</NavLi>
+    <NavLi class="cursor-pointer">
+      Timelines<ChevronDownOutline class="w-6 h-6 ms-2 text-accent-5 inline" />
+    </NavLi>
+    <Dropdown class="w-45 z-20">
+      <DropdownItem href="/snapshots/1">Full</DropdownItem>
+      <DropdownItem href="/snapshots/2">Source Music NGGs (2022)</DropdownItem>
+      <DropdownItem href="/snapshots/3">Source Music Trainees</DropdownItem>
+    </Dropdown>
   </NavUl>
 </Navbar>
 </div>

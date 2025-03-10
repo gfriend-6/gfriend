@@ -117,7 +117,7 @@ const options = {
   root: Root,
   service_worker: false,
   templates: {
-    app: ({ head, body, assets: assets2, nonce, env }) => '<!doctype html>\n<html lang="en">\n	<head>\n		<meta property="og:title" content="Buddyville" /> \n		<meta property="og:description" content="Dive into the world of GFriend! This fan page is dedicated to the girls history and achievements." /> \n		<meta property="og:image" content="https://assets.teenvogue.com/photos/5fa97b1cae4e8fa5ef375193/16:9/w_6575,h_3698,c_limit/GFRIEND%20Press%20Photo_Photo%20Credit%20SOURCE%20MUSIC%201.jpg" /> \n		<meta property="og:site" content="https://www.buddyville.xyz/" />\n		<meta property="og:type" content="image/jpg" />\n		<meta name="twitter:site" content="summary_large_image" />\n		<meta name="twitter:creator" content="terrifiedpigeon" />\n		<meta name="twitter:title" content="Buddyville" />\n		<meta name="twitter:description" content="TEST" />\n		<meta name="twitter:image:alt" content="Picture of gfriend" />\n		<meta charset="utf-8" />\n		<meta name="viewport" content="width=device-width, initial-scale=1" />\n		' + head + '\n	</head>\n	<body data-sveltekit-preload-data="hover">\n		<div style="display: contents">' + body + "</div>\n	</body>\n</html>\n",
+    app: ({ head, body, assets: assets2, nonce, env }) => '<!doctype html>\n<html lang="en">\n	<head>\n		<meta property="og:title" content="Buddyville" /> \n		<meta property="og:description" content="Dive into the world of GFriend! This fan page is dedicated to the girls history and achievements." /> \n		<meta property="og:image" content="https://assets.teenvogue.com/photos/5fa97b1cae4e8fa5ef375193/16:9/w_6575,h_3698,c_limit/GFRIEND%20Press%20Photo_Photo%20Credit%20SOURCE%20MUSIC%201.jpg" /> \n		<meta property="og:site" content="https://www.buddyville.xyz/" />\n		<meta property="og:type" content="image/jpg" />\n		<meta name="twitter:site" content="summary_large_image" />\n		<meta name="twitter:creator" content="terrifiedpigeon" />\n		<meta name="twitter:title" content="Buddyville" />\n		<meta name="twitter:description" content="K-pop Infodump" />\n		<meta name="twitter:image:alt" content="Picture of gfriend" />\n		<meta charset="utf-8" />\n		<meta name="viewport" content="width=device-width, initial-scale=1" />\n		' + head + '\n	</head>\n	<body data-sveltekit-preload-data="hover">\n		<div style="display: contents">' + body + "</div>\n	</body>\n</html>\n",
     error: ({ status, message }) => '<!doctype html>\n<html lang="en">\n	<head>\n		<meta charset="utf-8" />\n		<title>' + message + `</title>
 
 		<style>
@@ -189,7 +189,7 @@ const options = {
 		<div class="error">
 			<span class="status">` + status + '</span>\n			<div class="message">\n				<h1>' + message + "</h1>\n			</div>\n		</div>\n	</body>\n</html>\n"
   },
-  version_hash: "pb8bwc"
+  version_hash: "3ucuyb"
 };
 async function get_hooks() {
   let handle;

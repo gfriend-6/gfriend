@@ -9,9 +9,11 @@ export default {
       colors: {
         // flowbite-svelte
         primary: {
-          1: "#afa4c5",
-          2: "#5f4a8c",
-          3: "#2f2546",
+          1: "#dfdae8",
+          2: "#9f92ba",
+          3: "#5f4a8c",
+          4: "#392c54",
+          5: "#130e1c"
         },
         secondary: {
           1: "#f5eeeb",

@@ -10,7 +10,7 @@ return {
 	assets: new Set([".nojekyll"]),
 	mimeTypes: {},
 	_: {
-		client: {start:"_app/immutable/entry/start.DM3nJxBf.js",app:"_app/immutable/entry/app.V6PClFGz.js",imports:["_app/immutable/entry/start.DM3nJxBf.js","_app/immutable/chunks/DdvJBtu6.js","_app/immutable/chunks/CE_swLSu.js","_app/immutable/chunks/J6ZmAdDH.js","_app/immutable/entry/app.V6PClFGz.js","_app/immutable/chunks/CE_swLSu.js","_app/immutable/chunks/BYLTsbat.js"],stylesheets:[],fonts:[],uses_env_dynamic_public:false},
+		client: {start:"_app/immutable/entry/start.CUx5PYLH.js",app:"_app/immutable/entry/app.BU_VmsSa.js",imports:["_app/immutable/entry/start.CUx5PYLH.js","_app/immutable/chunks/CITdYyKU.js","_app/immutable/chunks/DBueJji7.js","_app/immutable/chunks/Dy5kwvZB.js","_app/immutable/entry/app.BU_VmsSa.js","_app/immutable/chunks/DBueJji7.js","_app/immutable/chunks/D0RhbEBz.js"],stylesheets:[],fonts:[],uses_env_dynamic_public:false},
 		nodes: [
 			__memo(() => import('../output/server/nodes/0.js')),
 			__memo(() => import('../output/server/nodes/1.js')),
@@ -28,15 +28,15 @@ return {
 				endpoint: null
 			},
 			{
-				id: "/timeline",
-				pattern: /^\/timeline\/?$/,
-				params: [],
+				id: "/snapshots/[slug]",
+				pattern: /^\/snapshots\/([^/]+?)\/?$/,
+				params: [{"name":"slug","optional":false,"rest":false,"chained":false}],
 				page: { layouts: [0,], errors: [1,], leaf: 3 },
 				endpoint: null
 			},
 			{
-				id: "/timeline/gfriend_termination",
-				pattern: /^\/timeline\/gfriend_termination\/?$/,
+				id: "/timeline",
+				pattern: /^\/timeline\/?$/,
 				params: [],
 				page: { layouts: [0,], errors: [1,], leaf: 4 },
 				endpoint: null

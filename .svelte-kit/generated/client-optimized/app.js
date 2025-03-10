@@ -13,8 +13,8 @@ export const server_loads = [];
 
 export const dictionary = {
 		"/": [2],
-		"/timeline": [3],
-		"/timeline/gfriend_termination": [4],
+		"/snapshots/[slug]": [3],
+		"/timeline": [4],
 		"/wins": [5]
 	};
 

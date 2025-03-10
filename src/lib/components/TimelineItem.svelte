@@ -7,8 +7,8 @@
     export let title = "";
     export let date = "";
     const liClasses = "mb-10 ms-4"
-    const divClasses = "absolute w-3 h-3 bg-primary-2 rounded-full mt-1.5 -start-1.5 border border-white"
-    const timeClasses = "mb-1 text-xs font-normal leading-none text-gray-500 dark:text-gray-500"
+    const divClasses = "absolute w-3 h-3 bg-primary-3 rounded-full mt-1.5 -start-1.5 border border-accent-1"
+    const timeClasses = "mb-1 text-xs font-normal leading-none text-primary-3 dark:text-gray-500"
     const h3Cls = "text-md font-semibold text-gray-900 dark:text-white"
     </script>
     
@@ -22,8 +22,8 @@
         {#if desc}
         <button on:click={() => open = !open} class="justify-between flex">
             {title}
-            <div class="justify-center ms-2 items-center w-6 h-6 bg-gray-200 rounded-full">
-            <ChevronDownOutline class="w-6 h-6 ms-0 text-black" />
+            <div class="justify-center ms-2 items-center w-6 h-6 bg-accent-2 rounded-full">
+            <ChevronDownOutline class="w-6 h-6 ms-0 text-accent-5" />
             </div>
         </button>
         {:else}

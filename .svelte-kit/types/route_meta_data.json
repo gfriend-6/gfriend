@@ -3,10 +3,10 @@
 		"src/routes/+layout.js",
 		"src/routes/+layout.js"
 	],
-	"/timeline": [
+	"/snapshots/[slug]": [
 		"src/routes/+layout.js"
 	],
-	"/timeline/gfriend_termination": [
+	"/timeline": [
 		"src/routes/+layout.js"
 	],
 	"/wins": [

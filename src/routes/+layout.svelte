@@ -3,16 +3,17 @@
 	import Nav from '../lib/components/Nav.svelte';
 	import Footer from '../lib/components/Footer.svelte';
 </script>
-
-<div class="app bg-background">
+<header>
 	<Nav />
+</header>
+<div class="app bg-background">
 	<main>
 		<slot />
 	</main>
-	<Footer />
-
 </div>
-
+<footer>
+	<Footer />
+</footer>
 <style>
 	.app {
 		display: flex;

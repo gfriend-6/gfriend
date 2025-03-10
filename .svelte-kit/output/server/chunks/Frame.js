@@ -1,6 +1,9 @@
 import { c as create_ssr_component, a as compute_rest_props, s as setContext, l as createEventDispatcher, b as spread, h as add_attribute, d as escape_attribute_value, f as escape_object } from "./ssr.js";
-import { i as is_void } from "./names.js";
 import { twMerge } from "tailwind-merge";
+const void_element_names = /^(?:area|base|br|col|command|embed|hr|img|input|keygen|link|meta|param|source|track|wbr)$/;
+function is_void(name) {
+  return void_element_names.test(name) || name.toLowerCase() === "!doctype";
+}
 const bgColors = {
   gray: "bg-gray-50 dark:bg-gray-800",
   red: "bg-red-50 dark:bg-gray-800",
@@ -137,5 +140,6 @@ const Frame = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   })(tag)}` : ``}`} `;
 });
 export {
-  Frame as F
+  Frame as F,
+  is_void as i
 };

@@ -1,9 +1,9 @@
 <script>
   import { Card, Checkbox, Button, DropdownDivider, Dropdown, DropdownItem } from 'flowbite-svelte';
-  import TimelineItem from '../../lib/components/TimelineItem.svelte'
-  import Timeline from '../../lib/components/Timeline.svelte'
+  import TimelineItem from '$lib/components/TimelineItem.svelte'
+  import Timeline from '$lib/components/Timeline.svelte'
   import { ChevronDownOutline } from "flowbite-svelte-icons";
-  import { hybe_timeline } from "../../lib/data/timeline.js";
+  import { hybe_timeline } from "$lib/data/timeline.js";
   let timeline_events = hybe_timeline["events"];
   const static_all_true = {
     'Music': true,
@@ -150,10 +150,9 @@
       {#if checkCheckbox(item["labels"])}
         <TimelineItem title={item["title"]} date={item["date"]} desc={(item["text"] || item["sources"].length != 0) ? true : false }>
           <p class="mb-4 text-base font-normal text-gray-500 text-sm">
-            <br />
             {item["text"]}
             {#if item["notes"] != ""}
-              <br /><i>Note: {item["notes"]}</i>
+            <br /><br /><i>Note: {item["notes"]}</i>
             {/if}
             {#if item["text"] != ""}
             <br /><br />

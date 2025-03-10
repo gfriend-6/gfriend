@@ -1,9 +1,8 @@
-import { c as create_ssr_component, a as compute_rest_props, l as createEventDispatcher, h as add_attribute, v as validate_component, s as setContext, j as compute_slots, b as spread, f as escape_object, d as escape_attribute_value, g as getContext } from "./ssr.js";
+import { c as create_ssr_component, a as compute_rest_props, l as createEventDispatcher, h as add_attribute, v as validate_component, s as setContext, k as compute_slots, b as spread, f as escape_object, d as escape_attribute_value, g as getContext } from "./ssr.js";
 import { twJoin, twMerge } from "tailwind-merge";
 import * as dom from "@floating-ui/dom";
-import { F as Frame } from "./Frame.js";
+import { F as Frame, i as is_void } from "./Frame.js";
 import { w as writable } from "./index.js";
-import { i as is_void } from "./names.js";
 const Popper = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let middleware;
   let $$restProps = compute_rest_props($$props, [

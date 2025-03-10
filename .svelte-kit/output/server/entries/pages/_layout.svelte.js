@@ -1,10 +1,9 @@
 import { c as create_ssr_component, a as compute_rest_props, g as getContext, b as spread, e as escape, d as escape_attribute_value, f as escape_object, h as add_attribute, i as subscribe, s as setContext, v as validate_component } from "../../chunks/ssr.js";
 /* empty css               */
 import { D as Dropdown, a as DropdownItem, b as DropdownDivider } from "../../chunks/DropdownItem.js";
-import { F as Frame } from "../../chunks/Frame.js";
+import { F as Frame, i as is_void } from "../../chunks/Frame.js";
 import { twMerge } from "tailwind-merge";
 import { w as writable } from "../../chunks/index.js";
-import { i as is_void } from "../../chunks/names.js";
 import { C as ChevronDownOutline } from "../../chunks/ChevronDownOutline.js";
 import { p as page } from "../../chunks/stores.js";
 function sineIn(t) {
