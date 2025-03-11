@@ -2,14 +2,14 @@
   import { Navbar, NavBrand, NavLi, NavUl, NavHamburger, Dropdown, DropdownItem, DropdownDivider } from 'flowbite-svelte';
   import { ChevronDownOutline } from 'flowbite-svelte-icons';
   import { page } from '$app/stores';
-  import logo from '$lib/images/logo.jpg';
+  import logo from '$lib/images/logo.png';
 
   $: activeUrl = $page.url.pathname;
 </script>
 <div class="w-full bg-primary-2">
 <Navbar class="w-4/5 place-self-center mx-auto">
   <NavBrand href="/">
-    <img src={logo} class="me-3 h-auto" alt="logo"/>
+    <img src={logo} class="me-3 h-fit" alt="logo"/>
     <span class="self-center whitespace-nowrap text-xl font-semibold text-black">Eye of the Storm</span>
   </NavBrand>
   <NavHamburger />
