@@ -1,4 +1,4 @@
-import { p as onDestroy, c as create_ssr_component, b as spread, h as add_attribute, f as escape_object, v as validate_component } from "../../../chunks/ssr.js";
+import { o as onDestroy, c as create_ssr_component, b as spread, h as add_attribute, f as escape_object, v as validate_component } from "../../../chunks/ssr.js";
 import { Chart as Chart$2, LineController, Title, Tooltip, Legend, LineElement, LinearScale, PointElement, CategoryScale } from "chart.js";
 import { C as Card } from "../../../chunks/Card.js";
 /* empty css                  */

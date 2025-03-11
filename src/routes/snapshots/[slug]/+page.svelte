@@ -7,11 +7,12 @@
     Dropdown,
     DropdownItem,
   } from "flowbite-svelte";
-  import { page, updated } from "$app/state";
+  import { afterNavigate } from '$app/navigation';
+  import { page } from "$app/state";
   import TimelineItem from "$lib/components/TimelineItem.svelte";
   import Timeline from "$lib/components/Timeline.svelte";
   import { timeline } from "$lib/data/snapshots.js";
-  function alligator() {
+  afterNavigate(() => {
     let snapshots2 = [];
     for (let snapshot in timeline["events"]) {
       if (parseInt(slug) in timeline["events"][snapshot]["snapshots"]) {
@@ -20,7 +21,7 @@
     }
     console.log(snapshots2)
     return snapshots2
-  }
+  });
   let snapshots = alligator()
   let slug = (page.params.slug);
 </script>

@@ -1,4 +1,4 @@
-export const hybe_timeline = {
+export const timeline = {
     labels: {
         labelCategoryNames: ['groups', 'other', 'companies', 'type'],
         groups: ['GFriend', 'NewJeans', 'LE SSERAFIM'],
@@ -21,17 +21,17 @@ export const hybe_timeline = {
             sources: ["https://m.entertain.naver.com/article/433/0000106807", "https://www.koreatimes.co.kr/www/art/2025/03/398_362674.html"]
         },
         {
-            title: "GFriend's 2nd Album: \"Time For Us\" is Released",
-            date: "January 01, 2019",
+            title: "Minji joins Source Music",
+            date: "2018",
             labels: {
-                group: ['GFriend'],
-                other: [],
+                groups: [],
+                other: ['Team N'],
                 companies: ['Source Music'],
-                type: ['Music'],
+                type: ['Trainee'],
             },
-            text: 'Time For Us is release with positive reactions.',
+            text: "",
             notes: "",
-            sources: ["https://kpopreviewed.com/2019/01/14/sunrise-gfriend/"]
+            sources: ["https://m.entertain.naver.com/article/433/0000106807", "https://www.koreatimes.co.kr/www/art/2025/03/398_362674.html"]
         },
         {
             title: "GFriend's 7th EP: \"Fever Season\" is Released",
@@ -55,7 +55,7 @@ export const hybe_timeline = {
                 type: [],
             },
             text: 'Min Hee-Jin joined BigHit (HYBE) as its Chief Brand Officer (CBO), with one of her responsibilities being to "lead the launch of a new girl group"',
-            notes: 'It can be concluded that Min Hee-Jin was set to work with Souce Music\'s "Team N" as there were no other female trainee teams, under hybe, until 2021.',
+            notes: 'It can be concluded that Min Hee-Jin was set to work with Souce Music\'s "Team N" as there hadn\'t been female trainees under BigHit since 2014.',
             sources: ["https://m.entertain.naver.com/now/article/081/0003010589"]
         },
         {

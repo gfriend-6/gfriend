@@ -11,7 +11,7 @@
 	"compatibility_date": "2025-03-07",
 	"routes": [
 		{
-			"pattern": "www.buddyville.xyz",
+			"pattern": "www.eyeofthestorm.xyz",
 			"custom_domain": true
 		}
 	]

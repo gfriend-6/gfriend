@@ -4,16 +4,10 @@ var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
 var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __require = /* @__PURE__ */ ((x) => typeof require !== "undefined" ? require : typeof Proxy !== "undefined" ? new Proxy(x, {
-  get: (a, b) => (typeof require !== "undefined" ? require : a)[b]
-}) : x)(function(x) {
-  if (typeof require !== "undefined") return require.apply(this, arguments);
-  throw Error('Dynamic require of "' + x + '" is not supported');
-});
 var __esm = (fn, res) => function __init() {
   return fn && (res = (0, fn[__getOwnPropNames(fn)[0]])(fn = 0)), res;
 };
-var __commonJS = (cb, mod) => function __require2() {
+var __commonJS = (cb, mod) => function __require() {
   return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
 var __export = (target, all) => {
@@ -67,13 +61,6 @@ function compute_rest_props(props, keys) {
   keys = new Set(keys);
   for (const k in props) if (!keys.has(k) && k[0] !== "$") rest[k] = props[k];
   return rest;
-}
-function compute_slots(slots) {
-  const result = {};
-  for (const key2 in slots) {
-    result[key2] = true;
-  }
-  return result;
 }
 function custom_event(type, detail, { bubbles = false, cancelable = false } = {}) {
   return new CustomEvent(type, { detail, bubbles, cancelable });
@@ -250,8 +237,8 @@ function create_ssr_component(fn) {
   };
 }
 function add_attribute(name, value, boolean) {
-  if (value == null || boolean && !value) return "";
-  const assignment = boolean && value === true ? "" : `="${escape(value, true)}"`;
+  if (value == null || boolean) return "";
+  const assignment = `="${escape(value, true)}"`;
   return ` ${name}${assignment}`;
 }
 function style_object_to_string(style_object) {
@@ -404,77 +391,6 @@ function allow_nodejs_console_log(url) {
     };
   }
 }
-function validator(expected) {
-  function validate(module, file) {
-    if (!module) return;
-    for (const key2 in module) {
-      if (key2[0] === "_" || expected.has(key2)) continue;
-      const values = [...expected.values()];
-      const hint = hint_for_supported_files(key2, file?.slice(file.lastIndexOf("."))) ?? `valid exports are ${values.join(", ")}, or anything with a '_' prefix`;
-      throw new Error(`Invalid export '${key2}'${file ? ` in ${file}` : ""} (${hint})`);
-    }
-  }
-  return validate;
-}
-function hint_for_supported_files(key2, ext = ".js") {
-  const supported_files = [];
-  if (valid_layout_exports.has(key2)) {
-    supported_files.push(`+layout${ext}`);
-  }
-  if (valid_page_exports.has(key2)) {
-    supported_files.push(`+page${ext}`);
-  }
-  if (valid_layout_server_exports.has(key2)) {
-    supported_files.push(`+layout.server${ext}`);
-  }
-  if (valid_page_server_exports.has(key2)) {
-    supported_files.push(`+page.server${ext}`);
-  }
-  if (valid_server_exports.has(key2)) {
-    supported_files.push(`+server${ext}`);
-  }
-  if (supported_files.length > 0) {
-    return `'${key2}' is a valid export in ${supported_files.slice(0, -1).join(", ")}${supported_files.length > 1 ? " or " : ""}${supported_files.at(-1)}`;
-  }
-}
-var internal, valid_layout_exports, valid_page_exports, valid_layout_server_exports, valid_page_server_exports, valid_server_exports, validate_layout_exports, validate_page_exports, validate_layout_server_exports, validate_page_server_exports, validate_server_exports;
-var init_exports = __esm({
-  ".svelte-kit/output/server/chunks/exports.js"() {
-    internal = new URL("sveltekit-internal://");
-    valid_layout_exports = /* @__PURE__ */ new Set([
-      "load",
-      "prerender",
-      "csr",
-      "ssr",
-      "trailingSlash",
-      "config"
-    ]);
-    valid_page_exports = /* @__PURE__ */ new Set([...valid_layout_exports, "entries"]);
-    valid_layout_server_exports = /* @__PURE__ */ new Set([...valid_layout_exports]);
-    valid_page_server_exports = /* @__PURE__ */ new Set([...valid_layout_server_exports, "actions", "entries"]);
-    valid_server_exports = /* @__PURE__ */ new Set([
-      "GET",
-      "POST",
-      "PATCH",
-      "PUT",
-      "DELETE",
-      "OPTIONS",
-      "HEAD",
-      "fallback",
-      "prerender",
-      "trailingSlash",
-      "config",
-      "entries"
-    ]);
-    validate_layout_exports = validator(valid_layout_exports);
-    validate_page_exports = validator(valid_page_exports);
-    validate_layout_server_exports = validator(valid_layout_server_exports);
-    validate_page_server_exports = validator(valid_page_server_exports);
-    validate_server_exports = validator(valid_server_exports);
-  }
-});
-
-// .svelte-kit/output/server/chunks/index.js
 function readable(value, start) {
   return {
     subscribe: writable(value, start).subscribe
@@ -521,11 +437,75 @@ function writable(value, start = noop) {
   }
   return { set: set2, update, subscribe: subscribe2 };
 }
-var subscriber_queue;
-var init_chunks = __esm({
-  ".svelte-kit/output/server/chunks/index.js"() {
+function validator(expected) {
+  function validate(module, file) {
+    if (!module) return;
+    for (const key2 in module) {
+      if (key2[0] === "_" || expected.has(key2)) continue;
+      const values = [...expected.values()];
+      const hint = hint_for_supported_files(key2, file?.slice(file.lastIndexOf("."))) ?? `valid exports are ${values.join(", ")}, or anything with a '_' prefix`;
+      throw new Error(`Invalid export '${key2}'${file ? ` in ${file}` : ""} (${hint})`);
+    }
+  }
+  return validate;
+}
+function hint_for_supported_files(key2, ext = ".js") {
+  const supported_files = [];
+  if (valid_layout_exports.has(key2)) {
+    supported_files.push(`+layout${ext}`);
+  }
+  if (valid_page_exports.has(key2)) {
+    supported_files.push(`+page${ext}`);
+  }
+  if (valid_layout_server_exports.has(key2)) {
+    supported_files.push(`+layout.server${ext}`);
+  }
+  if (valid_page_server_exports.has(key2)) {
+    supported_files.push(`+page.server${ext}`);
+  }
+  if (valid_server_exports.has(key2)) {
+    supported_files.push(`+server${ext}`);
+  }
+  if (supported_files.length > 0) {
+    return `'${key2}' is a valid export in ${supported_files.slice(0, -1).join(", ")}${supported_files.length > 1 ? " or " : ""}${supported_files.at(-1)}`;
+  }
+}
+var internal, subscriber_queue, valid_layout_exports, valid_page_exports, valid_layout_server_exports, valid_page_server_exports, valid_server_exports, validate_layout_exports, validate_page_exports, validate_layout_server_exports, validate_page_server_exports, validate_server_exports;
+var init_exports = __esm({
+  ".svelte-kit/output/server/chunks/exports.js"() {
     init_ssr();
+    internal = new URL("sveltekit-internal://");
     subscriber_queue = [];
+    valid_layout_exports = /* @__PURE__ */ new Set([
+      "load",
+      "prerender",
+      "csr",
+      "ssr",
+      "trailingSlash",
+      "config"
+    ]);
+    valid_page_exports = /* @__PURE__ */ new Set([...valid_layout_exports, "entries"]);
+    valid_layout_server_exports = /* @__PURE__ */ new Set([...valid_layout_exports]);
+    valid_page_server_exports = /* @__PURE__ */ new Set([...valid_layout_server_exports, "actions", "entries"]);
+    valid_server_exports = /* @__PURE__ */ new Set([
+      "GET",
+      "POST",
+      "PATCH",
+      "PUT",
+      "DELETE",
+      "OPTIONS",
+      "HEAD",
+      "fallback",
+      "prerender",
+      "trailingSlash",
+      "config",
+      "entries"
+    ]);
+    validate_layout_exports = validator(valid_layout_exports);
+    validate_page_exports = validator(valid_page_exports);
+    validate_layout_server_exports = validator(valid_layout_server_exports);
+    validate_page_server_exports = validator(valid_page_server_exports);
+    validate_server_exports = validator(valid_server_exports);
   }
 });
 
@@ -706,9 +686,9 @@ var require_set_cookie = __commonJS({
         value
       };
       parts.forEach(function(part) {
-        var sides2 = part.split("=");
-        var key2 = sides2.shift().trimLeft().toLowerCase();
-        var value2 = sides2.join("=");
+        var sides = part.split("=");
+        var key2 = sides.shift().trimLeft().toLowerCase();
+        var value2 = sides.join("=");
         if (key2 === "expires") {
           cookie.expires = new Date(value2);
         } else if (key2 === "max-age") {
@@ -3320,1337 +3300,6 @@ var init_bundle_mjs = __esm({
   }
 });
 
-// node_modules/@floating-ui/utils/dist/floating-ui.utils.mjs
-function clamp(start, value, end) {
-  return max(start, min(value, end));
-}
-function evaluate(value, param) {
-  return typeof value === "function" ? value(param) : value;
-}
-function getSide(placement) {
-  return placement.split("-")[0];
-}
-function getAlignment(placement) {
-  return placement.split("-")[1];
-}
-function getOppositeAxis(axis) {
-  return axis === "x" ? "y" : "x";
-}
-function getAxisLength(axis) {
-  return axis === "y" ? "height" : "width";
-}
-function getSideAxis(placement) {
-  return ["top", "bottom"].includes(getSide(placement)) ? "y" : "x";
-}
-function getAlignmentAxis(placement) {
-  return getOppositeAxis(getSideAxis(placement));
-}
-function getAlignmentSides(placement, rects, rtl) {
-  if (rtl === void 0) {
-    rtl = false;
-  }
-  const alignment = getAlignment(placement);
-  const alignmentAxis = getAlignmentAxis(placement);
-  const length = getAxisLength(alignmentAxis);
-  let mainAlignmentSide = alignmentAxis === "x" ? alignment === (rtl ? "end" : "start") ? "right" : "left" : alignment === "start" ? "bottom" : "top";
-  if (rects.reference[length] > rects.floating[length]) {
-    mainAlignmentSide = getOppositePlacement(mainAlignmentSide);
-  }
-  return [mainAlignmentSide, getOppositePlacement(mainAlignmentSide)];
-}
-function getExpandedPlacements(placement) {
-  const oppositePlacement = getOppositePlacement(placement);
-  return [getOppositeAlignmentPlacement(placement), oppositePlacement, getOppositeAlignmentPlacement(oppositePlacement)];
-}
-function getOppositeAlignmentPlacement(placement) {
-  return placement.replace(/start|end/g, (alignment) => oppositeAlignmentMap[alignment]);
-}
-function getSideList(side, isStart, rtl) {
-  const lr = ["left", "right"];
-  const rl = ["right", "left"];
-  const tb = ["top", "bottom"];
-  const bt = ["bottom", "top"];
-  switch (side) {
-    case "top":
-    case "bottom":
-      if (rtl) return isStart ? rl : lr;
-      return isStart ? lr : rl;
-    case "left":
-    case "right":
-      return isStart ? tb : bt;
-    default:
-      return [];
-  }
-}
-function getOppositeAxisPlacements(placement, flipAlignment, direction, rtl) {
-  const alignment = getAlignment(placement);
-  let list = getSideList(getSide(placement), direction === "start", rtl);
-  if (alignment) {
-    list = list.map((side) => side + "-" + alignment);
-    if (flipAlignment) {
-      list = list.concat(list.map(getOppositeAlignmentPlacement));
-    }
-  }
-  return list;
-}
-function getOppositePlacement(placement) {
-  return placement.replace(/left|right|bottom|top/g, (side) => oppositeSideMap[side]);
-}
-function expandPaddingObject(padding) {
-  return {
-    top: 0,
-    right: 0,
-    bottom: 0,
-    left: 0,
-    ...padding
-  };
-}
-function getPaddingObject(padding) {
-  return typeof padding !== "number" ? expandPaddingObject(padding) : {
-    top: padding,
-    right: padding,
-    bottom: padding,
-    left: padding
-  };
-}
-function rectToClientRect(rect) {
-  const {
-    x,
-    y,
-    width,
-    height
-  } = rect;
-  return {
-    width,
-    height,
-    top: y,
-    left: x,
-    right: x + width,
-    bottom: y + height,
-    x,
-    y
-  };
-}
-var min, max, round, floor, createCoords, oppositeSideMap, oppositeAlignmentMap;
-var init_floating_ui_utils = __esm({
-  "node_modules/@floating-ui/utils/dist/floating-ui.utils.mjs"() {
-    min = Math.min;
-    max = Math.max;
-    round = Math.round;
-    floor = Math.floor;
-    createCoords = (v) => ({
-      x: v,
-      y: v
-    });
-    oppositeSideMap = {
-      left: "right",
-      right: "left",
-      bottom: "top",
-      top: "bottom"
-    };
-    oppositeAlignmentMap = {
-      start: "end",
-      end: "start"
-    };
-  }
-});
-
-// node_modules/@floating-ui/core/dist/floating-ui.core.mjs
-function computeCoordsFromPlacement(_ref, placement, rtl) {
-  let {
-    reference,
-    floating
-  } = _ref;
-  const sideAxis = getSideAxis(placement);
-  const alignmentAxis = getAlignmentAxis(placement);
-  const alignLength = getAxisLength(alignmentAxis);
-  const side = getSide(placement);
-  const isVertical = sideAxis === "y";
-  const commonX = reference.x + reference.width / 2 - floating.width / 2;
-  const commonY = reference.y + reference.height / 2 - floating.height / 2;
-  const commonAlign = reference[alignLength] / 2 - floating[alignLength] / 2;
-  let coords;
-  switch (side) {
-    case "top":
-      coords = {
-        x: commonX,
-        y: reference.y - floating.height
-      };
-      break;
-    case "bottom":
-      coords = {
-        x: commonX,
-        y: reference.y + reference.height
-      };
-      break;
-    case "right":
-      coords = {
-        x: reference.x + reference.width,
-        y: commonY
-      };
-      break;
-    case "left":
-      coords = {
-        x: reference.x - floating.width,
-        y: commonY
-      };
-      break;
-    default:
-      coords = {
-        x: reference.x,
-        y: reference.y
-      };
-  }
-  switch (getAlignment(placement)) {
-    case "start":
-      coords[alignmentAxis] -= commonAlign * (rtl && isVertical ? -1 : 1);
-      break;
-    case "end":
-      coords[alignmentAxis] += commonAlign * (rtl && isVertical ? -1 : 1);
-      break;
-  }
-  return coords;
-}
-async function detectOverflow(state, options2) {
-  var _await$platform$isEle;
-  if (options2 === void 0) {
-    options2 = {};
-  }
-  const {
-    x,
-    y,
-    platform: platform2,
-    rects,
-    elements,
-    strategy
-  } = state;
-  const {
-    boundary = "clippingAncestors",
-    rootBoundary = "viewport",
-    elementContext = "floating",
-    altBoundary = false,
-    padding = 0
-  } = evaluate(options2, state);
-  const paddingObject = getPaddingObject(padding);
-  const altContext = elementContext === "floating" ? "reference" : "floating";
-  const element = elements[altBoundary ? altContext : elementContext];
-  const clippingClientRect = rectToClientRect(await platform2.getClippingRect({
-    element: ((_await$platform$isEle = await (platform2.isElement == null ? void 0 : platform2.isElement(element))) != null ? _await$platform$isEle : true) ? element : element.contextElement || await (platform2.getDocumentElement == null ? void 0 : platform2.getDocumentElement(elements.floating)),
-    boundary,
-    rootBoundary,
-    strategy
-  }));
-  const rect = elementContext === "floating" ? {
-    x,
-    y,
-    width: rects.floating.width,
-    height: rects.floating.height
-  } : rects.reference;
-  const offsetParent = await (platform2.getOffsetParent == null ? void 0 : platform2.getOffsetParent(elements.floating));
-  const offsetScale = await (platform2.isElement == null ? void 0 : platform2.isElement(offsetParent)) ? await (platform2.getScale == null ? void 0 : platform2.getScale(offsetParent)) || {
-    x: 1,
-    y: 1
-  } : {
-    x: 1,
-    y: 1
-  };
-  const elementClientRect = rectToClientRect(platform2.convertOffsetParentRelativeRectToViewportRelativeRect ? await platform2.convertOffsetParentRelativeRectToViewportRelativeRect({
-    elements,
-    rect,
-    offsetParent,
-    strategy
-  }) : rect);
-  return {
-    top: (clippingClientRect.top - elementClientRect.top + paddingObject.top) / offsetScale.y,
-    bottom: (elementClientRect.bottom - clippingClientRect.bottom + paddingObject.bottom) / offsetScale.y,
-    left: (clippingClientRect.left - elementClientRect.left + paddingObject.left) / offsetScale.x,
-    right: (elementClientRect.right - clippingClientRect.right + paddingObject.right) / offsetScale.x
-  };
-}
-async function convertValueToCoords(state, options2) {
-  const {
-    placement,
-    platform: platform2,
-    elements
-  } = state;
-  const rtl = await (platform2.isRTL == null ? void 0 : platform2.isRTL(elements.floating));
-  const side = getSide(placement);
-  const alignment = getAlignment(placement);
-  const isVertical = getSideAxis(placement) === "y";
-  const mainAxisMulti = ["left", "top"].includes(side) ? -1 : 1;
-  const crossAxisMulti = rtl && isVertical ? -1 : 1;
-  const rawValue = evaluate(options2, state);
-  let {
-    mainAxis,
-    crossAxis,
-    alignmentAxis
-  } = typeof rawValue === "number" ? {
-    mainAxis: rawValue,
-    crossAxis: 0,
-    alignmentAxis: null
-  } : {
-    mainAxis: rawValue.mainAxis || 0,
-    crossAxis: rawValue.crossAxis || 0,
-    alignmentAxis: rawValue.alignmentAxis
-  };
-  if (alignment && typeof alignmentAxis === "number") {
-    crossAxis = alignment === "end" ? alignmentAxis * -1 : alignmentAxis;
-  }
-  return isVertical ? {
-    x: crossAxis * crossAxisMulti,
-    y: mainAxis * mainAxisMulti
-  } : {
-    x: mainAxis * mainAxisMulti,
-    y: crossAxis * crossAxisMulti
-  };
-}
-var computePosition, flip, offset, shift;
-var init_floating_ui_core = __esm({
-  "node_modules/@floating-ui/core/dist/floating-ui.core.mjs"() {
-    init_floating_ui_utils();
-    init_floating_ui_utils();
-    computePosition = async (reference, floating, config) => {
-      const {
-        placement = "bottom",
-        strategy = "absolute",
-        middleware = [],
-        platform: platform2
-      } = config;
-      const validMiddleware = middleware.filter(Boolean);
-      const rtl = await (platform2.isRTL == null ? void 0 : platform2.isRTL(floating));
-      let rects = await platform2.getElementRects({
-        reference,
-        floating,
-        strategy
-      });
-      let {
-        x,
-        y
-      } = computeCoordsFromPlacement(rects, placement, rtl);
-      let statefulPlacement = placement;
-      let middlewareData = {};
-      let resetCount = 0;
-      for (let i = 0; i < validMiddleware.length; i++) {
-        const {
-          name,
-          fn
-        } = validMiddleware[i];
-        const {
-          x: nextX,
-          y: nextY,
-          data,
-          reset: reset2
-        } = await fn({
-          x,
-          y,
-          initialPlacement: placement,
-          placement: statefulPlacement,
-          strategy,
-          middlewareData,
-          rects,
-          platform: platform2,
-          elements: {
-            reference,
-            floating
-          }
-        });
-        x = nextX != null ? nextX : x;
-        y = nextY != null ? nextY : y;
-        middlewareData = {
-          ...middlewareData,
-          [name]: {
-            ...middlewareData[name],
-            ...data
-          }
-        };
-        if (reset2 && resetCount <= 50) {
-          resetCount++;
-          if (typeof reset2 === "object") {
-            if (reset2.placement) {
-              statefulPlacement = reset2.placement;
-            }
-            if (reset2.rects) {
-              rects = reset2.rects === true ? await platform2.getElementRects({
-                reference,
-                floating,
-                strategy
-              }) : reset2.rects;
-            }
-            ({
-              x,
-              y
-            } = computeCoordsFromPlacement(rects, statefulPlacement, rtl));
-          }
-          i = -1;
-        }
-      }
-      return {
-        x,
-        y,
-        placement: statefulPlacement,
-        strategy,
-        middlewareData
-      };
-    };
-    flip = function(options2) {
-      if (options2 === void 0) {
-        options2 = {};
-      }
-      return {
-        name: "flip",
-        options: options2,
-        async fn(state) {
-          var _middlewareData$arrow, _middlewareData$flip;
-          const {
-            placement,
-            middlewareData,
-            rects,
-            initialPlacement,
-            platform: platform2,
-            elements
-          } = state;
-          const {
-            mainAxis: checkMainAxis = true,
-            crossAxis: checkCrossAxis = true,
-            fallbackPlacements: specifiedFallbackPlacements,
-            fallbackStrategy = "bestFit",
-            fallbackAxisSideDirection = "none",
-            flipAlignment = true,
-            ...detectOverflowOptions
-          } = evaluate(options2, state);
-          if ((_middlewareData$arrow = middlewareData.arrow) != null && _middlewareData$arrow.alignmentOffset) {
-            return {};
-          }
-          const side = getSide(placement);
-          const initialSideAxis = getSideAxis(initialPlacement);
-          const isBasePlacement = getSide(initialPlacement) === initialPlacement;
-          const rtl = await (platform2.isRTL == null ? void 0 : platform2.isRTL(elements.floating));
-          const fallbackPlacements = specifiedFallbackPlacements || (isBasePlacement || !flipAlignment ? [getOppositePlacement(initialPlacement)] : getExpandedPlacements(initialPlacement));
-          const hasFallbackAxisSideDirection = fallbackAxisSideDirection !== "none";
-          if (!specifiedFallbackPlacements && hasFallbackAxisSideDirection) {
-            fallbackPlacements.push(...getOppositeAxisPlacements(initialPlacement, flipAlignment, fallbackAxisSideDirection, rtl));
-          }
-          const placements2 = [initialPlacement, ...fallbackPlacements];
-          const overflow = await detectOverflow(state, detectOverflowOptions);
-          const overflows = [];
-          let overflowsData = ((_middlewareData$flip = middlewareData.flip) == null ? void 0 : _middlewareData$flip.overflows) || [];
-          if (checkMainAxis) {
-            overflows.push(overflow[side]);
-          }
-          if (checkCrossAxis) {
-            const sides2 = getAlignmentSides(placement, rects, rtl);
-            overflows.push(overflow[sides2[0]], overflow[sides2[1]]);
-          }
-          overflowsData = [...overflowsData, {
-            placement,
-            overflows
-          }];
-          if (!overflows.every((side2) => side2 <= 0)) {
-            var _middlewareData$flip2, _overflowsData$filter;
-            const nextIndex = (((_middlewareData$flip2 = middlewareData.flip) == null ? void 0 : _middlewareData$flip2.index) || 0) + 1;
-            const nextPlacement = placements2[nextIndex];
-            if (nextPlacement) {
-              return {
-                data: {
-                  index: nextIndex,
-                  overflows: overflowsData
-                },
-                reset: {
-                  placement: nextPlacement
-                }
-              };
-            }
-            let resetPlacement = (_overflowsData$filter = overflowsData.filter((d) => d.overflows[0] <= 0).sort((a, b) => a.overflows[1] - b.overflows[1])[0]) == null ? void 0 : _overflowsData$filter.placement;
-            if (!resetPlacement) {
-              switch (fallbackStrategy) {
-                case "bestFit": {
-                  var _overflowsData$filter2;
-                  const placement2 = (_overflowsData$filter2 = overflowsData.filter((d) => {
-                    if (hasFallbackAxisSideDirection) {
-                      const currentSideAxis = getSideAxis(d.placement);
-                      return currentSideAxis === initialSideAxis || // Create a bias to the `y` side axis due to horizontal
-                      // reading directions favoring greater width.
-                      currentSideAxis === "y";
-                    }
-                    return true;
-                  }).map((d) => [d.placement, d.overflows.filter((overflow2) => overflow2 > 0).reduce((acc, overflow2) => acc + overflow2, 0)]).sort((a, b) => a[1] - b[1])[0]) == null ? void 0 : _overflowsData$filter2[0];
-                  if (placement2) {
-                    resetPlacement = placement2;
-                  }
-                  break;
-                }
-                case "initialPlacement":
-                  resetPlacement = initialPlacement;
-                  break;
-              }
-            }
-            if (placement !== resetPlacement) {
-              return {
-                reset: {
-                  placement: resetPlacement
-                }
-              };
-            }
-          }
-          return {};
-        }
-      };
-    };
-    offset = function(options2) {
-      if (options2 === void 0) {
-        options2 = 0;
-      }
-      return {
-        name: "offset",
-        options: options2,
-        async fn(state) {
-          var _middlewareData$offse, _middlewareData$arrow;
-          const {
-            x,
-            y,
-            placement,
-            middlewareData
-          } = state;
-          const diffCoords = await convertValueToCoords(state, options2);
-          if (placement === ((_middlewareData$offse = middlewareData.offset) == null ? void 0 : _middlewareData$offse.placement) && (_middlewareData$arrow = middlewareData.arrow) != null && _middlewareData$arrow.alignmentOffset) {
-            return {};
-          }
-          return {
-            x: x + diffCoords.x,
-            y: y + diffCoords.y,
-            data: {
-              ...diffCoords,
-              placement
-            }
-          };
-        }
-      };
-    };
-    shift = function(options2) {
-      if (options2 === void 0) {
-        options2 = {};
-      }
-      return {
-        name: "shift",
-        options: options2,
-        async fn(state) {
-          const {
-            x,
-            y,
-            placement
-          } = state;
-          const {
-            mainAxis: checkMainAxis = true,
-            crossAxis: checkCrossAxis = false,
-            limiter = {
-              fn: (_ref) => {
-                let {
-                  x: x2,
-                  y: y2
-                } = _ref;
-                return {
-                  x: x2,
-                  y: y2
-                };
-              }
-            },
-            ...detectOverflowOptions
-          } = evaluate(options2, state);
-          const coords = {
-            x,
-            y
-          };
-          const overflow = await detectOverflow(state, detectOverflowOptions);
-          const crossAxis = getSideAxis(getSide(placement));
-          const mainAxis = getOppositeAxis(crossAxis);
-          let mainAxisCoord = coords[mainAxis];
-          let crossAxisCoord = coords[crossAxis];
-          if (checkMainAxis) {
-            const minSide = mainAxis === "y" ? "top" : "left";
-            const maxSide = mainAxis === "y" ? "bottom" : "right";
-            const min2 = mainAxisCoord + overflow[minSide];
-            const max2 = mainAxisCoord - overflow[maxSide];
-            mainAxisCoord = clamp(min2, mainAxisCoord, max2);
-          }
-          if (checkCrossAxis) {
-            const minSide = crossAxis === "y" ? "top" : "left";
-            const maxSide = crossAxis === "y" ? "bottom" : "right";
-            const min2 = crossAxisCoord + overflow[minSide];
-            const max2 = crossAxisCoord - overflow[maxSide];
-            crossAxisCoord = clamp(min2, crossAxisCoord, max2);
-          }
-          const limitedCoords = limiter.fn({
-            ...state,
-            [mainAxis]: mainAxisCoord,
-            [crossAxis]: crossAxisCoord
-          });
-          return {
-            ...limitedCoords,
-            data: {
-              x: limitedCoords.x - x,
-              y: limitedCoords.y - y,
-              enabled: {
-                [mainAxis]: checkMainAxis,
-                [crossAxis]: checkCrossAxis
-              }
-            }
-          };
-        }
-      };
-    };
-  }
-});
-
-// node_modules/@floating-ui/utils/dist/floating-ui.utils.dom.mjs
-function hasWindow() {
-  return typeof window !== "undefined";
-}
-function getNodeName(node) {
-  if (isNode(node)) {
-    return (node.nodeName || "").toLowerCase();
-  }
-  return "#document";
-}
-function getWindow(node) {
-  var _node$ownerDocument;
-  return (node == null || (_node$ownerDocument = node.ownerDocument) == null ? void 0 : _node$ownerDocument.defaultView) || window;
-}
-function getDocumentElement(node) {
-  var _ref;
-  return (_ref = (isNode(node) ? node.ownerDocument : node.document) || window.document) == null ? void 0 : _ref.documentElement;
-}
-function isNode(value) {
-  if (!hasWindow()) {
-    return false;
-  }
-  return value instanceof Node || value instanceof getWindow(value).Node;
-}
-function isElement(value) {
-  if (!hasWindow()) {
-    return false;
-  }
-  return value instanceof Element || value instanceof getWindow(value).Element;
-}
-function isHTMLElement(value) {
-  if (!hasWindow()) {
-    return false;
-  }
-  return value instanceof HTMLElement || value instanceof getWindow(value).HTMLElement;
-}
-function isShadowRoot(value) {
-  if (!hasWindow() || typeof ShadowRoot === "undefined") {
-    return false;
-  }
-  return value instanceof ShadowRoot || value instanceof getWindow(value).ShadowRoot;
-}
-function isOverflowElement(element) {
-  const {
-    overflow,
-    overflowX,
-    overflowY,
-    display
-  } = getComputedStyle(element);
-  return /auto|scroll|overlay|hidden|clip/.test(overflow + overflowY + overflowX) && !["inline", "contents"].includes(display);
-}
-function isTableElement(element) {
-  return ["table", "td", "th"].includes(getNodeName(element));
-}
-function isTopLayer(element) {
-  return [":popover-open", ":modal"].some((selector) => {
-    try {
-      return element.matches(selector);
-    } catch (e3) {
-      return false;
-    }
-  });
-}
-function isContainingBlock(elementOrCss) {
-  const webkit = isWebKit();
-  const css3 = isElement(elementOrCss) ? getComputedStyle(elementOrCss) : elementOrCss;
-  return ["transform", "translate", "scale", "rotate", "perspective"].some((value) => css3[value] ? css3[value] !== "none" : false) || (css3.containerType ? css3.containerType !== "normal" : false) || !webkit && (css3.backdropFilter ? css3.backdropFilter !== "none" : false) || !webkit && (css3.filter ? css3.filter !== "none" : false) || ["transform", "translate", "scale", "rotate", "perspective", "filter"].some((value) => (css3.willChange || "").includes(value)) || ["paint", "layout", "strict", "content"].some((value) => (css3.contain || "").includes(value));
-}
-function getContainingBlock(element) {
-  let currentNode = getParentNode(element);
-  while (isHTMLElement(currentNode) && !isLastTraversableNode(currentNode)) {
-    if (isContainingBlock(currentNode)) {
-      return currentNode;
-    } else if (isTopLayer(currentNode)) {
-      return null;
-    }
-    currentNode = getParentNode(currentNode);
-  }
-  return null;
-}
-function isWebKit() {
-  if (typeof CSS === "undefined" || !CSS.supports) return false;
-  return CSS.supports("-webkit-backdrop-filter", "none");
-}
-function isLastTraversableNode(node) {
-  return ["html", "body", "#document"].includes(getNodeName(node));
-}
-function getComputedStyle(element) {
-  return getWindow(element).getComputedStyle(element);
-}
-function getNodeScroll(element) {
-  if (isElement(element)) {
-    return {
-      scrollLeft: element.scrollLeft,
-      scrollTop: element.scrollTop
-    };
-  }
-  return {
-    scrollLeft: element.scrollX,
-    scrollTop: element.scrollY
-  };
-}
-function getParentNode(node) {
-  if (getNodeName(node) === "html") {
-    return node;
-  }
-  const result = (
-    // Step into the shadow DOM of the parent of a slotted node.
-    node.assignedSlot || // DOM Element detected.
-    node.parentNode || // ShadowRoot detected.
-    isShadowRoot(node) && node.host || // Fallback.
-    getDocumentElement(node)
-  );
-  return isShadowRoot(result) ? result.host : result;
-}
-function getNearestOverflowAncestor(node) {
-  const parentNode = getParentNode(node);
-  if (isLastTraversableNode(parentNode)) {
-    return node.ownerDocument ? node.ownerDocument.body : node.body;
-  }
-  if (isHTMLElement(parentNode) && isOverflowElement(parentNode)) {
-    return parentNode;
-  }
-  return getNearestOverflowAncestor(parentNode);
-}
-function getOverflowAncestors(node, list, traverseIframes) {
-  var _node$ownerDocument2;
-  if (list === void 0) {
-    list = [];
-  }
-  if (traverseIframes === void 0) {
-    traverseIframes = true;
-  }
-  const scrollableAncestor = getNearestOverflowAncestor(node);
-  const isBody = scrollableAncestor === ((_node$ownerDocument2 = node.ownerDocument) == null ? void 0 : _node$ownerDocument2.body);
-  const win = getWindow(scrollableAncestor);
-  if (isBody) {
-    const frameElement = getFrameElement(win);
-    return list.concat(win, win.visualViewport || [], isOverflowElement(scrollableAncestor) ? scrollableAncestor : [], frameElement && traverseIframes ? getOverflowAncestors(frameElement) : []);
-  }
-  return list.concat(scrollableAncestor, getOverflowAncestors(scrollableAncestor, [], traverseIframes));
-}
-function getFrameElement(win) {
-  return win.parent && Object.getPrototypeOf(win.parent) ? win.frameElement : null;
-}
-var init_floating_ui_utils_dom = __esm({
-  "node_modules/@floating-ui/utils/dist/floating-ui.utils.dom.mjs"() {
-  }
-});
-
-// node_modules/@floating-ui/dom/dist/floating-ui.dom.mjs
-function getCssDimensions(element) {
-  const css3 = getComputedStyle(element);
-  let width = parseFloat(css3.width) || 0;
-  let height = parseFloat(css3.height) || 0;
-  const hasOffset = isHTMLElement(element);
-  const offsetWidth = hasOffset ? element.offsetWidth : width;
-  const offsetHeight = hasOffset ? element.offsetHeight : height;
-  const shouldFallback = round(width) !== offsetWidth || round(height) !== offsetHeight;
-  if (shouldFallback) {
-    width = offsetWidth;
-    height = offsetHeight;
-  }
-  return {
-    width,
-    height,
-    $: shouldFallback
-  };
-}
-function unwrapElement(element) {
-  return !isElement(element) ? element.contextElement : element;
-}
-function getScale(element) {
-  const domElement = unwrapElement(element);
-  if (!isHTMLElement(domElement)) {
-    return createCoords(1);
-  }
-  const rect = domElement.getBoundingClientRect();
-  const {
-    width,
-    height,
-    $
-  } = getCssDimensions(domElement);
-  let x = ($ ? round(rect.width) : rect.width) / width;
-  let y = ($ ? round(rect.height) : rect.height) / height;
-  if (!x || !Number.isFinite(x)) {
-    x = 1;
-  }
-  if (!y || !Number.isFinite(y)) {
-    y = 1;
-  }
-  return {
-    x,
-    y
-  };
-}
-function getVisualOffsets(element) {
-  const win = getWindow(element);
-  if (!isWebKit() || !win.visualViewport) {
-    return noOffsets;
-  }
-  return {
-    x: win.visualViewport.offsetLeft,
-    y: win.visualViewport.offsetTop
-  };
-}
-function shouldAddVisualOffsets(element, isFixed, floatingOffsetParent) {
-  if (isFixed === void 0) {
-    isFixed = false;
-  }
-  if (!floatingOffsetParent || isFixed && floatingOffsetParent !== getWindow(element)) {
-    return false;
-  }
-  return isFixed;
-}
-function getBoundingClientRect(element, includeScale, isFixedStrategy, offsetParent) {
-  if (includeScale === void 0) {
-    includeScale = false;
-  }
-  if (isFixedStrategy === void 0) {
-    isFixedStrategy = false;
-  }
-  const clientRect = element.getBoundingClientRect();
-  const domElement = unwrapElement(element);
-  let scale = createCoords(1);
-  if (includeScale) {
-    if (offsetParent) {
-      if (isElement(offsetParent)) {
-        scale = getScale(offsetParent);
-      }
-    } else {
-      scale = getScale(element);
-    }
-  }
-  const visualOffsets = shouldAddVisualOffsets(domElement, isFixedStrategy, offsetParent) ? getVisualOffsets(domElement) : createCoords(0);
-  let x = (clientRect.left + visualOffsets.x) / scale.x;
-  let y = (clientRect.top + visualOffsets.y) / scale.y;
-  let width = clientRect.width / scale.x;
-  let height = clientRect.height / scale.y;
-  if (domElement) {
-    const win = getWindow(domElement);
-    const offsetWin = offsetParent && isElement(offsetParent) ? getWindow(offsetParent) : offsetParent;
-    let currentWin = win;
-    let currentIFrame = getFrameElement(currentWin);
-    while (currentIFrame && offsetParent && offsetWin !== currentWin) {
-      const iframeScale = getScale(currentIFrame);
-      const iframeRect = currentIFrame.getBoundingClientRect();
-      const css3 = getComputedStyle(currentIFrame);
-      const left = iframeRect.left + (currentIFrame.clientLeft + parseFloat(css3.paddingLeft)) * iframeScale.x;
-      const top = iframeRect.top + (currentIFrame.clientTop + parseFloat(css3.paddingTop)) * iframeScale.y;
-      x *= iframeScale.x;
-      y *= iframeScale.y;
-      width *= iframeScale.x;
-      height *= iframeScale.y;
-      x += left;
-      y += top;
-      currentWin = getWindow(currentIFrame);
-      currentIFrame = getFrameElement(currentWin);
-    }
-  }
-  return rectToClientRect({
-    width,
-    height,
-    x,
-    y
-  });
-}
-function getWindowScrollBarX(element, rect) {
-  const leftScroll = getNodeScroll(element).scrollLeft;
-  if (!rect) {
-    return getBoundingClientRect(getDocumentElement(element)).left + leftScroll;
-  }
-  return rect.left + leftScroll;
-}
-function getHTMLOffset(documentElement, scroll, ignoreScrollbarX) {
-  if (ignoreScrollbarX === void 0) {
-    ignoreScrollbarX = false;
-  }
-  const htmlRect = documentElement.getBoundingClientRect();
-  const x = htmlRect.left + scroll.scrollLeft - (ignoreScrollbarX ? 0 : (
-    // RTL <body> scrollbar.
-    getWindowScrollBarX(documentElement, htmlRect)
-  ));
-  const y = htmlRect.top + scroll.scrollTop;
-  return {
-    x,
-    y
-  };
-}
-function convertOffsetParentRelativeRectToViewportRelativeRect(_ref) {
-  let {
-    elements,
-    rect,
-    offsetParent,
-    strategy
-  } = _ref;
-  const isFixed = strategy === "fixed";
-  const documentElement = getDocumentElement(offsetParent);
-  const topLayer = elements ? isTopLayer(elements.floating) : false;
-  if (offsetParent === documentElement || topLayer && isFixed) {
-    return rect;
-  }
-  let scroll = {
-    scrollLeft: 0,
-    scrollTop: 0
-  };
-  let scale = createCoords(1);
-  const offsets = createCoords(0);
-  const isOffsetParentAnElement = isHTMLElement(offsetParent);
-  if (isOffsetParentAnElement || !isOffsetParentAnElement && !isFixed) {
-    if (getNodeName(offsetParent) !== "body" || isOverflowElement(documentElement)) {
-      scroll = getNodeScroll(offsetParent);
-    }
-    if (isHTMLElement(offsetParent)) {
-      const offsetRect = getBoundingClientRect(offsetParent);
-      scale = getScale(offsetParent);
-      offsets.x = offsetRect.x + offsetParent.clientLeft;
-      offsets.y = offsetRect.y + offsetParent.clientTop;
-    }
-  }
-  const htmlOffset = documentElement && !isOffsetParentAnElement && !isFixed ? getHTMLOffset(documentElement, scroll, true) : createCoords(0);
-  return {
-    width: rect.width * scale.x,
-    height: rect.height * scale.y,
-    x: rect.x * scale.x - scroll.scrollLeft * scale.x + offsets.x + htmlOffset.x,
-    y: rect.y * scale.y - scroll.scrollTop * scale.y + offsets.y + htmlOffset.y
-  };
-}
-function getClientRects(element) {
-  return Array.from(element.getClientRects());
-}
-function getDocumentRect(element) {
-  const html = getDocumentElement(element);
-  const scroll = getNodeScroll(element);
-  const body2 = element.ownerDocument.body;
-  const width = max(html.scrollWidth, html.clientWidth, body2.scrollWidth, body2.clientWidth);
-  const height = max(html.scrollHeight, html.clientHeight, body2.scrollHeight, body2.clientHeight);
-  let x = -scroll.scrollLeft + getWindowScrollBarX(element);
-  const y = -scroll.scrollTop;
-  if (getComputedStyle(body2).direction === "rtl") {
-    x += max(html.clientWidth, body2.clientWidth) - width;
-  }
-  return {
-    width,
-    height,
-    x,
-    y
-  };
-}
-function getViewportRect(element, strategy) {
-  const win = getWindow(element);
-  const html = getDocumentElement(element);
-  const visualViewport = win.visualViewport;
-  let width = html.clientWidth;
-  let height = html.clientHeight;
-  let x = 0;
-  let y = 0;
-  if (visualViewport) {
-    width = visualViewport.width;
-    height = visualViewport.height;
-    const visualViewportBased = isWebKit();
-    if (!visualViewportBased || visualViewportBased && strategy === "fixed") {
-      x = visualViewport.offsetLeft;
-      y = visualViewport.offsetTop;
-    }
-  }
-  return {
-    width,
-    height,
-    x,
-    y
-  };
-}
-function getInnerBoundingClientRect(element, strategy) {
-  const clientRect = getBoundingClientRect(element, true, strategy === "fixed");
-  const top = clientRect.top + element.clientTop;
-  const left = clientRect.left + element.clientLeft;
-  const scale = isHTMLElement(element) ? getScale(element) : createCoords(1);
-  const width = element.clientWidth * scale.x;
-  const height = element.clientHeight * scale.y;
-  const x = left * scale.x;
-  const y = top * scale.y;
-  return {
-    width,
-    height,
-    x,
-    y
-  };
-}
-function getClientRectFromClippingAncestor(element, clippingAncestor, strategy) {
-  let rect;
-  if (clippingAncestor === "viewport") {
-    rect = getViewportRect(element, strategy);
-  } else if (clippingAncestor === "document") {
-    rect = getDocumentRect(getDocumentElement(element));
-  } else if (isElement(clippingAncestor)) {
-    rect = getInnerBoundingClientRect(clippingAncestor, strategy);
-  } else {
-    const visualOffsets = getVisualOffsets(element);
-    rect = {
-      x: clippingAncestor.x - visualOffsets.x,
-      y: clippingAncestor.y - visualOffsets.y,
-      width: clippingAncestor.width,
-      height: clippingAncestor.height
-    };
-  }
-  return rectToClientRect(rect);
-}
-function hasFixedPositionAncestor(element, stopNode) {
-  const parentNode = getParentNode(element);
-  if (parentNode === stopNode || !isElement(parentNode) || isLastTraversableNode(parentNode)) {
-    return false;
-  }
-  return getComputedStyle(parentNode).position === "fixed" || hasFixedPositionAncestor(parentNode, stopNode);
-}
-function getClippingElementAncestors(element, cache) {
-  const cachedResult = cache.get(element);
-  if (cachedResult) {
-    return cachedResult;
-  }
-  let result = getOverflowAncestors(element, [], false).filter((el) => isElement(el) && getNodeName(el) !== "body");
-  let currentContainingBlockComputedStyle = null;
-  const elementIsFixed = getComputedStyle(element).position === "fixed";
-  let currentNode = elementIsFixed ? getParentNode(element) : element;
-  while (isElement(currentNode) && !isLastTraversableNode(currentNode)) {
-    const computedStyle = getComputedStyle(currentNode);
-    const currentNodeIsContaining = isContainingBlock(currentNode);
-    if (!currentNodeIsContaining && computedStyle.position === "fixed") {
-      currentContainingBlockComputedStyle = null;
-    }
-    const shouldDropCurrentNode = elementIsFixed ? !currentNodeIsContaining && !currentContainingBlockComputedStyle : !currentNodeIsContaining && computedStyle.position === "static" && !!currentContainingBlockComputedStyle && ["absolute", "fixed"].includes(currentContainingBlockComputedStyle.position) || isOverflowElement(currentNode) && !currentNodeIsContaining && hasFixedPositionAncestor(element, currentNode);
-    if (shouldDropCurrentNode) {
-      result = result.filter((ancestor) => ancestor !== currentNode);
-    } else {
-      currentContainingBlockComputedStyle = computedStyle;
-    }
-    currentNode = getParentNode(currentNode);
-  }
-  cache.set(element, result);
-  return result;
-}
-function getClippingRect(_ref) {
-  let {
-    element,
-    boundary,
-    rootBoundary,
-    strategy
-  } = _ref;
-  const elementClippingAncestors = boundary === "clippingAncestors" ? isTopLayer(element) ? [] : getClippingElementAncestors(element, this._c) : [].concat(boundary);
-  const clippingAncestors = [...elementClippingAncestors, rootBoundary];
-  const firstClippingAncestor = clippingAncestors[0];
-  const clippingRect = clippingAncestors.reduce((accRect, clippingAncestor) => {
-    const rect = getClientRectFromClippingAncestor(element, clippingAncestor, strategy);
-    accRect.top = max(rect.top, accRect.top);
-    accRect.right = min(rect.right, accRect.right);
-    accRect.bottom = min(rect.bottom, accRect.bottom);
-    accRect.left = max(rect.left, accRect.left);
-    return accRect;
-  }, getClientRectFromClippingAncestor(element, firstClippingAncestor, strategy));
-  return {
-    width: clippingRect.right - clippingRect.left,
-    height: clippingRect.bottom - clippingRect.top,
-    x: clippingRect.left,
-    y: clippingRect.top
-  };
-}
-function getDimensions(element) {
-  const {
-    width,
-    height
-  } = getCssDimensions(element);
-  return {
-    width,
-    height
-  };
-}
-function getRectRelativeToOffsetParent(element, offsetParent, strategy) {
-  const isOffsetParentAnElement = isHTMLElement(offsetParent);
-  const documentElement = getDocumentElement(offsetParent);
-  const isFixed = strategy === "fixed";
-  const rect = getBoundingClientRect(element, true, isFixed, offsetParent);
-  let scroll = {
-    scrollLeft: 0,
-    scrollTop: 0
-  };
-  const offsets = createCoords(0);
-  if (isOffsetParentAnElement || !isOffsetParentAnElement && !isFixed) {
-    if (getNodeName(offsetParent) !== "body" || isOverflowElement(documentElement)) {
-      scroll = getNodeScroll(offsetParent);
-    }
-    if (isOffsetParentAnElement) {
-      const offsetRect = getBoundingClientRect(offsetParent, true, isFixed, offsetParent);
-      offsets.x = offsetRect.x + offsetParent.clientLeft;
-      offsets.y = offsetRect.y + offsetParent.clientTop;
-    } else if (documentElement) {
-      offsets.x = getWindowScrollBarX(documentElement);
-    }
-  }
-  const htmlOffset = documentElement && !isOffsetParentAnElement && !isFixed ? getHTMLOffset(documentElement, scroll) : createCoords(0);
-  const x = rect.left + scroll.scrollLeft - offsets.x - htmlOffset.x;
-  const y = rect.top + scroll.scrollTop - offsets.y - htmlOffset.y;
-  return {
-    x,
-    y,
-    width: rect.width,
-    height: rect.height
-  };
-}
-function isStaticPositioned(element) {
-  return getComputedStyle(element).position === "static";
-}
-function getTrueOffsetParent(element, polyfill) {
-  if (!isHTMLElement(element) || getComputedStyle(element).position === "fixed") {
-    return null;
-  }
-  if (polyfill) {
-    return polyfill(element);
-  }
-  let rawOffsetParent = element.offsetParent;
-  if (getDocumentElement(element) === rawOffsetParent) {
-    rawOffsetParent = rawOffsetParent.ownerDocument.body;
-  }
-  return rawOffsetParent;
-}
-function getOffsetParent(element, polyfill) {
-  const win = getWindow(element);
-  if (isTopLayer(element)) {
-    return win;
-  }
-  if (!isHTMLElement(element)) {
-    let svgOffsetParent = getParentNode(element);
-    while (svgOffsetParent && !isLastTraversableNode(svgOffsetParent)) {
-      if (isElement(svgOffsetParent) && !isStaticPositioned(svgOffsetParent)) {
-        return svgOffsetParent;
-      }
-      svgOffsetParent = getParentNode(svgOffsetParent);
-    }
-    return win;
-  }
-  let offsetParent = getTrueOffsetParent(element, polyfill);
-  while (offsetParent && isTableElement(offsetParent) && isStaticPositioned(offsetParent)) {
-    offsetParent = getTrueOffsetParent(offsetParent, polyfill);
-  }
-  if (offsetParent && isLastTraversableNode(offsetParent) && isStaticPositioned(offsetParent) && !isContainingBlock(offsetParent)) {
-    return win;
-  }
-  return offsetParent || getContainingBlock(element) || win;
-}
-function isRTL(element) {
-  return getComputedStyle(element).direction === "rtl";
-}
-function rectsAreEqual(a, b) {
-  return a.x === b.x && a.y === b.y && a.width === b.width && a.height === b.height;
-}
-function observeMove(element, onMove) {
-  let io = null;
-  let timeoutId;
-  const root = getDocumentElement(element);
-  function cleanup() {
-    var _io;
-    clearTimeout(timeoutId);
-    (_io = io) == null || _io.disconnect();
-    io = null;
-  }
-  function refresh(skip2, threshold) {
-    if (skip2 === void 0) {
-      skip2 = false;
-    }
-    if (threshold === void 0) {
-      threshold = 1;
-    }
-    cleanup();
-    const elementRectForRootMargin = element.getBoundingClientRect();
-    const {
-      left,
-      top,
-      width,
-      height
-    } = elementRectForRootMargin;
-    if (!skip2) {
-      onMove();
-    }
-    if (!width || !height) {
-      return;
-    }
-    const insetTop = floor(top);
-    const insetRight = floor(root.clientWidth - (left + width));
-    const insetBottom = floor(root.clientHeight - (top + height));
-    const insetLeft = floor(left);
-    const rootMargin = -insetTop + "px " + -insetRight + "px " + -insetBottom + "px " + -insetLeft + "px";
-    const options2 = {
-      rootMargin,
-      threshold: max(0, min(1, threshold)) || 1
-    };
-    let isFirstUpdate = true;
-    function handleObserve(entries) {
-      const ratio = entries[0].intersectionRatio;
-      if (ratio !== threshold) {
-        if (!isFirstUpdate) {
-          return refresh();
-        }
-        if (!ratio) {
-          timeoutId = setTimeout(() => {
-            refresh(false, 1e-7);
-          }, 1e3);
-        } else {
-          refresh(false, ratio);
-        }
-      }
-      if (ratio === 1 && !rectsAreEqual(elementRectForRootMargin, element.getBoundingClientRect())) {
-        refresh();
-      }
-      isFirstUpdate = false;
-    }
-    try {
-      io = new IntersectionObserver(handleObserve, {
-        ...options2,
-        // Handle <iframe>s
-        root: root.ownerDocument
-      });
-    } catch (e3) {
-      io = new IntersectionObserver(handleObserve, options2);
-    }
-    io.observe(element);
-  }
-  refresh(true);
-  return cleanup;
-}
-function autoUpdate(reference, floating, update, options2) {
-  if (options2 === void 0) {
-    options2 = {};
-  }
-  const {
-    ancestorScroll = true,
-    ancestorResize = true,
-    elementResize = typeof ResizeObserver === "function",
-    layoutShift = typeof IntersectionObserver === "function",
-    animationFrame = false
-  } = options2;
-  const referenceEl = unwrapElement(reference);
-  const ancestors = ancestorScroll || ancestorResize ? [...referenceEl ? getOverflowAncestors(referenceEl) : [], ...getOverflowAncestors(floating)] : [];
-  ancestors.forEach((ancestor) => {
-    ancestorScroll && ancestor.addEventListener("scroll", update, {
-      passive: true
-    });
-    ancestorResize && ancestor.addEventListener("resize", update);
-  });
-  const cleanupIo = referenceEl && layoutShift ? observeMove(referenceEl, update) : null;
-  let reobserveFrame = -1;
-  let resizeObserver = null;
-  if (elementResize) {
-    resizeObserver = new ResizeObserver((_ref) => {
-      let [firstEntry] = _ref;
-      if (firstEntry && firstEntry.target === referenceEl && resizeObserver) {
-        resizeObserver.unobserve(floating);
-        cancelAnimationFrame(reobserveFrame);
-        reobserveFrame = requestAnimationFrame(() => {
-          var _resizeObserver;
-          (_resizeObserver = resizeObserver) == null || _resizeObserver.observe(floating);
-        });
-      }
-      update();
-    });
-    if (referenceEl && !animationFrame) {
-      resizeObserver.observe(referenceEl);
-    }
-    resizeObserver.observe(floating);
-  }
-  let frameId;
-  let prevRefRect = animationFrame ? getBoundingClientRect(reference) : null;
-  if (animationFrame) {
-    frameLoop();
-  }
-  function frameLoop() {
-    const nextRefRect = getBoundingClientRect(reference);
-    if (prevRefRect && !rectsAreEqual(prevRefRect, nextRefRect)) {
-      update();
-    }
-    prevRefRect = nextRefRect;
-    frameId = requestAnimationFrame(frameLoop);
-  }
-  update();
-  return () => {
-    var _resizeObserver2;
-    ancestors.forEach((ancestor) => {
-      ancestorScroll && ancestor.removeEventListener("scroll", update);
-      ancestorResize && ancestor.removeEventListener("resize", update);
-    });
-    cleanupIo == null || cleanupIo();
-    (_resizeObserver2 = resizeObserver) == null || _resizeObserver2.disconnect();
-    resizeObserver = null;
-    if (animationFrame) {
-      cancelAnimationFrame(frameId);
-    }
-  };
-}
-var noOffsets, getElementRects, platform, offset2, shift2, flip2, computePosition2;
-var init_floating_ui_dom = __esm({
-  "node_modules/@floating-ui/dom/dist/floating-ui.dom.mjs"() {
-    init_floating_ui_core();
-    init_floating_ui_utils();
-    init_floating_ui_utils_dom();
-    noOffsets = /* @__PURE__ */ createCoords(0);
-    getElementRects = async function(data) {
-      const getOffsetParentFn = this.getOffsetParent || getOffsetParent;
-      const getDimensionsFn = this.getDimensions;
-      const floatingDimensions = await getDimensionsFn(data.floating);
-      return {
-        reference: getRectRelativeToOffsetParent(data.reference, await getOffsetParentFn(data.floating), data.strategy),
-        floating: {
-          x: 0,
-          y: 0,
-          width: floatingDimensions.width,
-          height: floatingDimensions.height
-        }
-      };
-    };
-    platform = {
-      convertOffsetParentRelativeRectToViewportRelativeRect,
-      getDocumentElement,
-      getClippingRect,
-      getOffsetParent,
-      getElementRects,
-      getClientRects,
-      getDimensions,
-      getScale,
-      isElement,
-      isRTL
-    };
-    offset2 = offset;
-    shift2 = shift;
-    flip2 = flip;
-    computePosition2 = (reference, floating, options2) => {
-      const cache = /* @__PURE__ */ new Map();
-      const mergedOptions = {
-        platform,
-        ...options2
-      };
-      const platformWithCache = {
-        ...mergedOptions.platform,
-        _c: cache
-      };
-      return computePosition(reference, floating, {
-        ...mergedOptions,
-        platform: platformWithCache
-      });
-    };
-  }
-});
-
 // .svelte-kit/output/server/chunks/Frame.js
 function is_void(name) {
   return void_element_names.test(name) || name.toLowerCase() === "!doctype";
@@ -4799,365 +3448,6 @@ var init_Frame = __esm({
   }
 });
 
-// .svelte-kit/output/server/chunks/ChevronDownOutline.js
-var Popper, Dropdown, DropdownDivider, Wrapper, DropdownItem, ChevronDownOutline;
-var init_ChevronDownOutline = __esm({
-  ".svelte-kit/output/server/chunks/ChevronDownOutline.js"() {
-    init_ssr();
-    init_bundle_mjs();
-    init_floating_ui_dom();
-    init_Frame();
-    init_chunks();
-    Popper = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-      let middleware;
-      let $$restProps = compute_rest_props($$props, [
-        "activeContent",
-        "arrow",
-        "offset",
-        "placement",
-        "trigger",
-        "triggeredBy",
-        "reference",
-        "strategy",
-        "open",
-        "yOnly",
-        "middlewares"
-      ]);
-      let { activeContent = false } = $$props;
-      let { arrow: arrow2 = true } = $$props;
-      let { offset: offset3 = 8 } = $$props;
-      let { placement = "top" } = $$props;
-      let { trigger = "hover" } = $$props;
-      let { triggeredBy = void 0 } = $$props;
-      let { reference = void 0 } = $$props;
-      let { strategy = "absolute" } = $$props;
-      let { open = false } = $$props;
-      let { yOnly = false } = $$props;
-      let { middlewares = [flip2(), shift2()] } = $$props;
-      const dispatch = createEventDispatcher();
-      let referenceEl;
-      let floatingEl;
-      let arrowEl;
-      let contentEl;
-      const px = (n2) => n2 ? `${n2}px` : "";
-      let arrowSide;
-      const oppositeSideMap2 = {
-        left: "right",
-        right: "left",
-        bottom: "top",
-        top: "bottom"
-      };
-      function updatePosition() {
-        computePosition2(referenceEl, floatingEl, { placement, strategy, middleware }).then(({ x, y, middlewareData, placement: placement2, strategy: strategy2 }) => {
-          floatingEl.style.position = strategy2;
-          floatingEl.style.left = yOnly ? "0" : px(x);
-          floatingEl.style.top = px(y);
-          if (middlewareData.arrow && arrowEl instanceof HTMLDivElement) {
-            arrowEl.style.left = px(middlewareData.arrow.x);
-            arrowEl.style.top = px(middlewareData.arrow.y);
-            arrowSide = oppositeSideMap2[placement2.split("-")[0]];
-            arrowEl.style[arrowSide] = px(-arrowEl.offsetWidth / 2 - ($$props.border ? 1 : 0));
-          }
-        });
-      }
-      function init2(node, _referenceEl) {
-        floatingEl = node;
-        let cleanup = autoUpdate(_referenceEl, floatingEl, updatePosition);
-        return {
-          update(_referenceEl2) {
-            cleanup();
-            cleanup = autoUpdate(_referenceEl2, floatingEl, updatePosition);
-          },
-          destroy() {
-            cleanup();
-          }
-        };
-      }
-      let arrowClass;
-      if ($$props.activeContent === void 0 && $$bindings.activeContent && activeContent !== void 0) $$bindings.activeContent(activeContent);
-      if ($$props.arrow === void 0 && $$bindings.arrow && arrow2 !== void 0) $$bindings.arrow(arrow2);
-      if ($$props.offset === void 0 && $$bindings.offset && offset3 !== void 0) $$bindings.offset(offset3);
-      if ($$props.placement === void 0 && $$bindings.placement && placement !== void 0) $$bindings.placement(placement);
-      if ($$props.trigger === void 0 && $$bindings.trigger && trigger !== void 0) $$bindings.trigger(trigger);
-      if ($$props.triggeredBy === void 0 && $$bindings.triggeredBy && triggeredBy !== void 0) $$bindings.triggeredBy(triggeredBy);
-      if ($$props.reference === void 0 && $$bindings.reference && reference !== void 0) $$bindings.reference(reference);
-      if ($$props.strategy === void 0 && $$bindings.strategy && strategy !== void 0) $$bindings.strategy(strategy);
-      if ($$props.open === void 0 && $$bindings.open && open !== void 0) $$bindings.open(open);
-      if ($$props.yOnly === void 0 && $$bindings.yOnly && yOnly !== void 0) $$bindings.yOnly(yOnly);
-      if ($$props.middlewares === void 0 && $$bindings.middlewares && middlewares !== void 0) $$bindings.middlewares(middlewares);
-      let $$settled;
-      let $$rendered;
-      let previous_head = $$result.head;
-      do {
-        $$settled = true;
-        $$result.head = previous_head;
-        {
-          dispatch("show", open);
-        }
-        placement && (referenceEl = referenceEl);
-        middleware = [
-          ...middlewares,
-          offset2(+offset3),
-          arrowEl
-        ];
-        arrowClass = twJoin("absolute pointer-events-none block w-[10px] h-[10px] rotate-45 bg-inherit border-inherit", $$props.border && arrowSide === "bottom" && "border-b border-e", $$props.border && arrowSide === "top" && "border-t border-s ", $$props.border && arrowSide === "right" && "border-t border-e ", $$props.border && arrowSide === "left" && "border-b border-s ");
-        $$rendered = `${!referenceEl ? `<div${add_attribute("this", contentEl, 0)}></div>` : ``} ${referenceEl ? `${validate_component(Frame, "Frame").$$render(
-          $$result,
-          Object.assign({}, { use: init2 }, { options: referenceEl }, { role: "tooltip" }, { tabindex: activeContent ? -1 : void 0 }, $$restProps, { open }),
-          {
-            open: ($$value) => {
-              open = $$value;
-              $$settled = false;
-            }
-          },
-          {
-            default: () => {
-              return `${slots.default ? slots.default({}) : ``} ${arrow2 ? `<div${add_attribute("class", arrowClass, 0)}></div>` : ``}`;
-            }
-          }
-        )}` : ``} `;
-      } while (!$$settled);
-      return $$rendered;
-    });
-    Dropdown = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-      let containerCls;
-      let headerCls;
-      let ulCls;
-      let footerCls;
-      let $$restProps = compute_rest_props($$props, [
-        "activeUrl",
-        "open",
-        "containerClass",
-        "classContainer",
-        "headerClass",
-        "classHeader",
-        "footerClass",
-        "classFooter",
-        "activeClass",
-        "classActive",
-        "arrow",
-        "trigger",
-        "placement",
-        "color",
-        "shadow",
-        "rounded"
-      ]);
-      let $$slots = compute_slots(slots);
-      let { activeUrl = void 0 } = $$props;
-      let { open = false } = $$props;
-      let { containerClass = "divide-y z-50" } = $$props;
-      let { classContainer = void 0 } = $$props;
-      let { headerClass = "py-1 overflow-hidden rounded-t-lg" } = $$props;
-      let { classHeader = void 0 } = $$props;
-      let { footerClass = "py-1 overflow-hidden rounded-b-lg" } = $$props;
-      let { classFooter = void 0 } = $$props;
-      let { activeClass = "text-primary-700 dark:text-primary-700 hover:text-primary-900 dark:hover:text-primary-900" } = $$props;
-      let { classActive = void 0 } = $$props;
-      let { arrow: arrow2 = false } = $$props;
-      let { trigger = "click" } = $$props;
-      let { placement = "bottom" } = $$props;
-      let { color: color2 = "dropdown" } = $$props;
-      let { shadow = true } = $$props;
-      let { rounded = true } = $$props;
-      const activeUrlStore = writable("");
-      let activeCls = twMerge(activeClass, classActive);
-      setContext("DropdownType", { activeClass: activeCls });
-      setContext("activeUrl", activeUrlStore);
-      if ($$props.activeUrl === void 0 && $$bindings.activeUrl && activeUrl !== void 0) $$bindings.activeUrl(activeUrl);
-      if ($$props.open === void 0 && $$bindings.open && open !== void 0) $$bindings.open(open);
-      if ($$props.containerClass === void 0 && $$bindings.containerClass && containerClass !== void 0) $$bindings.containerClass(containerClass);
-      if ($$props.classContainer === void 0 && $$bindings.classContainer && classContainer !== void 0) $$bindings.classContainer(classContainer);
-      if ($$props.headerClass === void 0 && $$bindings.headerClass && headerClass !== void 0) $$bindings.headerClass(headerClass);
-      if ($$props.classHeader === void 0 && $$bindings.classHeader && classHeader !== void 0) $$bindings.classHeader(classHeader);
-      if ($$props.footerClass === void 0 && $$bindings.footerClass && footerClass !== void 0) $$bindings.footerClass(footerClass);
-      if ($$props.classFooter === void 0 && $$bindings.classFooter && classFooter !== void 0) $$bindings.classFooter(classFooter);
-      if ($$props.activeClass === void 0 && $$bindings.activeClass && activeClass !== void 0) $$bindings.activeClass(activeClass);
-      if ($$props.classActive === void 0 && $$bindings.classActive && classActive !== void 0) $$bindings.classActive(classActive);
-      if ($$props.arrow === void 0 && $$bindings.arrow && arrow2 !== void 0) $$bindings.arrow(arrow2);
-      if ($$props.trigger === void 0 && $$bindings.trigger && trigger !== void 0) $$bindings.trigger(trigger);
-      if ($$props.placement === void 0 && $$bindings.placement && placement !== void 0) $$bindings.placement(placement);
-      if ($$props.color === void 0 && $$bindings.color && color2 !== void 0) $$bindings.color(color2);
-      if ($$props.shadow === void 0 && $$bindings.shadow && shadow !== void 0) $$bindings.shadow(shadow);
-      if ($$props.rounded === void 0 && $$bindings.rounded && rounded !== void 0) $$bindings.rounded(rounded);
-      let $$settled;
-      let $$rendered;
-      let previous_head = $$result.head;
-      do {
-        $$settled = true;
-        $$result.head = previous_head;
-        {
-          activeUrlStore.set(activeUrl ?? "");
-        }
-        containerCls = twMerge(containerClass, classContainer);
-        headerCls = twMerge(headerClass, classHeader);
-        ulCls = twMerge("py-1", $$props.class);
-        footerCls = twMerge(footerClass, classFooter);
-        $$rendered = `${validate_component(Popper, "Popper").$$render(
-          $$result,
-          Object.assign({}, { activeContent: true }, $$restProps, { trigger }, { arrow: arrow2 }, { placement }, { shadow }, { rounded }, { color: color2 }, { class: containerCls }, { open }),
-          {
-            open: ($$value) => {
-              open = $$value;
-              $$settled = false;
-            }
-          },
-          {
-            default: () => {
-              return `${$$slots.header ? `<div${add_attribute("class", headerCls, 0)}>${slots.header ? slots.header({}) : ``}</div>` : ``} <ul${add_attribute("class", ulCls, 0)}>${slots.default ? slots.default({}) : ``}</ul> ${$$slots.footer ? `<div${add_attribute("class", footerCls, 0)}>${slots.footer ? slots.footer({}) : ``}</div>` : ``}`;
-            }
-          }
-        )} `;
-      } while (!$$settled);
-      return $$rendered;
-    });
-    DropdownDivider = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-      let $$restProps = compute_rest_props($$props, ["divClass"]);
-      let { divClass = "my-1 h-px bg-gray-100 dark:bg-gray-600" } = $$props;
-      if ($$props.divClass === void 0 && $$bindings.divClass && divClass !== void 0) $$bindings.divClass(divClass);
-      return `<div${spread(
-        [
-          escape_object($$restProps),
-          {
-            class: escape_attribute_value(twMerge(divClass, $$props.class))
-          }
-        ],
-        {}
-      )}></div> `;
-    });
-    Wrapper = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-      let $$restProps = compute_rest_props($$props, ["tag", "show", "use"]);
-      let { tag = "div" } = $$props;
-      let { show } = $$props;
-      let { use = () => {
-      } } = $$props;
-      if ($$props.tag === void 0 && $$bindings.tag && tag !== void 0) $$bindings.tag(tag);
-      if ($$props.show === void 0 && $$bindings.show && show !== void 0) $$bindings.show(show);
-      if ($$props.use === void 0 && $$bindings.use && use !== void 0) $$bindings.use(use);
-      return `${show ? `${((tag$1) => {
-        return tag$1 ? `<${tag}${spread([escape_object($$restProps)], {})}>${is_void(tag$1) ? "" : `${slots.default ? slots.default({}) : ``}`}${is_void(tag$1) ? "" : `</${tag$1}>`}` : "";
-      })(tag)}` : `${slots.default ? slots.default({}) : ``}`} `;
-    });
-    DropdownItem = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-      let active;
-      let liClass;
-      let $$restProps = compute_rest_props($$props, ["defaultClass", "href", "activeClass"]);
-      let { defaultClass = "font-medium py-2 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-600" } = $$props;
-      let { href = void 0 } = $$props;
-      let { activeClass = void 0 } = $$props;
-      const context2 = getContext("DropdownType") ?? {};
-      const activeUrlStore = getContext("activeUrl");
-      let sidebarUrl = "";
-      activeUrlStore.subscribe((value) => {
-        sidebarUrl = value;
-      });
-      let wrap = true;
-      function init2(node) {
-        wrap = node.parentElement?.tagName === "UL";
-      }
-      if ($$props.defaultClass === void 0 && $$bindings.defaultClass && defaultClass !== void 0) $$bindings.defaultClass(defaultClass);
-      if ($$props.href === void 0 && $$bindings.href && href !== void 0) $$bindings.href(href);
-      if ($$props.activeClass === void 0 && $$bindings.activeClass && activeClass !== void 0) $$bindings.activeClass(activeClass);
-      active = sidebarUrl ? href === sidebarUrl : false;
-      liClass = twMerge(defaultClass, href ? "block" : "w-full text-left", active && (activeClass ?? context2.activeClass), $$props.class);
-      return `${validate_component(Wrapper, "Wrapper").$$render($$result, { tag: "li", show: wrap, use: init2 }, {}, {
-        default: () => {
-          return `${((tag) => {
-            return tag ? `<${href ? "a" : "button"}${spread(
-              [
-                { href: escape_attribute_value(href) },
-                {
-                  type: escape_attribute_value(href ? void 0 : "button")
-                },
-                {
-                  role: escape_attribute_value(href ? "link" : "button")
-                },
-                escape_object($$restProps),
-                { class: escape_attribute_value(liClass) }
-              ],
-              {}
-            )}>${is_void(tag) ? "" : `${slots.default ? slots.default({}) : ``}`}${is_void(tag) ? "" : `</${tag}>`}` : "";
-          })(href ? "a" : "button")}`;
-        }
-      })} `;
-    });
-    ChevronDownOutline = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-      let $$restProps = compute_rest_props($$props, ["size", "role", "color", "withEvents", "title", "strokeWidth", "desc", "ariaLabel"]);
-      const ctx = getContext("iconCtx") ?? {};
-      const sizes = {
-        xs: "w-3 h-3",
-        sm: "w-4 h-4",
-        md: "w-5 h-5",
-        lg: "w-6 h-6",
-        xl: "w-8 h-8"
-      };
-      let { size: size2 = ctx.size || "md" } = $$props;
-      let { role = ctx.role || "img" } = $$props;
-      let { color: color2 = ctx.color || "currentColor" } = $$props;
-      let { withEvents = ctx.withEvents || false } = $$props;
-      let { title = {} } = $$props;
-      let { strokeWidth = ctx.strokeWidth || "2" } = $$props;
-      let { desc = {} } = $$props;
-      let ariaDescribedby = `${title.id || ""} ${desc.id || ""}`;
-      let hasDescription = false;
-      let { ariaLabel = "chevron down outline" } = $$props;
-      if ($$props.size === void 0 && $$bindings.size && size2 !== void 0) $$bindings.size(size2);
-      if ($$props.role === void 0 && $$bindings.role && role !== void 0) $$bindings.role(role);
-      if ($$props.color === void 0 && $$bindings.color && color2 !== void 0) $$bindings.color(color2);
-      if ($$props.withEvents === void 0 && $$bindings.withEvents && withEvents !== void 0) $$bindings.withEvents(withEvents);
-      if ($$props.title === void 0 && $$bindings.title && title !== void 0) $$bindings.title(title);
-      if ($$props.strokeWidth === void 0 && $$bindings.strokeWidth && strokeWidth !== void 0) $$bindings.strokeWidth(strokeWidth);
-      if ($$props.desc === void 0 && $$bindings.desc && desc !== void 0) $$bindings.desc(desc);
-      if ($$props.ariaLabel === void 0 && $$bindings.ariaLabel && ariaLabel !== void 0) $$bindings.ariaLabel(ariaLabel);
-      {
-        if (title.id || desc.id) {
-          hasDescription = true;
-        } else {
-          hasDescription = false;
-        }
-      }
-      return `${withEvents ? `<svg${spread(
-        [
-          { xmlns: "http://www.w3.org/2000/svg" },
-          { fill: "none" },
-          { color: escape_attribute_value(color2) },
-          escape_object($$restProps),
-          {
-            class: escape_attribute_value(twMerge("shrink-0", sizes[size2 ?? "md"], $$props.class))
-          },
-          { role: escape_attribute_value(role) },
-          {
-            "aria-label": escape_attribute_value(ariaLabel)
-          },
-          {
-            "aria-describedby": escape_attribute_value(hasDescription ? ariaDescribedby : void 0)
-          },
-          { viewBox: "0 0 24 24" }
-        ],
-        {}
-      )}>${title.id && title.title ? `<title${add_attribute("id", title.id, 0)}>${escape(title.title)}</title>` : ``}${desc.id && desc.desc ? `<desc${add_attribute("id", desc.id, 0)}>${escape(desc.desc)}</desc>` : ``}<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"${add_attribute("stroke-width", strokeWidth, 0)} d="m8 10 4 4 4-4"></path></svg>` : `<svg${spread(
-        [
-          { xmlns: "http://www.w3.org/2000/svg" },
-          { fill: "none" },
-          { color: escape_attribute_value(color2) },
-          escape_object($$restProps),
-          {
-            class: escape_attribute_value(twMerge("shrink-0", sizes[size2 ?? "md"], $$props.class))
-          },
-          { role: escape_attribute_value(role) },
-          {
-            "aria-label": escape_attribute_value(ariaLabel)
-          },
-          {
-            "aria-describedby": escape_attribute_value(hasDescription ? ariaDescribedby : void 0)
-          },
-          { viewBox: "0 0 24 24" }
-        ],
-        {}
-      )}>${title.id && title.title ? `<title${add_attribute("id", title.id, 0)}>${escape(title.title)}</title>` : ``}${desc.id && desc.desc ? `<desc${add_attribute("id", desc.id, 0)}>${escape(desc.desc)}</desc>` : ``}<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"${add_attribute("stroke-width", strokeWidth, 0)} d="m8 10 4 4 4-4"></path></svg>`} `;
-    });
-  }
-});
-
 // .svelte-kit/output/server/chunks/client.js
 function get(key2, parse3 = JSON.parse) {
   try {
@@ -5179,7 +3469,6 @@ var SNAPSHOT_KEY, SCROLL_KEY, is_legacy, stores;
 var init_client = __esm({
   ".svelte-kit/output/server/chunks/client.js"() {
     init_exports();
-    init_chunks();
     init_ssr2();
     SNAPSHOT_KEY = "sveltekit:snapshot";
     SCROLL_KEY = "sveltekit:scroll";
@@ -5244,21 +3533,20 @@ function sineIn(t2) {
   if (Math.abs(v) < 1e-14) return 1;
   else return 1 - v;
 }
-var ToolbarButton, Footer, FooterLink, FooterLinkGroup, NavContainer, Navbar, NavBrand, Menu, btnClass, NavHamburger, NavLi, NavUl, Nav, Footer_1, css, Layout;
+var ToolbarButton, Footer, FooterLink, FooterLinkGroup, NavContainer, Navbar, NavBrand, Menu, btnClass, NavHamburger, NavLi, NavUl, logo, Nav, Footer_1, css, Layout;
 var init_layout_svelte = __esm({
   ".svelte-kit/output/server/entries/pages/_layout.svelte.js"() {
     init_ssr();
-    init_ChevronDownOutline();
     init_Frame();
     init_bundle_mjs();
-    init_chunks();
+    init_exports();
     init_stores();
     ToolbarButton = create_ssr_component(($$result, $$props, $$bindings, slots) => {
       let $$restProps = compute_rest_props($$props, ["color", "name", "ariaLabel", "size", "href"]);
       let { color: color2 = "default" } = $$props;
       let { name = void 0 } = $$props;
       let { ariaLabel = void 0 } = $$props;
-      let { size: size2 = "md" } = $$props;
+      let { size = "md" } = $$props;
       let { href = void 0 } = $$props;
       const background = getContext("background");
       const colors2 = {
@@ -5290,11 +3578,11 @@ var init_layout_svelte = __esm({
       if ($$props.color === void 0 && $$bindings.color && color2 !== void 0) $$bindings.color(color2);
       if ($$props.name === void 0 && $$bindings.name && name !== void 0) $$bindings.name(name);
       if ($$props.ariaLabel === void 0 && $$bindings.ariaLabel && ariaLabel !== void 0) $$bindings.ariaLabel(ariaLabel);
-      if ($$props.size === void 0 && $$bindings.size && size2 !== void 0) $$bindings.size(size2);
+      if ($$props.size === void 0 && $$bindings.size && size !== void 0) $$bindings.size(size);
       if ($$props.href === void 0 && $$bindings.href && href !== void 0) $$bindings.href(href);
       buttonClass = twMerge(
         "focus:outline-none whitespace-normal",
-        sizing[size2],
+        sizing[size],
         colors2[color2],
         color2 === "default" && (background ? "dark:hover:bg-gray-600" : "dark:hover:bg-gray-700"),
         $$props.class
@@ -5311,7 +3599,7 @@ var init_layout_svelte = __esm({
           }
         ],
         {}
-      )}>${name ? `<span class="sr-only">${escape(name)}</span>` : ``} ${slots.default ? slots.default({ svgSize: svgSizes[size2] }) : ``}</a>` : `<button${spread(
+      )}>${name ? `<span class="sr-only">${escape(name)}</span>` : ``} ${slots.default ? slots.default({ svgSize: svgSizes[size] }) : ``}</a>` : `<button${spread(
         [
           { type: "button" },
           escape_object($$restProps),
@@ -5323,7 +3611,7 @@ var init_layout_svelte = __esm({
           }
         ],
         {}
-      )}>${name ? `<span class="sr-only">${escape(name)}</span>` : ``} ${slots.default ? slots.default({ svgSize: svgSizes[size2] }) : ``}</button>`} `;
+      )}>${name ? `<span class="sr-only">${escape(name)}</span>` : ``} ${slots.default ? slots.default({ svgSize: svgSizes[size] }) : ``}</button>`} `;
     });
     Footer = create_ssr_component(($$result, $$props, $$bindings, slots) => {
       let $$restProps = compute_rest_props($$props, ["footerType"]);
@@ -5439,7 +3727,7 @@ var init_layout_svelte = __esm({
     });
     Menu = create_ssr_component(($$result, $$props, $$bindings, slots) => {
       let $$restProps = compute_rest_props($$props, ["size", "color", "variation", "ariaLabel"]);
-      let { size: size2 = "24" } = $$props;
+      let { size = "24" } = $$props;
       let { color: color2 = "currentColor" } = $$props;
       let { variation = "outline" } = $$props;
       let { ariaLabel = "bars 3" } = $$props;
@@ -5447,7 +3735,7 @@ var init_layout_svelte = __esm({
       let svgpath;
       let svgoutline = `<path stroke="${color2}" stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path> `;
       let svgsolid = `<path fill="${color2}" clip-rule="evenodd" fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"></path> `;
-      if ($$props.size === void 0 && $$bindings.size && size2 !== void 0) $$bindings.size(size2);
+      if ($$props.size === void 0 && $$bindings.size && size !== void 0) $$bindings.size(size);
       if ($$props.color === void 0 && $$bindings.color && color2 !== void 0) $$bindings.color(color2);
       if ($$props.variation === void 0 && $$bindings.variation && variation !== void 0) $$bindings.variation(variation);
       if ($$props.ariaLabel === void 0 && $$bindings.ariaLabel && ariaLabel !== void 0) $$bindings.ariaLabel(ariaLabel);
@@ -5471,8 +3759,8 @@ var init_layout_svelte = __esm({
           { xmlns: "http://www.w3.org/2000/svg" },
           { role: "button" },
           { tabindex: "0" },
-          { width: escape_attribute_value(size2) },
-          { height: escape_attribute_value(size2) },
+          { width: escape_attribute_value(size) },
+          { height: escape_attribute_value(size) },
           {
             class: escape_attribute_value($$props.class)
           },
@@ -5626,6 +3914,7 @@ var init_layout_svelte = __esm({
         {}
       )}><ul${add_attribute("class", _ulClass, 0)}>${slots.default ? slots.default({}) : ``}</ul></div>`} `;
     });
+    logo = "data:image/svg+xml,%3c?xml%20version='1.0'%20standalone='no'?%3e%3c!DOCTYPE%20svg%20PUBLIC%20'-//W3C//DTD%20SVG%2020010904//EN'%20'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'%3e%3csvg%20version='1.0'%20xmlns='http://www.w3.org/2000/svg'%20width='360.000000pt'%20height='360.000000pt'%20viewBox='0%200%20360.000000%20360.000000'%20preserveAspectRatio='xMidYMid%20meet'%3e%3cg%20transform='translate(0.000000,360.000000)%20scale(0.100000,-0.100000)'%20fill='%23000000'%20stroke='none'%3e%3cpath%20d='M1730%202863%20l1%20-378%2035%20-38%2036%20-39%2034%2033%2034%2033%200%20383%200%20383%20-70%200%20-70%200%200%20-377z'/%3e%3cpath%20d='M947%203002%20l-227%20-227%2078%20-78%2078%20-78%2052%2052%2053%2052%20-28%2029%20-27%2029%20126%20126%20127%20127%20246%20-246%20245%20-246%200%20102%200%20101%20-243%20243%20c-133%20133%20-244%20242%20-247%20242%20-3%200%20-108%20-102%20-233%20-228z'/%3e%3cpath%20d='M2300%203105%20c-68%20-68%20-122%20-126%20-120%20-128%203%20-1%2035%20-15%2071%20-29%20l67%20-25%20103%20103%20104%20104%20-50%2050%20-50%2050%20-125%20-125z'/%3e%3cpath%20d='M1596%202959%20c-22%20-5%20-41%20-11%20-43%20-12%20-1%20-2%2024%20-30%2057%20-62%20l60%20-59%200%2072%20c0%2080%202%2079%20-74%2061z'/%3e%3cpath%20d='M1932%202898%20l3%20-71%2065%20-13%20c134%20-27%20284%20-90%20383%20-160%2026%20-19%2051%20-34%2055%20-34%204%200%2029%2022%2056%2049%20l47%2048%20-53%2038%20c-69%2050%20-195%20117%20-280%20149%20-58%2021%20-238%2066%20-268%2066%20-7%200%20-10%20-26%20-8%20-72z'/%3e%3cpath%20d='M2420%202515%20l-360%20-360%2050%20-50%2050%20-50%20310%20310%20310%20310%20127%20-127%20128%20-128%20-54%20-54%20-53%20-54%2028%20-72%2028%20-71%20123%20123%20c68%2067%20122%20126%20121%20130%20-2%204%20-103%20108%20-225%20231%20l-222%20223%20-361%20-361z'/%3e%3cpath%20d='M1207%202815%20c-179%20-107%20-320%20-249%20-423%20-426%20l-36%20-61%2053%20-54%2052%20-53%2043%2076%20c103%20181%20226%20304%20407%20407%20l76%2043%20-52%2051%20c-29%2029%20-55%2052%20-57%2052%20-3%20-1%20-31%20-16%20-63%20-35z'/%3e%3cpath%20d='M1942%202748%20c-8%20-8%20-12%20-48%20-12%20-112%20l0%20-101%2090%2090%20c50%2049%2090%2093%2090%2096%200%207%20-118%2039%20-143%2039%20-7%200%20-18%20-5%20-25%20-12z'/%3e%3cpath%20d='M1112%202487%20l-52%20-52%20193%20-193%20192%20-192%2053%2053%2052%2052%20-193%20193%20-192%20192%20-53%20-53z'/%3e%3cpath%20d='M2667%202482%20l-48%20-48%2047%20-70%20c116%20-172%20185%20-423%20170%20-619%20l-6%20-81%2059%20-58%20c32%20-32%2061%20-54%2064%20-49%2015%2025%2029%20199%2024%20300%20-12%20224%20-84%20434%20-210%20616%20-22%2031%20-43%2057%20-46%2057%20-4%200%20-28%20-22%20-54%20-48z'/%3e%3cpath%20d='M415%202470%20l-50%20-50%20313%20-313%20312%20-312%20-77%20-77%20-77%20-77%2018%20-76%20c10%20-41%2021%20-75%2024%20-75%204%200%2076%2069%20160%20153%20l153%20154%20-338%20337%20c-185%20185%20-349%20348%20-363%20361%20l-26%2025%20-49%20-50z'/%3e%3cpath%20d='M2570%201955%20c-85%20-85%20-152%20-156%20-150%20-159%2019%20-20%20665%20-667%20689%20-690%20l31%20-30%2045%2044%20c25%2024%2045%2049%2045%2055%200%205%20-138%20148%20-307%20317%20l-308%20308%2077%2077%2076%2078%20-18%2073%20c-9%2040%20-19%2075%20-22%2077%20-2%202%20-73%20-65%20-158%20-150z'/%3e%3cpath%20d='M642%201999%20c-30%20-154%20-21%20-332%2023%20-504%2029%20-112%20110%20-287%20176%20-378%20l42%20-59%2048%2048%20c27%2027%2049%2052%2049%2056%200%204%20-16%2030%20-35%2057%20-52%2072%20-121%20225%20-146%20321%20-16%2063%20-22%20126%20-25%20240%20l-4%20155%20-59%2059%20-59%2059%20-10%20-54z'/%3e%3cpath%20d='M1135%201230%20l-310%20-310%20-127%20127%20-128%20128%2053%2053%2054%2054%20-26%2069%20c-14%2038%20-28%2069%20-31%2069%20-3%200%20-61%20-55%20-128%20-123%20l-123%20-123%20228%20-227%20228%20-227%20359%20360%20360%20359%20-45%2049%20c-24%2028%20-46%2050%20-49%2051%20-3%201%20-145%20-138%20-315%20-309z'/%3e%3cpath%20d='M2105%201490%20l-50%20-50%20193%20-193%20192%20-192%2052%2053%2053%2052%20-190%20190%20c-104%20105%20-192%20190%20-195%20190%20-3%200%20-28%20-23%20-55%20-50z'/%3e%3cpath%20d='M2729%201338%20c-30%20-72%20-132%20-209%20-217%20-289%20-73%20-69%20-218%20-170%20-275%20-192%20-7%20-3%2011%20-28%2040%20-58%2048%20-49%2054%20-52%2077%20-41%20157%2071%20417%20331%20488%20487%2011%2024%208%2030%20-37%2075%20-27%2028%20-52%2050%20-56%2050%20-4%200%20-13%20-15%20-20%20-32z'/%3e%3cpath%20d='M1641%201026%20l-154%20-154%2039%20-11%20c21%20-6%2057%20-14%2079%20-19%20l40%20-9%2078%2076%2077%2076%20308%20-308%20c169%20-169%20312%20-307%20317%20-307%206%200%20111%20101%20235%20225%20l225%20225%20-75%2075%20c-41%2041%20-77%2075%20-80%2075%20-4%200%20-29%20-22%20-57%20-49%20l-51%20-49%2029%20-28%2029%20-28%20-122%20-123%20c-68%20-68%20-127%20-123%20-131%20-123%20-5%200%20-147%20137%20-315%20305%20-168%20168%20-308%20305%20-311%20305%20-4%200%20-76%20-69%20-160%20-154z'/%3e%3cpath%20d='M1117%20932%20c-26%20-26%20-47%20-51%20-47%20-54%200%20-13%20122%20-90%20209%20-133%20153%20-75%20297%20-113%20466%20-122%2098%20-5%20291%209%20304%2023%203%202%20-22%2031%20-54%2064%20l-59%2060%20-76%20-6%20c-138%20-12%20-350%2029%20-493%2095%20-34%2015%20-93%2049%20-131%2075%20-38%2025%20-69%2046%20-70%2046%20-1%200%20-23%20-22%20-49%20-48z'/%3e%3cpath%20d='M1181%20566%20l-103%20-104%2048%20-46%20c27%20-25%2051%20-46%2054%20-46%203%200%2061%2055%20128%20123%20l123%20123%20-68%2027%20c-38%2015%20-71%2027%20-73%2027%20-3%200%20-52%20-47%20-109%20-104z'/%3e%3c/g%3e%3c/svg%3e";
     Nav = create_ssr_component(($$result, $$props, $$bindings, slots) => {
       let activeUrl;
       let $page, $$unsubscribe_page;
@@ -5643,7 +3932,7 @@ var init_layout_svelte = __esm({
           default: () => {
             return `${validate_component(NavBrand, "NavBrand").$$render($$result, { href: "/" }, {}, {
               default: () => {
-                return `<img src="https://i.imgur.com/TModnbu.png" class="me-3 h-6 sm:h-9" alt="GFRIEND Logo"> <span class="self-center whitespace-nowrap text-xl font-semibold text-black" data-svelte-h="svelte-y6a6iu">Buddyville</span>`;
+                return `<img${add_attribute("src", logo, 0)} class="me-3 h-6 sm:h-9" alt="logo"> <span class="self-center whitespace-nowrap text-xl font-semibold text-black" data-svelte-h="svelte-ic01rq">Eye of the Storm</span>`;
               }
             })} ${validate_component(NavHamburger, "NavHamburger").$$render($$result, {}, {}, {})} ${validate_component(NavUl, "NavUl").$$render(
               $$result,
@@ -5658,68 +3947,6 @@ var init_layout_svelte = __esm({
                   return `${validate_component(NavLi, "NavLi").$$render($$result, { href: "/" }, {}, {
                     default: () => {
                       return `Home`;
-                    }
-                  })} ${validate_component(NavLi, "NavLi").$$render($$result, { class: "cursor-pointer" }, {}, {
-                    default: () => {
-                      return `Profiles${validate_component(ChevronDownOutline, "ChevronDownOutline").$$render(
-                        $$result,
-                        {
-                          class: "w-6 h-6 ms-2 text-accent-5 inline"
-                        },
-                        {},
-                        {}
-                      )}`;
-                    }
-                  })} ${validate_component(Dropdown, "Dropdown").$$render($$result, { class: "w-44 z-20" }, {}, {
-                    default: () => {
-                      return `${validate_component(DropdownItem, "DropdownItem").$$render($$result, { href: "/profile" }, {}, {
-                        default: () => {
-                          return `GFRIEND`;
-                        }
-                      })} ${validate_component(DropdownItem, "DropdownItem").$$render($$result, { href: "/newjeans" }, {}, {
-                        default: () => {
-                          return `NewJeans`;
-                        }
-                      })} ${validate_component(DropdownItem, "DropdownItem").$$render($$result, { href: "/lesserafim" }, {}, {
-                        default: () => {
-                          return `LE SSERAFIM`;
-                        }
-                      })} ${validate_component(DropdownDivider, "DropdownDivider").$$render($$result, {}, {}, {})} ${validate_component(DropdownItem, "DropdownItem").$$render($$result, { href: "/source-music" }, {}, {
-                        default: () => {
-                          return `Source Music`;
-                        }
-                      })} ${validate_component(DropdownItem, "DropdownItem").$$render($$result, { href: "/ador" }, {}, {
-                        default: () => {
-                          return `ADOR`;
-                        }
-                      })} ${validate_component(DropdownItem, "DropdownItem").$$render($$result, { href: "/hybe" }, {}, {
-                        default: () => {
-                          return `HYBE`;
-                        }
-                      })}`;
-                    }
-                  })} ${validate_component(NavLi, "NavLi").$$render($$result, { class: "cursor-pointer" }, {}, {
-                    default: () => {
-                      return `Achivements${validate_component(ChevronDownOutline, "ChevronDownOutline").$$render(
-                        $$result,
-                        {
-                          class: "w-6 h-6 ms-2 text-accent-5 inline"
-                        },
-                        {},
-                        {}
-                      )}`;
-                    }
-                  })} ${validate_component(Dropdown, "Dropdown").$$render($$result, { class: "w-44 z-20" }, {}, {
-                    default: () => {
-                      return `${validate_component(DropdownItem, "DropdownItem").$$render($$result, { href: "/wins" }, {}, {
-                        default: () => {
-                          return `Music Show Wins`;
-                        }
-                      })} ${validate_component(DropdownItem, "DropdownItem").$$render($$result, { href: "/accomplishments" }, {}, {
-                        default: () => {
-                          return `Accomplishments`;
-                        }
-                      })}`;
                     }
                   })} ${validate_component(NavLi, "NavLi").$$render($$result, { href: "/timeline" }, {}, {
                     default: () => {
@@ -5738,7 +3965,7 @@ var init_layout_svelte = __esm({
         $$result,
         {
           color: "primary",
-          class: "w-4/5 place-self-center mx-auto my-3"
+          class: "w-4/5 place-self-center mx-auto my-max"
         },
         {},
         {
@@ -5804,11 +4031,11 @@ var init_layout_svelte = __esm({
     });
     css = {
       code: ".app.svelte-1e7kqks{display:flex;flex-direction:column;min-height:100vh}main.svelte-1e7kqks{flex:1;display:flex;flex-direction:column;padding:1rem;width:100%;max-width:72rem;margin:0 auto;box-sizing:border-box}",
-      map: `{"version":3,"file":"+layout.svelte","sources":["+layout.svelte"],"sourcesContent":["<script>\\n\\timport '../app.css';\\n\\timport Nav from '../lib/components/Nav.svelte';\\n\\timport Footer from '../lib/components/Footer.svelte';\\n<\/script>\\n\\n<div class=\\"app bg-background\\">\\n\\t<Nav />\\n\\t<main>\\n\\t\\t<slot />\\n\\t</main>\\n\\t<Footer />\\n\\n</div>\\n\\n<style>\\n\\t.app {\\n\\t\\tdisplay: flex;\\n\\t\\tflex-direction: column;\\n\\t\\tmin-height: 100vh;\\n\\t}\\n\\n\\tmain {\\n\\t\\tflex: 1;\\n\\t\\tdisplay: flex;\\n\\t\\tflex-direction: column;\\n\\t\\tpadding: 1rem;\\n\\t\\twidth: 100%;\\n\\t\\tmax-width: 72rem;\\n\\t\\tmargin: 0 auto;\\n\\t\\tbox-sizing: border-box;\\n\\t}\\n\\n</style>\\n"],"names":[],"mappings":"AAgBC,mBAAK,CACJ,OAAO,CAAE,IAAI,CACb,cAAc,CAAE,MAAM,CACtB,UAAU,CAAE,KACb,CAEA,mBAAK,CACJ,IAAI,CAAE,CAAC,CACP,OAAO,CAAE,IAAI,CACb,cAAc,CAAE,MAAM,CACtB,OAAO,CAAE,IAAI,CACb,KAAK,CAAE,IAAI,CACX,SAAS,CAAE,KAAK,CAChB,MAAM,CAAE,CAAC,CAAC,IAAI,CACd,UAAU,CAAE,UACb"}`
+      map: `{"version":3,"file":"+layout.svelte","sources":["+layout.svelte"],"sourcesContent":["<script>\\n\\timport '../app.css';\\n\\timport Nav from '../lib/components/Nav.svelte';\\n\\timport Footer from '../lib/components/Footer.svelte';\\n<\/script>\\n<header>\\n\\t<Nav />\\n</header>\\n<div class=\\"app bg-background\\">\\n\\t<main>\\n\\t\\t<slot />\\n\\t</main>\\n</div>\\n<footer>\\n\\t<Footer />\\n</footer>\\n<style>\\n\\t.app {\\n\\t\\tdisplay: flex;\\n\\t\\tflex-direction: column;\\n\\t\\tmin-height: 100vh;\\n\\t}\\n\\n\\tmain {\\n\\t\\tflex: 1;\\n\\t\\tdisplay: flex;\\n\\t\\tflex-direction: column;\\n\\t\\tpadding: 1rem;\\n\\t\\twidth: 100%;\\n\\t\\tmax-width: 72rem;\\n\\t\\tmargin: 0 auto;\\n\\t\\tbox-sizing: border-box;\\n\\t}\\n\\n</style>\\n"],"names":[],"mappings":"AAiBC,mBAAK,CACJ,OAAO,CAAE,IAAI,CACb,cAAc,CAAE,MAAM,CACtB,UAAU,CAAE,KACb,CAEA,mBAAK,CACJ,IAAI,CAAE,CAAC,CACP,OAAO,CAAE,IAAI,CACb,cAAc,CAAE,MAAM,CACtB,OAAO,CAAE,IAAI,CACb,KAAK,CAAE,IAAI,CACX,SAAS,CAAE,KAAK,CAChB,MAAM,CAAE,CAAC,CAAC,IAAI,CACd,UAAU,CAAE,UACb"}`
     };
     Layout = create_ssr_component(($$result, $$props, $$bindings, slots) => {
       $$result.css.add(css);
-      return `<div class="app bg-background svelte-1e7kqks">${validate_component(Nav, "Nav").$$render($$result, {}, {}, {})} <main class="svelte-1e7kqks">${slots.default ? slots.default({}) : ``}</main> ${validate_component(Footer_1, "Footer").$$render($$result, {}, {}, {})} </div>`;
+      return `<header>${validate_component(Nav, "Nav").$$render($$result, {}, {}, {})}</header> <div class="app bg-background svelte-1e7kqks"><main class="svelte-1e7kqks">${slots.default ? slots.default({}) : ``}</main></div> <footer>${validate_component(Footer_1, "Footer").$$render($$result, {}, {}, {})} </footer>`;
     });
   }
 });
@@ -5831,8 +4058,8 @@ var init__ = __esm({
     index = 0;
     component = async () => component_cache ??= (await Promise.resolve().then(() => (init_layout_svelte(), layout_svelte_exports))).default;
     universal_id = "src/routes/+layout.js";
-    imports = ["_app/immutable/nodes/0.CfPaeivj.js", "_app/immutable/chunks/DBueJji7.js", "_app/immutable/chunks/D0RhbEBz.js", "_app/immutable/chunks/Dy5mLm-I.js", "_app/immutable/chunks/Dt_hD-_W.js", "_app/immutable/chunks/Dy5kwvZB.js", "_app/immutable/chunks/DNOw45zF.js", "_app/immutable/chunks/CITdYyKU.js"];
-    stylesheets = ["_app/immutable/assets/0.CiA9g6rf.css", "_app/immutable/assets/app.ZtUZiSHB.css"];
+    imports = ["_app/immutable/nodes/0.Bk1rIh63.js", "_app/immutable/chunks/PouGpQZY.js", "_app/immutable/chunks/DwZUwGx8.js", "_app/immutable/chunks/Byvutpzn.js", "_app/immutable/chunks/ChnTbVQw.js", "_app/immutable/chunks/xc24-7yG.js"];
+    stylesheets = ["_app/immutable/assets/0.CiA9g6rf.css", "_app/immutable/assets/app.DIkXoqN8.css"];
     fonts = [];
   }
 });
@@ -5870,7 +4097,7 @@ var init__2 = __esm({
   ".svelte-kit/output/server/nodes/1.js"() {
     index2 = 1;
     component2 = async () => component_cache2 ??= (await Promise.resolve().then(() => (init_error_svelte(), error_svelte_exports))).default;
-    imports2 = ["_app/immutable/nodes/1.Bc4LRAQ4.js", "_app/immutable/chunks/DBueJji7.js", "_app/immutable/chunks/D0RhbEBz.js", "_app/immutable/chunks/DNOw45zF.js", "_app/immutable/chunks/CITdYyKU.js", "_app/immutable/chunks/Dy5kwvZB.js"];
+    imports2 = ["_app/immutable/nodes/1.DIo-rZba.js", "_app/immutable/chunks/PouGpQZY.js", "_app/immutable/chunks/DwZUwGx8.js", "_app/immutable/chunks/xc24-7yG.js", "_app/immutable/chunks/ChnTbVQw.js"];
     stylesheets2 = [];
     fonts2 = [];
   }
@@ -5886,7 +4113,7 @@ var init_page_svelte = __esm({
   ".svelte-kit/output/server/entries/pages/_page.svelte.js"() {
     init_ssr();
     Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-      return `<p data-svelte-h="svelte-1wr15oe">please click the timeline sub-page in the nav bar</p> <p data-svelte-h="svelte-wb78fm"><a class="underline text-lg text-primary-2" href="https://www.buddyville.xyz/timeline">or click here</a></p>`;
+      return `<h1 class="text-xl font-bold" data-svelte-h="svelte-1jculta">Coming Soon</h1> <ul class="list-disc list-inside" data-svelte-h="svelte-1yeml5l"><li>Source Music 2018/2019 scrapped girl group debut</li> <li>Source Music 2018-2021 female trainees</li></ul> <br><br> <p data-svelte-h="svelte-hn39xb">For any corrections or requests: <a class="text-primary-3 underline hover:text-primary-4" href="https://x.com/EyeOfTheStormDB">@EyeOfTheStormDB</a></p>`;
     });
   }
 });
@@ -5905,61 +4132,9 @@ var init__3 = __esm({
   ".svelte-kit/output/server/nodes/2.js"() {
     index3 = 2;
     component3 = async () => component_cache3 ??= (await Promise.resolve().then(() => (init_page_svelte(), page_svelte_exports))).default;
-    imports3 = ["_app/immutable/nodes/2.xCPSD8b_.js", "_app/immutable/chunks/DBueJji7.js", "_app/immutable/chunks/D0RhbEBz.js"];
+    imports3 = ["_app/immutable/nodes/2.DwhLAWAF.js", "_app/immutable/chunks/PouGpQZY.js", "_app/immutable/chunks/DwZUwGx8.js"];
     stylesheets3 = [];
     fonts3 = [];
-  }
-});
-
-// .svelte-kit/output/server/entries/pages/snapshots/_slug_/_page.svelte.js
-var page_svelte_exports2 = {};
-__export(page_svelte_exports2, {
-  default: () => Page2
-});
-function context() {
-  return getContext("__request__");
-}
-var page$1, page2, Page2;
-var init_page_svelte2 = __esm({
-  ".svelte-kit/output/server/entries/pages/snapshots/_slug_/_page.svelte.js"() {
-    init_ssr();
-    init_client();
-    ({
-      check: stores.updated.check
-    });
-    page$1 = {
-      get url() {
-        return context().page.url;
-      }
-    };
-    page2 = page$1;
-    Page2 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-      const path = __require("node:path");
-      const filePathString = "$lib/data/snapshots/path.js".replace("path", page2.url.pathname.split("/")[-1]);
-      let { timeline } = path.resolve(filePathString);
-      alert(timeline["test"]);
-      return `<div class="overflow-hidden -mt-5" data-svelte-h="svelte-5opo26"></div>`;
-    });
-  }
-});
-
-// .svelte-kit/output/server/nodes/3.js
-var __exports4 = {};
-__export(__exports4, {
-  component: () => component4,
-  fonts: () => fonts4,
-  imports: () => imports4,
-  index: () => index4,
-  stylesheets: () => stylesheets4
-});
-var index4, component_cache4, component4, imports4, stylesheets4, fonts4;
-var init__4 = __esm({
-  ".svelte-kit/output/server/nodes/3.js"() {
-    index4 = 3;
-    component4 = async () => component_cache4 ??= (await Promise.resolve().then(() => (init_page_svelte2(), page_svelte_exports2))).default;
-    imports4 = ["_app/immutable/nodes/3.De3DYDKr.js", "_app/immutable/chunks/DBueJji7.js", "_app/immutable/chunks/D0RhbEBz.js", "_app/immutable/chunks/CITdYyKU.js", "_app/immutable/chunks/Dy5kwvZB.js"];
-    stylesheets4 = [];
-    fonts4 = [];
   }
 });
 
@@ -5977,7 +4152,7 @@ var init_Card = __esm({
       let { reverse = false } = $$props;
       let { img = void 0 } = $$props;
       let { padding = "lg" } = $$props;
-      let { size: size2 = "sm" } = $$props;
+      let { size = "sm" } = $$props;
       let { imgClass = "" } = $$props;
       const paddings = {
         none: "",
@@ -6003,10 +4178,10 @@ var init_Card = __esm({
       if ($$props.reverse === void 0 && $$bindings.reverse && reverse !== void 0) $$bindings.reverse(reverse);
       if ($$props.img === void 0 && $$bindings.img && img !== void 0) $$bindings.img(img);
       if ($$props.padding === void 0 && $$bindings.padding && padding !== void 0) $$bindings.padding(padding);
-      if ($$props.size === void 0 && $$bindings.size && size2 !== void 0) $$bindings.size(size2);
+      if ($$props.size === void 0 && $$bindings.size && size !== void 0) $$bindings.size(size);
       if ($$props.imgClass === void 0 && $$bindings.imgClass && imgClass !== void 0) $$bindings.imgClass(imgClass);
       innerPadding = paddings[padding];
-      cardClass = twMerge("flex w-full", sizes[size2], reverse ? "flex-col-reverse" : "flex-col", horizontal && (reverse ? "md:flex-row-reverse" : "md:flex-row"), href && "hover:bg-gray-100 dark:hover:bg-gray-700", !img && innerPadding, $$props.class);
+      cardClass = twMerge("flex w-full", sizes[size], reverse ? "flex-col-reverse" : "flex-col", horizontal && (reverse ? "md:flex-row-reverse" : "md:flex-row"), href && "hover:bg-gray-100 dark:hover:bg-gray-700", !img && innerPadding, $$props.class);
       imgCls = twMerge(reverse ? "rounded-b-lg" : "rounded-t-lg", horizontal && "object-cover w-full h-96 md:h-auto md:w-48 md:rounded-none", horizontal && (reverse ? "md:rounded-e-lg" : "md:rounded-s-lg"), imgClass);
       return `${validate_component(Frame, "Frame").$$render($$result, Object.assign({}, { tag: href ? "a" : "div" }, { rounded: true }, { shadow: true }, { border: true }, { href }, $$restProps, { class: cardClass }), {}, {
         default: () => {
@@ -6017,318 +4192,90 @@ var init_Card = __esm({
   }
 });
 
-// .svelte-kit/output/server/entries/pages/timeline/_page.svelte.js
-var page_svelte_exports3 = {};
-__export(page_svelte_exports3, {
-  default: () => Page3
-});
-var Button, Label, colorClasses, labelClass, inputClass, Checkbox, liClasses, divClasses, timeClasses, h3Cls, TimelineItem, olClasses, Timeline, hybe_timeline, Page3;
-var init_page_svelte3 = __esm({
-  ".svelte-kit/output/server/entries/pages/timeline/_page.svelte.js"() {
+// .svelte-kit/output/server/chunks/Timeline.js
+var ChevronDownOutline, liClasses, divClasses, timeClasses, h3Cls, TimelineItem, olClasses, Timeline;
+var init_Timeline = __esm({
+  ".svelte-kit/output/server/chunks/Timeline.js"() {
     init_ssr();
-    init_Frame();
     init_bundle_mjs();
-    init_Card();
-    init_ChevronDownOutline();
-    Button = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-      let $$restProps = compute_rest_props($$props, [
-        "pill",
-        "outline",
-        "size",
-        "href",
-        "type",
-        "color",
-        "shadow",
-        "tag",
-        "checked",
-        "disabled"
-      ]);
-      const group = getContext("group");
-      let { pill = false } = $$props;
-      let { outline = false } = $$props;
-      let { size: size2 = group ? "sm" : "md" } = $$props;
-      let { href = void 0 } = $$props;
-      let { type = "button" } = $$props;
-      let { color: color2 = group ? outline ? "dark" : "alternative" : "primary" } = $$props;
-      let { shadow = false } = $$props;
-      let { tag = "button" } = $$props;
-      let { checked = void 0 } = $$props;
-      let { disabled = false } = $$props;
-      const colorClasses2 = {
-        alternative: "text-gray-900 bg-white border border-gray-200 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-400 hover:text-primary-700 focus-within:text-primary-700 dark:focus-within:text-white dark:hover:text-white dark:hover:bg-gray-700",
-        blue: "text-white bg-blue-700 hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700",
-        dark: "text-white bg-gray-800 hover:bg-gray-900 dark:bg-gray-800 dark:hover:bg-gray-700",
-        green: "text-white bg-green-700 hover:bg-green-800 dark:bg-green-600 dark:hover:bg-green-700",
-        light: "text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600",
-        primary: "text-white bg-primary-700 hover:bg-primary-800 dark:bg-primary-600 dark:hover:bg-primary-700",
-        purple: "text-white bg-purple-700 hover:bg-purple-800 dark:bg-purple-600 dark:hover:bg-purple-700",
-        red: "text-white bg-red-700 hover:bg-red-800 dark:bg-red-600 dark:hover:bg-red-700",
-        yellow: "text-white bg-yellow-400 hover:bg-yellow-500 ",
-        none: ""
+    ChevronDownOutline = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+      let $$restProps = compute_rest_props($$props, ["size", "role", "color", "withEvents", "title", "strokeWidth", "desc", "ariaLabel"]);
+      const ctx = getContext("iconCtx") ?? {};
+      const sizes = {
+        xs: "w-3 h-3",
+        sm: "w-4 h-4",
+        md: "w-5 h-5",
+        lg: "w-6 h-6",
+        xl: "w-8 h-8"
       };
-      const colorCheckedClasses = {
-        alternative: "text-primary-700 border dark:text-primary-500 bg-gray-100 dark:bg-gray-700 border-gray-300 shadow-gray-300 dark:shadow-gray-800 shadow-inner",
-        blue: "text-blue-900 bg-blue-400 dark:bg-blue-500 shadow-blue-700 dark:shadow-blue-800 shadow-inner",
-        dark: "text-white bg-gray-500 dark:bg-gray-600 shadow-gray-800 dark:shadow-gray-900 shadow-inner",
-        green: "text-green-900 bg-green-400 dark:bg-green-500 shadow-green-700 dark:shadow-green-800 shadow-inner",
-        light: "text-gray-900 bg-gray-100 border border-gray-300 dark:bg-gray-500 dark:text-gray-900 dark:border-gray-700 shadow-gray-300 dark:shadow-gray-700 shadow-inner",
-        primary: "text-primary-900 bg-primary-400 dark:bg-primary-500 shadow-primary-700 dark:shadow-primary-800 shadow-inner",
-        purple: "text-purple-900 bg-purple-400 dark:bg-purple-500 shadow-purple-700 dark:shadow-purple-800 shadow-inner",
-        red: "text-red-900 bg-red-400 dark:bg-red-500 shadow-red-700 dark:shadow-red-800 shadow-inner",
-        yellow: "text-yellow-900 bg-yellow-300 dark:bg-yellow-400 shadow-yellow-500 dark:shadow-yellow-700 shadow-inner",
-        none: ""
-      };
-      const coloredFocusClasses = {
-        alternative: "focus-within:ring-gray-200 dark:focus-within:ring-gray-700",
-        blue: "focus-within:ring-blue-300 dark:focus-within:ring-blue-800",
-        dark: "focus-within:ring-gray-300 dark:focus-within:ring-gray-700",
-        green: "focus-within:ring-green-300 dark:focus-within:ring-green-800",
-        light: "focus-within:ring-gray-200 dark:focus-within:ring-gray-700",
-        primary: "focus-within:ring-primary-300 dark:focus-within:ring-primary-800",
-        purple: "focus-within:ring-purple-300 dark:focus-within:ring-purple-900",
-        red: "focus-within:ring-red-300 dark:focus-within:ring-red-900",
-        yellow: "focus-within:ring-yellow-300 dark:focus-within:ring-yellow-900",
-        none: ""
-      };
-      const coloredShadowClasses = {
-        alternative: "shadow-gray-500/50 dark:shadow-gray-800/80",
-        blue: "shadow-blue-500/50 dark:shadow-blue-800/80",
-        dark: "shadow-gray-500/50 dark:shadow-gray-800/80",
-        green: "shadow-green-500/50 dark:shadow-green-800/80",
-        light: "shadow-gray-500/50 dark:shadow-gray-800/80",
-        primary: "shadow-primary-500/50 dark:shadow-primary-800/80",
-        purple: "shadow-purple-500/50 dark:shadow-purple-800/80",
-        red: "shadow-red-500/50 dark:shadow-red-800/80 ",
-        yellow: "shadow-yellow-500/50 dark:shadow-yellow-800/80 ",
-        none: ""
-      };
-      const outlineClasses = {
-        alternative: "text-gray-900 dark:text-gray-400 hover:text-white border border-gray-800 hover:bg-gray-900 focus-within:bg-gray-900 focus-within:text-white focus-within:ring-gray-300 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-600 dark:focus-within:ring-gray-800",
-        blue: "text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-600",
-        dark: "text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus-within:bg-gray-900 focus-within:text-white dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-600",
-        green: "text-green-700 hover:text-white border border-green-700 hover:bg-green-800 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600",
-        light: "text-gray-500 hover:text-gray-900 bg-white border border-gray-200 dark:border-gray-600 dark:hover:text-white dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-700 dark:hover:bg-gray-600",
-        primary: "text-primary-700 hover:text-white border border-primary-700 hover:bg-primary-700 dark:border-primary-500 dark:text-primary-500 dark:hover:text-white dark:hover:bg-primary-600",
-        purple: "text-purple-700 hover:text-white border border-purple-700 hover:bg-purple-800 dark:border-purple-400 dark:text-purple-400 dark:hover:text-white dark:hover:bg-purple-500",
-        red: "text-red-700 hover:text-white border border-red-700 hover:bg-red-800 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600",
-        yellow: "text-yellow-400 hover:text-white border border-yellow-400 hover:bg-yellow-500 dark:border-yellow-300 dark:text-yellow-300 dark:hover:text-white dark:hover:bg-yellow-400",
-        none: ""
-      };
-      const sizeClasses = {
-        xs: "px-3 py-2 text-xs",
-        sm: "px-4 py-2 text-sm",
-        md: "px-5 py-2.5 text-sm",
-        lg: "px-5 py-3 text-base",
-        xl: "px-6 py-3.5 text-base"
-      };
-      const hasBorder = () => outline || color2 === "alternative" || color2 === "light";
-      let buttonClass;
-      if ($$props.pill === void 0 && $$bindings.pill && pill !== void 0) $$bindings.pill(pill);
-      if ($$props.outline === void 0 && $$bindings.outline && outline !== void 0) $$bindings.outline(outline);
-      if ($$props.size === void 0 && $$bindings.size && size2 !== void 0) $$bindings.size(size2);
-      if ($$props.href === void 0 && $$bindings.href && href !== void 0) $$bindings.href(href);
-      if ($$props.type === void 0 && $$bindings.type && type !== void 0) $$bindings.type(type);
+      let { size = ctx.size || "md" } = $$props;
+      let { role = ctx.role || "img" } = $$props;
+      let { color: color2 = ctx.color || "currentColor" } = $$props;
+      let { withEvents = ctx.withEvents || false } = $$props;
+      let { title = {} } = $$props;
+      let { strokeWidth = ctx.strokeWidth || "2" } = $$props;
+      let { desc = {} } = $$props;
+      let ariaDescribedby = `${title.id || ""} ${desc.id || ""}`;
+      let hasDescription = false;
+      let { ariaLabel = "chevron down outline" } = $$props;
+      if ($$props.size === void 0 && $$bindings.size && size !== void 0) $$bindings.size(size);
+      if ($$props.role === void 0 && $$bindings.role && role !== void 0) $$bindings.role(role);
       if ($$props.color === void 0 && $$bindings.color && color2 !== void 0) $$bindings.color(color2);
-      if ($$props.shadow === void 0 && $$bindings.shadow && shadow !== void 0) $$bindings.shadow(shadow);
-      if ($$props.tag === void 0 && $$bindings.tag && tag !== void 0) $$bindings.tag(tag);
-      if ($$props.checked === void 0 && $$bindings.checked && checked !== void 0) $$bindings.checked(checked);
-      if ($$props.disabled === void 0 && $$bindings.disabled && disabled !== void 0) $$bindings.disabled(disabled);
-      buttonClass = twMerge(
-        "text-center font-medium",
-        group ? "focus-within:ring-2" : "focus-within:ring-4",
-        group && "focus-within:z-10",
-        group || "focus-within:outline-none",
-        "inline-flex items-center justify-center " + sizeClasses[size2],
-        outline && checked && "border dark:border-gray-900",
-        outline && checked && colorCheckedClasses[color2],
-        outline && !checked && outlineClasses[color2],
-        !outline && checked && colorCheckedClasses[color2],
-        !outline && !checked && colorClasses2[color2],
-        color2 === "alternative" && (group && !checked ? "dark:bg-gray-700 dark:text-white dark:border-gray-700 dark:hover:border-gray-600 dark:hover:bg-gray-600" : "dark:bg-transparent dark:border-gray-600 dark:hover:border-gray-600"),
-        outline && color2 === "dark" && (group ? checked ? "bg-gray-900 border-gray-800 dark:border-white dark:bg-gray-600" : "dark:text-white border-gray-800 dark:border-white" : "dark:text-gray-400 dark:border-gray-700"),
-        coloredFocusClasses[color2],
-        hasBorder() && group && "[&:not(:first-child)]:-ms-px",
-        group ? pill && "first:rounded-s-full last:rounded-e-full" || "first:rounded-s-lg last:rounded-e-lg" : pill && "rounded-full" || "rounded-lg",
-        shadow && "shadow-lg",
-        shadow && coloredShadowClasses[color2],
-        disabled && "cursor-not-allowed opacity-50",
-        $$props.class
-      );
-      return `${href && !disabled ? `<a${spread(
-        [
-          { href: escape_attribute_value(href) },
-          escape_object($$restProps),
-          {
-            class: escape_attribute_value(buttonClass)
-          },
-          { role: "button" }
-        ],
-        {}
-      )}>${slots.default ? slots.default({}) : ``}</a>` : `${tag === "button" ? `<button${spread(
-        [
-          { type: escape_attribute_value(type) },
-          escape_object($$restProps),
-          { disabled: disabled || null },
-          {
-            class: escape_attribute_value(buttonClass)
-          }
-        ],
-        {}
-      )}>${slots.default ? slots.default({}) : ``}</button>` : `${((tag$1) => {
-        return tag$1 ? `<${tag}${spread(
-          [
-            escape_object($$restProps),
-            {
-              class: escape_attribute_value(buttonClass)
-            }
-          ],
-          {}
-        )}>${is_void(tag$1) ? "" : `${slots.default ? slots.default({}) : ``}`}${is_void(tag$1) ? "" : `</${tag$1}>`}` : "";
-      })(tag)}`}`} `;
-    });
-    Label = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-      let labelClass2;
-      let $$restProps = compute_rest_props($$props, ["color", "defaultClass", "show"]);
-      let { color: color2 = "gray" } = $$props;
-      let { defaultClass = "text-sm rtl:text-right font-medium block" } = $$props;
-      let { show = true } = $$props;
-      let node;
-      const colorClasses2 = {
-        gray: "text-gray-900 dark:text-gray-300",
-        green: "text-green-700 dark:text-green-500",
-        red: "text-red-700 dark:text-red-500",
-        disabled: "text-gray-400 dark:text-gray-500 grayscale contrast-50"
-      };
-      if ($$props.color === void 0 && $$bindings.color && color2 !== void 0) $$bindings.color(color2);
-      if ($$props.defaultClass === void 0 && $$bindings.defaultClass && defaultClass !== void 0) $$bindings.defaultClass(defaultClass);
-      if ($$props.show === void 0 && $$bindings.show && show !== void 0) $$bindings.show(show);
+      if ($$props.withEvents === void 0 && $$bindings.withEvents && withEvents !== void 0) $$bindings.withEvents(withEvents);
+      if ($$props.title === void 0 && $$bindings.title && title !== void 0) $$bindings.title(title);
+      if ($$props.strokeWidth === void 0 && $$bindings.strokeWidth && strokeWidth !== void 0) $$bindings.strokeWidth(strokeWidth);
+      if ($$props.desc === void 0 && $$bindings.desc && desc !== void 0) $$bindings.desc(desc);
+      if ($$props.ariaLabel === void 0 && $$bindings.ariaLabel && ariaLabel !== void 0) $$bindings.ariaLabel(ariaLabel);
       {
-        {
-          color2 = color2;
+        if (title.id || desc.id) {
+          hasDescription = true;
+        } else {
+          hasDescription = false;
         }
       }
-      labelClass2 = twMerge(defaultClass, colorClasses2[color2], $$props.class);
-      return `${show ? ` <label${spread(
+      return `${withEvents ? `<svg${spread(
         [
+          { xmlns: "http://www.w3.org/2000/svg" },
+          { fill: "none" },
+          { color: escape_attribute_value(color2) },
           escape_object($$restProps),
           {
-            class: escape_attribute_value(labelClass2)
-          }
+            class: escape_attribute_value(twMerge("shrink-0", sizes[size ?? "md"], $$props.class))
+          },
+          { role: escape_attribute_value(role) },
+          {
+            "aria-label": escape_attribute_value(ariaLabel)
+          },
+          {
+            "aria-describedby": escape_attribute_value(hasDescription ? ariaDescribedby : void 0)
+          },
+          { viewBox: "0 0 24 24" }
         ],
         {}
-      )}${add_attribute("this", node, 0)}>${slots.default ? slots.default({}) : ``}</label>` : `${slots.default ? slots.default({}) : ``}`} `;
-    });
-    colorClasses = {
-      primary: "text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600",
-      secondary: "text-secondary-600 focus:ring-secondary-500 dark:focus:ring-secondary-600",
-      red: "text-red-600 focus:ring-red-500 dark:focus:ring-red-600",
-      green: "text-green-600 focus:ring-green-500 dark:focus:ring-green-600",
-      purple: "text-purple-600 focus:ring-purple-500 dark:focus:ring-purple-600",
-      teal: "text-teal-600 focus:ring-teal-500 dark:focus:ring-teal-600",
-      yellow: "text-yellow-400 focus:ring-yellow-500 dark:focus:ring-yellow-600",
-      orange: "text-orange-500 focus:ring-orange-500 dark:focus:ring-orange-600",
-      blue: "text-blue-600 focus:ring-blue-500 dark:focus:ring-blue-600"
-    };
-    labelClass = (inline2, extraClass) => twMerge(inline2 ? "inline-flex" : "flex", "items-center", extraClass);
-    inputClass = (custom, color2, rounded, tinted, spacing, extraClass) => twMerge(
-      "w-4 h-4 bg-gray-100 border-gray-300 dark:ring-offset-gray-800 focus:ring-2",
-      spacing,
-      tinted ? "dark:bg-gray-600 dark:border-gray-500" : "dark:bg-gray-700 dark:border-gray-600",
-      custom && "sr-only peer",
-      "rounded",
-      colorClasses[color2],
-      extraClass
-    );
-    Checkbox = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-      let $$restProps = compute_rest_props($$props, [
-        "color",
-        "custom",
-        "inline",
-        "group",
-        "choices",
-        "value",
-        "checked",
-        "spacing",
-        "groupLabelClass",
-        "groupInputClass"
-      ]);
-      let $$slots = compute_slots(slots);
-      let { color: color2 = "primary" } = $$props;
-      let { custom = false } = $$props;
-      let { inline: inline2 = false } = $$props;
-      let { group = [] } = $$props;
-      let { choices = [] } = $$props;
-      let { value = "on" } = $$props;
-      let { checked = void 0 } = $$props;
-      let { spacing = $$slots.default ? "me-2" : "" } = $$props;
-      let { groupLabelClass = "" } = $$props;
-      let { groupInputClass = "" } = $$props;
-      let background = getContext("background");
-      if ($$props.color === void 0 && $$bindings.color && color2 !== void 0) $$bindings.color(color2);
-      if ($$props.custom === void 0 && $$bindings.custom && custom !== void 0) $$bindings.custom(custom);
-      if ($$props.inline === void 0 && $$bindings.inline && inline2 !== void 0) $$bindings.inline(inline2);
-      if ($$props.group === void 0 && $$bindings.group && group !== void 0) $$bindings.group(group);
-      if ($$props.choices === void 0 && $$bindings.choices && choices !== void 0) $$bindings.choices(choices);
-      if ($$props.value === void 0 && $$bindings.value && value !== void 0) $$bindings.value(value);
-      if ($$props.checked === void 0 && $$bindings.checked && checked !== void 0) $$bindings.checked(checked);
-      if ($$props.spacing === void 0 && $$bindings.spacing && spacing !== void 0) $$bindings.spacing(spacing);
-      if ($$props.groupLabelClass === void 0 && $$bindings.groupLabelClass && groupLabelClass !== void 0) $$bindings.groupLabelClass(groupLabelClass);
-      if ($$props.groupInputClass === void 0 && $$bindings.groupInputClass && groupInputClass !== void 0) $$bindings.groupInputClass(groupInputClass);
-      return `${choices.length > 0 ? `${each(choices, ({ value: value2, label }, i) => {
-        return `${validate_component(Label, "Label").$$render(
-          $$result,
+      )}>${title.id && title.title ? `<title${add_attribute("id", title.id, 0)}>${escape(title.title)}</title>` : ``}${desc.id && desc.desc ? `<desc${add_attribute("id", desc.id, 0)}>${escape(desc.desc)}</desc>` : ``}<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"${add_attribute("stroke-width", strokeWidth, 0)} d="m8 10 4 4 4-4"></path></svg>` : `<svg${spread(
+        [
+          { xmlns: "http://www.w3.org/2000/svg" },
+          { fill: "none" },
+          { color: escape_attribute_value(color2) },
+          escape_object($$restProps),
           {
-            class: labelClass(inline2, groupLabelClass),
-            show: $$slots.default,
-            for: `checkbox-${i}`
+            class: escape_attribute_value(twMerge("shrink-0", sizes[size ?? "md"], $$props.class))
           },
-          {},
+          { role: escape_attribute_value(role) },
           {
-            default: () => {
-              return `${escape(label)} <input${spread(
-                [
-                  {
-                    id: escape_attribute_value(`checkbox-${i}`)
-                  },
-                  { type: "checkbox" },
-                  { value: escape_attribute_value(value2) },
-                  escape_object($$restProps),
-                  {
-                    class: escape_attribute_value(inputClass(custom, color2, true, background, spacing, groupInputClass))
-                  }
-                ],
-                {}
-              )}${~group.indexOf(value2) ? add_attribute("checked", true, 1) : ""}> ${slots.default ? slots.default({}) : ``} `;
-            }
-          }
-        )}`;
-      })}` : `${validate_component(Label, "Label").$$render(
-        $$result,
-        {
-          class: labelClass(inline2, $$props.class),
-          show: $$slots.default
-        },
-        {},
-        {
-          default: () => {
-            return `<input${spread(
-              [
-                { type: "checkbox" },
-                { value: escape_attribute_value(value) },
-                escape_object($$restProps),
-                {
-                  class: escape_attribute_value(inputClass(custom, color2, true, background, spacing, $$slots.default || $$props.class))
-                }
-              ],
-              {}
-            )}${add_attribute("checked", checked, 1)}> ${slots.default ? slots.default({}) : ``}`;
-          }
-        }
-      )}`} `;
+            "aria-label": escape_attribute_value(ariaLabel)
+          },
+          {
+            "aria-describedby": escape_attribute_value(hasDescription ? ariaDescribedby : void 0)
+          },
+          { viewBox: "0 0 24 24" }
+        ],
+        {}
+      )}>${title.id && title.title ? `<title${add_attribute("id", title.id, 0)}>${escape(title.title)}</title>` : ``}${desc.id && desc.desc ? `<desc${add_attribute("id", desc.id, 0)}>${escape(desc.desc)}</desc>` : ``}<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"${add_attribute("stroke-width", strokeWidth, 0)} d="m8 10 4 4 4-4"></path></svg>`} `;
     });
     liClasses = "mb-10 ms-4";
-    divClasses = "absolute w-3 h-3 bg-primary-2 rounded-full mt-1.5 -start-1.5 border border-white";
-    timeClasses = "mb-1 text-xs font-normal leading-none text-gray-500 dark:text-gray-500";
+    divClasses = "absolute w-3 h-3 bg-primary-3 rounded-full mt-1.5 -start-1.5 border border-accent-1";
+    timeClasses = "mb-1 text-xs font-normal leading-none text-primary-3 dark:text-gray-500";
     h3Cls = "text-md font-semibold text-gray-900 dark:text-white";
     TimelineItem = create_ssr_component(($$result, $$props, $$bindings, slots) => {
       let { desc = false } = $$props;
@@ -6337,16 +4284,112 @@ var init_page_svelte3 = __esm({
       if ($$props.desc === void 0 && $$bindings.desc && desc !== void 0) $$bindings.desc(desc);
       if ($$props.title === void 0 && $$bindings.title && title !== void 0) $$bindings.title(title);
       if ($$props.date === void 0 && $$bindings.date && date !== void 0) $$bindings.date(date);
-      return `  <li${add_attribute("class", liClasses, 0)}><div${add_attribute("class", divClasses, 0)}></div> <time${add_attribute("class", timeClasses, 0)}>${escape(date)}</time> ${title ? `<div><h3${add_attribute("class", h3Cls, 0)}>${desc ? `<button class="justify-between flex">${escape(title)} <div class="justify-center ms-2 items-center w-6 h-6 bg-gray-200 rounded-full">${validate_component(ChevronDownOutline, "ChevronDownOutline").$$render($$result, { class: "w-6 h-6 ms-0 text-black" }, {}, {})}</div></button>` : `${escape(title)}`}</h3></div>` : ``} <div>${slots.default ? slots.default({}) : ``}</div></li> `;
+      return `  <li${add_attribute("class", liClasses, 0)}><div${add_attribute("class", divClasses, 0)}></div> <time${add_attribute("class", timeClasses, 0)}>${escape(date)}</time> ${title ? `<div><h3${add_attribute("class", h3Cls, 0)}>${desc ? `<button class="justify-between flex">${escape(title)} <div class="justify-center ms-2 items-center w-6 h-6 bg-accent-2 rounded-full">${validate_component(ChevronDownOutline, "ChevronDownOutline").$$render($$result, { class: "w-6 h-6 ms-0 text-accent-5" }, {}, {})}</div></button>` : `${escape(title)}`}</h3></div>` : ``} <div>${slots.default ? slots.default({}) : ``}</div></li> `;
     });
     olClasses = "relative border-s border-black dark:border-gray-700";
     Timeline = create_ssr_component(($$result, $$props, $$bindings, slots) => {
       return `  <ol${add_attribute("class", twMerge(olClasses, $$props.class), 0)}>${slots.default ? slots.default({}) : ``}</ol> `;
     });
-    hybe_timeline = {
-      labels: {
-        labelCategoryNames: ["groups", "other", "companies", "type"]
-      },
+  }
+});
+
+// .svelte-kit/output/server/entries/pages/snapshots/_slug_/_page.svelte.js
+var page_svelte_exports2 = {};
+__export(page_svelte_exports2, {
+  default: () => Page2
+});
+function context() {
+  return getContext("__request__");
+}
+var page$1, page2, Page2;
+var init_page_svelte2 = __esm({
+  ".svelte-kit/output/server/entries/pages/snapshots/_slug_/_page.svelte.js"() {
+    init_ssr();
+    init_Card();
+    init_client();
+    init_Timeline();
+    ({
+      check: stores.updated.check
+    });
+    page$1 = {
+      get params() {
+        return context().page.params;
+      }
+    };
+    page2 = page$1;
+    Page2 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+      let snapshots = alligator();
+      page2.params.slug;
+      return `<div class="overflow-hidden -mt-5">${validate_component(Card, "Card").$$render(
+        $$result,
+        {
+          size: "lg",
+          class: "float-left mt-5 bg-accent-1 border-accent-3"
+        },
+        {},
+        {
+          default: () => {
+            return `${validate_component(Timeline, "Timeline").$$render($$result, { order: "default" }, {}, {
+              default: () => {
+                return `${each(snapshots, (item) => {
+                  return `${validate_component(TimelineItem, "TimelineItem").$$render(
+                    $$result,
+                    {
+                      title: item["title"],
+                      date: item["date"],
+                      desc: item["text"] || item["sources"].length != 0 ? true : false
+                    },
+                    {},
+                    {
+                      default: () => {
+                        return `<p class="mb-4 text-base font-normal text-primary-4 text-sm">${escape(item["text"])} ${item["notes"] != "" ? `<br><br><i>Note: ${escape(item["notes"])}</i>` : ``} ${item["text"] != "" ? `<br><br>` : ``} ${item["sources"].length != 0 ? `<span class="text-primary-3">Sources: <span class="font-bold">${each(item["sources"], (source) => {
+                          return `<a class="text-primary-3"${add_attribute("href", source, 0)} target="_blank">(${escape(item["sources"].indexOf(source) + 1)})</a>`;
+                        })} </span></span>` : ``}</p> `;
+                      }
+                    }
+                  )}`;
+                })}`;
+              }
+            })}`;
+          }
+        }
+      )}</div>`;
+    });
+  }
+});
+
+// .svelte-kit/output/server/nodes/3.js
+var __exports4 = {};
+__export(__exports4, {
+  component: () => component4,
+  fonts: () => fonts4,
+  imports: () => imports4,
+  index: () => index4,
+  stylesheets: () => stylesheets4
+});
+var index4, component_cache4, component4, imports4, stylesheets4, fonts4;
+var init__4 = __esm({
+  ".svelte-kit/output/server/nodes/3.js"() {
+    index4 = 3;
+    component4 = async () => component_cache4 ??= (await Promise.resolve().then(() => (init_page_svelte2(), page_svelte_exports2))).default;
+    imports4 = ["_app/immutable/nodes/3.D2CN1DFx.js", "_app/immutable/chunks/PouGpQZY.js", "_app/immutable/chunks/DwZUwGx8.js", "_app/immutable/chunks/CdlPVdgK.js", "_app/immutable/chunks/Byvutpzn.js", "_app/immutable/chunks/BkHsSVzA.js", "_app/immutable/chunks/ChnTbVQw.js"];
+    stylesheets4 = [];
+    fonts4 = [];
+  }
+});
+
+// .svelte-kit/output/server/entries/pages/timeline/_page.svelte.js
+var page_svelte_exports3 = {};
+__export(page_svelte_exports3, {
+  default: () => Page3
+});
+var timeline, Page3;
+var init_page_svelte3 = __esm({
+  ".svelte-kit/output/server/entries/pages/timeline/_page.svelte.js"() {
+    init_ssr();
+    init_Card();
+    init_Timeline();
+    timeline = {
       events: [
         {
           title: "Source Music Casts Minji",
@@ -6362,17 +4405,17 @@ var init_page_svelte3 = __esm({
           sources: ["https://m.entertain.naver.com/article/433/0000106807", "https://www.koreatimes.co.kr/www/art/2025/03/398_362674.html"]
         },
         {
-          title: `GFriend's 2nd Album: "Time For Us" is Released`,
-          date: "January 01, 2019",
+          title: "Minji joins Source Music",
+          date: "2018",
           labels: {
-            group: ["GFriend"],
-            other: [],
+            groups: [],
+            other: ["Team N"],
             companies: ["Source Music"],
-            type: ["Music"]
+            type: ["Trainee"]
           },
-          text: "Time For Us is release with positive reactions.",
+          text: "",
           notes: "",
-          sources: ["https://kpopreviewed.com/2019/01/14/sunrise-gfriend/"]
+          sources: ["https://m.entertain.naver.com/article/433/0000106807", "https://www.koreatimes.co.kr/www/art/2025/03/398_362674.html"]
         },
         {
           title: `GFriend's 7th EP: "Fever Season" is Released`,
@@ -6397,7 +4440,7 @@ var init_page_svelte3 = __esm({
             type: []
           },
           text: 'Min Hee-Jin joined BigHit (HYBE) as its Chief Brand Officer (CBO), with one of her responsibilities being to "lead the launch of a new girl group"',
-          notes: `It can be concluded that Min Hee-Jin was set to work with Souce Music's "Team N" as there were no other female trainee teams, under hybe, until 2021.`,
+          notes: `It can be concluded that Min Hee-Jin was set to work with Souce Music's "Team N" as there hadn't been female trainees under BigHit since 2014.`,
           sources: ["https://m.entertain.naver.com/now/article/081/0003010589"]
         },
         {
@@ -6689,147 +4732,41 @@ var init_page_svelte3 = __esm({
       ]
     };
     Page3 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-      let timeline_events = hybe_timeline["events"];
-      const static_all_true = {
-        "Music": true,
-        "Trainee": true,
-        "GFriend": true,
-        "NewJeans": true,
-        "LE SSERAFIM": true,
-        "Team N": true,
-        "Team S": true,
-        "Min Hee-Jin": true,
-        "HYBE": true,
-        "BigHit": true,
-        "Belift": true,
-        "Source Music": true,
-        "Pledis": true,
-        "KOZ": true,
-        "ADOR": true
-      };
-      let values = JSON.parse(JSON.stringify(static_all_true));
-      function checkCheckbox(label) {
-        let labels = [];
-        for (let labelCategoryNames in hybe_timeline["labels"]["labelCategoryNames"]) {
-          for (let tag in label[hybe_timeline["labels"]["labelCategoryNames"][labelCategoryNames]]) {
-            labels.push(label[hybe_timeline["labels"]["labelCategoryNames"][labelCategoryNames]][tag]);
-          }
-        }
-        let showItem = false;
-        for (let labelVar in labels) {
-          if (values[labels[labelVar]]) {
-            showItem = true;
-          }
-        }
-        return showItem;
-      }
-      return `<div class="overflow-hidden -mt-5"> ${validate_component(Card, "Card").$$render($$result, { class: "float-right mt-5 space-y-2" }, {}, {
-        default: () => {
-          return `<div>Groups
-      ${validate_component(Checkbox, "Checkbox").$$render($$result, { checked: values["GFriend"] }, {}, {
-            default: () => {
-              return `GFriend`;
-            }
-          })} ${validate_component(Checkbox, "Checkbox").$$render($$result, { checked: values["NewJeans"] }, {}, {
-            default: () => {
-              return `NewJeans`;
-            }
-          })} ${validate_component(Checkbox, "Checkbox").$$render($$result, { checked: values["LE SSERAFIM"] }, {}, {
-            default: () => {
-              return `LE SSERAFIM`;
-            }
-          })}</div> <div>Trainee Groups
-      ${validate_component(Checkbox, "Checkbox").$$render($$result, { checked: values["Team N"] }, {}, {
-            default: () => {
-              return `Team N`;
-            }
-          })} ${validate_component(Checkbox, "Checkbox").$$render($$result, { checked: values["Team S"] }, {}, {
-            default: () => {
-              return `Team S`;
-            }
-          })}</div> <div>People
-      ${validate_component(Checkbox, "Checkbox").$$render($$result, { checked: values["Min Hee-Jin"] }, {}, {
-            default: () => {
-              return `Min Hee-Jin`;
-            }
-          })}</div> <div>Companies
-      ${validate_component(Checkbox, "Checkbox").$$render($$result, { checked: values["Source Music"] }, {}, {
-            default: () => {
-              return `Source Music`;
-            }
-          })} ${validate_component(Checkbox, "Checkbox").$$render($$result, { checked: values["ADOR"] }, {}, {
-            default: () => {
-              return `ADOR`;
-            }
-          })}</div> <div>Event Type
-      ${validate_component(Checkbox, "Checkbox").$$render($$result, { checked: values["Music"] }, {}, {
-            default: () => {
-              return `Musical Release`;
-            }
-          })} ${validate_component(Checkbox, "Checkbox").$$render($$result, { checked: values["Trainee"] }, {}, {
-            default: () => {
-              return `New Trainee`;
-            }
-          })}</div> <div class="flex place-content-center space-x-4">${validate_component(Button, "Button").$$render($$result, { color: "red", class: "w-1/3 h-10 " }, {}, {
-            default: () => {
-              return `Toggle All`;
-            }
-          })}</div> ${validate_component(DropdownDivider, "DropdownDivider").$$render($$result, { class: "bg-black" }, {}, {})} ${validate_component(Button, "Button").$$render($$result, {}, {}, {
-            default: () => {
-              return `Presets${validate_component(ChevronDownOutline, "ChevronDownOutline").$$render(
-                $$result,
-                {
-                  class: "w-6 h-6 ms-2 text-white dark:text-white"
-                },
-                {},
-                {}
-              )}`;
-            }
-          })} ${validate_component(Dropdown, "Dropdown").$$render($$result, {}, {}, {
-            default: () => {
-              return `${validate_component(DropdownItem, "DropdownItem").$$render($$result, {}, {}, {
-                default: () => {
-                  return `GFriend`;
-                }
-              })} ${validate_component(DropdownItem, "DropdownItem").$$render($$result, {}, {}, {
-                default: () => {
-                  return `Min Hee-Jin`;
-                }
-              })} ${validate_component(DropdownItem, "DropdownItem").$$render($$result, {}, {}, {
-                default: () => {
-                  return `NewJeans`;
-                }
-              })}`;
-            }
-          })}`;
-        }
-      })} ${validate_component(Card, "Card").$$render($$result, { size: "lg", class: "float-left mt-5" }, {}, {
-        default: () => {
-          return `${validate_component(Timeline, "Timeline").$$render($$result, { order: "default" }, {}, {
-            default: () => {
-              return `${each(timeline_events, (item) => {
-                return `${checkCheckbox(item["labels"]) ? `${validate_component(TimelineItem, "TimelineItem").$$render(
-                  $$result,
-                  {
-                    title: item["title"],
-                    date: item["date"],
-                    desc: item["text"] || item["sources"].length != 0 ? true : false
-                  },
-                  {},
-                  {
-                    default: () => {
-                      return `<p class="mb-4 text-base font-normal text-gray-500 text-sm"><br> ${escape(item["text"])} ${item["notes"] != "" ? `<br><i>Note: ${escape(item["notes"])}</i>` : ``} ${item["text"] != "" ? `<br><br>` : ``} ${item["sources"].length != 0 ? `<small>Sources:
-              ${each(item["sources"], (source) => {
-                        return `<a class="text-primary-2"${add_attribute("href", source, 0)} target="_blank">(${escape(item["sources"].indexOf(source) + 1)})</a>`;
-                      })} </small>` : ``}</p> `;
+      let timeline_events = timeline["events"];
+      return `<div class="overflow-hidden -mt-5">${validate_component(Card, "Card").$$render(
+        $$result,
+        {
+          size: "lg",
+          class: "float-left mt-5 bg-accent-1 border-accent-3"
+        },
+        {},
+        {
+          default: () => {
+            return `${validate_component(Timeline, "Timeline").$$render($$result, { order: "default" }, {}, {
+              default: () => {
+                return `${each(timeline_events, (item) => {
+                  return `${validate_component(TimelineItem, "TimelineItem").$$render(
+                    $$result,
+                    {
+                      title: item["title"],
+                      date: item["date"],
+                      desc: item["text"] || item["sources"].length != 0 ? true : false
+                    },
+                    {},
+                    {
+                      default: () => {
+                        return `<p class="mb-4 text-base font-normal text-primary-4 text-sm">${escape(item["text"])} ${item["notes"] != "" ? `<br><br><i>Note: ${escape(item["notes"])}</i>` : ``} ${item["text"] != "" ? `<br><br>` : ``} ${item["sources"].length != 0 ? `<span class="text-primary-3">Sources: <span class="font-bold">${each(item["sources"], (source) => {
+                          return `<a class="text-primary-3"${add_attribute("href", source, 0)} target="_blank">(${escape(item["sources"].indexOf(source) + 1)})</a>`;
+                        })} </span></span>` : ``}</p> `;
+                      }
                     }
-                  }
-                )}` : ``}`;
-              })}`;
-            }
-          })}`;
+                  )}`;
+                })}`;
+              }
+            })}`;
+          }
         }
-      })}</div>`;
+      )}</div>`;
     });
   }
 });
@@ -6848,27 +4785,27 @@ var init__5 = __esm({
   ".svelte-kit/output/server/nodes/4.js"() {
     index5 = 4;
     component5 = async () => component_cache5 ??= (await Promise.resolve().then(() => (init_page_svelte3(), page_svelte_exports3))).default;
-    imports5 = ["_app/immutable/nodes/4.oObeut6O.js", "_app/immutable/chunks/DBueJji7.js", "_app/immutable/chunks/D0RhbEBz.js", "_app/immutable/chunks/Dt_hD-_W.js", "_app/immutable/chunks/CImrTV2S.js", "_app/immutable/chunks/Dy5mLm-I.js", "_app/immutable/chunks/Dy5kwvZB.js"];
+    imports5 = ["_app/immutable/nodes/4.nHq8L52c.js", "_app/immutable/chunks/PouGpQZY.js", "_app/immutable/chunks/DwZUwGx8.js", "_app/immutable/chunks/CdlPVdgK.js", "_app/immutable/chunks/Byvutpzn.js", "_app/immutable/chunks/BkHsSVzA.js"];
     stylesheets5 = [];
     fonts5 = [];
   }
 });
 
 // node_modules/@kurkle/color/dist/color.esm.js
-function round2(v) {
+function round(v) {
   return v + 0.5 | 0;
 }
 function p2b(v) {
-  return lim(round2(v * 2.55), 0, 255);
+  return lim(round(v * 2.55), 0, 255);
 }
 function n2b(v) {
-  return lim(round2(v * 255), 0, 255);
+  return lim(round(v * 255), 0, 255);
 }
 function b2n(v) {
-  return lim(round2(v / 2.55) / 100, 0, 1);
+  return lim(round(v / 2.55) / 100, 0, 1);
 }
 function n2p(v) {
-  return lim(round2(v * 100), 0, 100);
+  return lim(round(v * 100), 0, 100);
 }
 function hexParse(str) {
   var len = str.length;
@@ -6919,11 +4856,11 @@ function hwb2rgbn(h, w, b) {
   }
   return rgb;
 }
-function hueValue(r3, g, b, d, max2) {
-  if (r3 === max2) {
+function hueValue(r3, g, b, d, max) {
+  if (r3 === max) {
     return (g - b) / d + (g < b ? 6 : 0);
   }
-  if (g === max2) {
+  if (g === max) {
     return (b - r3) / d + 2;
   }
   return (r3 - g) / d + 4;
@@ -6933,14 +4870,14 @@ function rgb2hsl(v) {
   const r3 = v.r / range;
   const g = v.g / range;
   const b = v.b / range;
-  const max2 = Math.max(r3, g, b);
-  const min2 = Math.min(r3, g, b);
-  const l = (max2 + min2) / 2;
+  const max = Math.max(r3, g, b);
+  const min = Math.min(r3, g, b);
+  const l = (max + min) / 2;
   let h, s3, d;
-  if (max2 !== min2) {
-    d = max2 - min2;
-    s3 = l > 0.5 ? d / (2 - max2 - min2) : d / (max2 + min2);
-    h = hueValue(r3, g, b, d, max2);
+  if (max !== min) {
+    d = max - min;
+    s3 = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+    h = hueValue(r3, g, b, d, max);
     h = h * 60 + 0.5;
   }
   return [h | 0, s3 || 0, l];
@@ -7375,7 +5312,7 @@ var init_color_esm = __esm({
       }
       greyscale() {
         const rgb = this._rgb;
-        const val = round2(rgb.r * 0.3 + rgb.g * 0.59 + rgb.b * 0.11);
+        const val = round(rgb.r * 0.3 + rgb.g * 0.59 + rgb.b * 0.11);
         rgb.r = rgb.g = rgb.b = val;
         return this;
       }
@@ -7692,8 +5629,8 @@ function _angleBetween(angle, start, end, sameAngleIsFullCircle) {
   const endToAngle = _normalizeAngle(a - e3);
   return a === s3 || a === e3 || sameAngleIsFullCircle && s3 === e3 || angleToStart > angleToEnd && startToAngle < endToAngle;
 }
-function _limitValue(value, min2, max2) {
-  return Math.max(min2, Math.min(max2, value));
+function _limitValue(value, min, max) {
+  return Math.max(min, Math.min(max, value));
 }
 function _int16Range(value) {
   return _limitValue(value, -32768, 32767);
@@ -7719,13 +5656,13 @@ function _lookup(table, value, cmp) {
     hi
   };
 }
-function _filterBetween(values, min2, max2) {
+function _filterBetween(values, min, max) {
   let start = 0;
   let end = values.length;
-  while (start < end && values[start] < min2) {
+  while (start < end && values[start] < min) {
     start++;
   }
-  while (end > start && values[end - 1] > max2) {
+  while (end > start && values[end - 1] > max) {
     end--;
   }
   return start > 0 || end < values.length ? values.slice(start, end) : values;
@@ -7821,13 +5758,13 @@ function _getStartAndCountOfVisiblePoints(meta, points, animationsDisabled) {
     const { iScale, vScale, _parsed } = meta;
     const spanGaps = meta.dataset ? meta.dataset.options ? meta.dataset.options.spanGaps : null : null;
     const axis = iScale.axis;
-    const { min: min2, max: max2, minDefined, maxDefined } = iScale.getUserBounds();
+    const { min, max, minDefined, maxDefined } = iScale.getUserBounds();
     if (minDefined) {
       start = Math.min(
         // @ts-expect-error Need to type _parsed
-        _lookupByKey(_parsed, axis, min2).lo,
+        _lookupByKey(_parsed, axis, min).lo,
         // @ts-expect-error Need to fix types on _lookupByKey
-        animationsDisabled ? pointCount : _lookupByKey(points, axis, iScale.getPixelForValue(min2)).lo
+        animationsDisabled ? pointCount : _lookupByKey(points, axis, iScale.getPixelForValue(min)).lo
       );
       if (spanGaps) {
         const distanceToDefinedLo = _parsed.slice(0, start + 1).reverse().findIndex((point) => !isNullOrUndef(point[vScale.axis]));
@@ -7838,9 +5775,9 @@ function _getStartAndCountOfVisiblePoints(meta, points, animationsDisabled) {
     if (maxDefined) {
       let end = Math.max(
         // @ts-expect-error Need to type _parsed
-        _lookupByKey(_parsed, iScale.axis, max2, true).hi + 1,
+        _lookupByKey(_parsed, iScale.axis, max, true).hi + 1,
         // @ts-expect-error Need to fix types on _lookupByKey
-        animationsDisabled ? 0 : _lookupByKey(points, axis, iScale.getPixelForValue(max2), true).hi + 1
+        animationsDisabled ? 0 : _lookupByKey(points, axis, iScale.getPixelForValue(max), true).hi + 1
       );
       if (spanGaps) {
         const distanceToDefinedHi = _parsed.slice(end - 1).findIndex((point) => !isNullOrUndef(point[vScale.axis]));
@@ -8142,7 +6079,7 @@ function drawPoint(ctx, options2, x, y) {
   drawPointLegend(ctx, options2, x, y, null);
 }
 function drawPointLegend(ctx, options2, x, y, w) {
-  let type, xOffset, yOffset, size2, cornerRadius, width, xOffsetW, yOffsetW;
+  let type, xOffset, yOffset, size, cornerRadius, width, xOffsetW, yOffsetW;
   const style = options2.pointStyle;
   const rotation = options2.rotation;
   const radius = options2.radius;
@@ -8183,11 +6120,11 @@ function drawPointLegend(ctx, options2, x, y, w) {
       break;
     case "rectRounded":
       cornerRadius = radius * 0.516;
-      size2 = radius - cornerRadius;
-      xOffset = Math.cos(rad + QUARTER_PI) * size2;
-      xOffsetW = Math.cos(rad + QUARTER_PI) * (w ? w / 2 - cornerRadius : size2);
-      yOffset = Math.sin(rad + QUARTER_PI) * size2;
-      yOffsetW = Math.sin(rad + QUARTER_PI) * (w ? w / 2 - cornerRadius : size2);
+      size = radius - cornerRadius;
+      xOffset = Math.cos(rad + QUARTER_PI) * size;
+      xOffsetW = Math.cos(rad + QUARTER_PI) * (w ? w / 2 - cornerRadius : size);
+      yOffset = Math.sin(rad + QUARTER_PI) * size;
+      yOffsetW = Math.sin(rad + QUARTER_PI) * (w ? w / 2 - cornerRadius : size);
       ctx.arc(x - xOffsetW, y - yOffset, cornerRadius, rad - PI, rad - HALF_PI);
       ctx.arc(x + yOffsetW, y - xOffset, cornerRadius, rad - HALF_PI, rad);
       ctx.arc(x + xOffsetW, y + yOffset, cornerRadius, rad, rad + HALF_PI);
@@ -8196,9 +6133,9 @@ function drawPointLegend(ctx, options2, x, y, w) {
       break;
     case "rect":
       if (!rotation) {
-        size2 = Math.SQRT1_2 * radius;
-        width = w ? w / 2 : size2;
-        ctx.rect(x - width, y - size2, 2 * width, 2 * size2);
+        size = Math.SQRT1_2 * radius;
+        width = w ? w / 2 : size;
+        ctx.rect(x - width, y - size, 2 * width, 2 * size);
         break;
       }
       rad += QUARTER_PI;
@@ -8278,7 +6215,7 @@ function clipArea(ctx, area) {
 function unclipArea(ctx) {
   ctx.restore();
 }
-function _steppedLineTo(ctx, previous, target, flip3, mode) {
+function _steppedLineTo(ctx, previous, target, flip, mode) {
   if (!previous) {
     return ctx.lineTo(target.x, target.y);
   }
@@ -8286,18 +6223,18 @@ function _steppedLineTo(ctx, previous, target, flip3, mode) {
     const midpoint = (previous.x + target.x) / 2;
     ctx.lineTo(midpoint, previous.y);
     ctx.lineTo(midpoint, target.y);
-  } else if (mode === "after" !== !!flip3) {
+  } else if (mode === "after" !== !!flip) {
     ctx.lineTo(previous.x, target.y);
   } else {
     ctx.lineTo(target.x, previous.y);
   }
   ctx.lineTo(target.x, target.y);
 }
-function _bezierCurveTo(ctx, previous, target, flip3) {
+function _bezierCurveTo(ctx, previous, target, flip) {
   if (!previous) {
     return ctx.lineTo(target.x, target.y);
   }
-  ctx.bezierCurveTo(flip3 ? previous.cp1x : previous.cp2x, flip3 ? previous.cp1y : previous.cp2y, flip3 ? target.cp2x : target.cp1x, flip3 ? target.cp2y : target.cp1y, target.x, target.y);
+  ctx.bezierCurveTo(flip ? previous.cp1x : previous.cp2x, flip ? previous.cp1y : previous.cp2y, flip ? target.cp2x : target.cp1x, flip ? target.cp2y : target.cp1y, target.x, target.y);
 }
 function setRenderOpts(ctx, opts) {
   if (opts.translation) {
@@ -8378,10 +6315,10 @@ function addRoundedRectPath(ctx, rect) {
   ctx.arc(x + w - radius.topRight, y + radius.topRight, radius.topRight, 0, -HALF_PI, true);
   ctx.lineTo(x + radius.topLeft, y);
 }
-function toLineHeight(value, size2) {
+function toLineHeight(value, size) {
   const matches = ("" + value).match(LINE_HEIGHT);
   if (!matches || matches[1] === "normal") {
-    return size2 * 1.2;
+    return size * 1.2;
   }
   value = +matches[2];
   switch (matches[3]) {
@@ -8391,7 +6328,7 @@ function toLineHeight(value, size2) {
       value /= 100;
       break;
   }
-  return size2 * value;
+  return size * value;
 }
 function _readValueToProps(value, props) {
   const ret = {};
@@ -8428,9 +6365,9 @@ function toPadding(value) {
 function toFont(options2, fallback) {
   options2 = options2 || {};
   fallback = fallback || defaults.font;
-  let size2 = valueOrDefault(options2.size, fallback.size);
-  if (typeof size2 === "string") {
-    size2 = parseInt(size2, 10);
+  let size = valueOrDefault(options2.size, fallback.size);
+  if (typeof size === "string") {
+    size = parseInt(size, 10);
   }
   let style = valueOrDefault(options2.style, fallback.style);
   if (style && !("" + style).match(FONT_STYLE)) {
@@ -8439,8 +6376,8 @@ function toFont(options2, fallback) {
   }
   const font = {
     family: valueOrDefault(options2.family, fallback.family),
-    lineHeight: toLineHeight(valueOrDefault(options2.lineHeight, fallback.lineHeight), size2),
-    size: size2,
+    lineHeight: toLineHeight(valueOrDefault(options2.lineHeight, fallback.lineHeight), size),
+    size,
     style,
     weight: valueOrDefault(options2.weight, fallback.weight),
     string: ""
@@ -8473,12 +6410,12 @@ function resolve2(inputs, context2, index7, info) {
   }
 }
 function _addGrace(minmax, grace, beginAtZero) {
-  const { min: min2, max: max2 } = minmax;
-  const change = toDimension(grace, (max2 - min2) / 2);
+  const { min, max } = minmax;
+  const change = toDimension(grace, (max - min) / 2);
   const keepZero = (value, add) => beginAtZero && value === 0 ? 0 : value + add;
   return {
-    min: keepZero(min2, -Math.abs(change)),
-    max: keepZero(max2, change)
+    min: keepZero(min, -Math.abs(change)),
+    max: keepZero(max, change)
   };
 }
 function createContext(parentContext, context2) {
@@ -8873,8 +6810,8 @@ function splineCurveMonotone(points, indexAxis = "x") {
   monotoneAdjust(points, deltaK, mK);
   monotoneCompute(points, mK, indexAxis);
 }
-function capControlPoint(pt, min2, max2) {
-  return Math.max(Math.min(pt, max2), min2);
+function capControlPoint(pt, min, max) {
+  return Math.max(Math.min(pt, max), min);
 }
 function capBezierPoints(points, area) {
   let i, ilen, point, inArea, inAreaPrev;
@@ -8943,7 +6880,7 @@ function parseMaxStyle(styleValue, node, parentProperty) {
   return valueInPixels;
 }
 function getStyle(el, property) {
-  return getComputedStyle2(el).getPropertyValue(property);
+  return getComputedStyle(el).getPropertyValue(property);
 }
 function getPositionedStyle(styles, style, suffix) {
   const result = {};
@@ -8982,7 +6919,7 @@ function getRelativePosition(event, chart2) {
     return event;
   }
   const { canvas, currentDevicePixelRatio } = chart2;
-  const style = getComputedStyle2(canvas);
+  const style = getComputedStyle(canvas);
   const borderBox = style.boxSizing === "border-box";
   const paddings = getPositionedStyle(style, "padding");
   const borders = getPositionedStyle(style, "border", "width");
@@ -9008,7 +6945,7 @@ function getContainerSize(canvas, width, height) {
       height = canvas.clientHeight;
     } else {
       const rect = container.getBoundingClientRect();
-      const containerStyle = getComputedStyle2(container);
+      const containerStyle = getComputedStyle(container);
       const containerBorder = getPositionedStyle(containerStyle, "border", "width");
       const containerPadding = getPositionedStyle(containerStyle, "padding");
       width = rect.width - containerPadding.width - containerBorder.width;
@@ -9025,7 +6962,7 @@ function getContainerSize(canvas, width, height) {
   };
 }
 function getMaximumSize(canvas, bbWidth, bbHeight, aspectRatio) {
-  const style = getComputedStyle2(canvas);
+  const style = getComputedStyle(canvas);
   const margins = getPositionedStyle(style, "margin");
   const maxWidth = parseMaxStyle(style.maxWidth, canvas, "clientWidth") || INFINITY;
   const maxHeight = parseMaxStyle(style.maxHeight, canvas, "clientHeight") || INFINITY;
@@ -9269,13 +7206,13 @@ function findStartAndEnd(points, count, loop, spanGaps) {
     end
   };
 }
-function solidSegments(points, start, max2, loop) {
+function solidSegments(points, start, max, loop) {
   const count = points.length;
   const result = [];
   let last = start;
   let prev = points[start];
   let end;
-  for (end = start + 1; end <= max2; ++end) {
+  for (end = start + 1; end <= max; ++end) {
     const cur = points[end % count];
     if (cur.skip || cur.stop) {
       if (!prev.skip) {
@@ -9322,9 +7259,9 @@ function _computeSegments(line, segmentOptions) {
       }
     ], points, segmentOptions);
   }
-  const max2 = end < start ? end + count : end;
+  const max = end < start ? end + count : end;
   const completeLoop = !!line._fullLoop && start === 0 && end === count - 1;
-  return splitByStyles(line, solidSegments(points, start, max2, completeLoop), points, segmentOptions);
+  return splitByStyles(line, solidSegments(points, start, max, completeLoop), points, segmentOptions);
 }
 function splitByStyles(line, segments, points, segmentOptions) {
   if (!segmentOptions || !segmentOptions.setContext || !points) {
@@ -9417,7 +7354,7 @@ function styleChanged(style, prevStyle) {
   };
   return JSON.stringify(style, replacer) !== JSON.stringify(prevStyle, replacer);
 }
-var uid, toDimension, keyResolvers, defined, isFunction, setsEqual, PI, TAU, PITAU, INFINITY, RAD_PER_DEG, HALF_PI, QUARTER_PI, TWO_THIRDS_PI, log10, sign, _lookupByKey, _rlookupByKey, arrayEvents, requestAnimFrame, _toLeftRightCenter, _alignStartEnd, _textX, atEdge, elasticIn, elasticOut, effects, numbers, colors, intlCache, formatters, Ticks, overrides, descriptors, Defaults, defaults, LINE_HEIGHT, FONT_STYLE, numberOrZero, readKey, needsSubResolver, getScope, EPSILON, getPoint, getValueAxis, getComputedStyle2, positions, useOffsetPos, round1, supportsEventListenerOptions, getRightToLeftAdapter, getLeftToRightAdapter;
+var uid, toDimension, keyResolvers, defined, isFunction, setsEqual, PI, TAU, PITAU, INFINITY, RAD_PER_DEG, HALF_PI, QUARTER_PI, TWO_THIRDS_PI, log10, sign, _lookupByKey, _rlookupByKey, arrayEvents, requestAnimFrame, _toLeftRightCenter, _alignStartEnd, _textX, atEdge, elasticIn, elasticOut, effects, numbers, colors, intlCache, formatters, Ticks, overrides, descriptors, Defaults, defaults, LINE_HEIGHT, FONT_STYLE, numberOrZero, readKey, needsSubResolver, getScope, EPSILON, getPoint, getValueAxis, getComputedStyle, positions, useOffsetPos, round1, supportsEventListenerOptions, getRightToLeftAdapter, getLeftToRightAdapter;
 var init_helpers_segment = __esm({
   "node_modules/chart.js/dist/chunks/helpers.segment.js"() {
     init_color_esm();
@@ -9722,7 +7659,7 @@ var init_helpers_segment = __esm({
     EPSILON = Number.EPSILON || 1e-14;
     getPoint = (points, i) => i < points.length && !points[i].skip && points[i];
     getValueAxis = (indexAxis) => indexAxis === "x" ? "y" : "x";
-    getComputedStyle2 = (element) => element.ownerDocument.defaultView.getComputedStyle(element, null);
+    getComputedStyle = (element) => element.ownerDocument.defaultView.getComputedStyle(element, null);
     positions = [
       "top",
       "right",
@@ -9823,11 +7760,11 @@ function resolveTargetOptions(target, newOptions) {
 function scaleClip(scale, allowedOverflow) {
   const opts = scale && scale.options || {};
   const reverse = opts.reverse;
-  const min2 = opts.min === void 0 ? allowedOverflow : 0;
-  const max2 = opts.max === void 0 ? allowedOverflow : 0;
+  const min = opts.min === void 0 ? allowedOverflow : 0;
+  const max = opts.max === void 0 ? allowedOverflow : 0;
   return {
-    start: reverse ? max2 : min2,
-    end: reverse ? min2 : max2
+    start: reverse ? max : min,
+    end: reverse ? min : max
   };
 }
 function defaultClip(xScale, yScale, allowedOverflow) {
@@ -9921,10 +7858,10 @@ function getStackKey(indexScale, valueScale, meta) {
   return `${indexScale.id}.${valueScale.id}.${meta.stack || meta.type}`;
 }
 function getUserBounds(scale) {
-  const { min: min2, max: max2, minDefined, maxDefined } = scale.getUserBounds();
+  const { min, max, minDefined, maxDefined } = scale.getUserBounds();
   return {
-    min: minDefined ? min2 : Number.NEGATIVE_INFINITY,
-    max: maxDefined ? max2 : Number.POSITIVE_INFINITY
+    min: minDefined ? min : Number.NEGATIVE_INFINITY,
+    max: maxDefined ? max : Number.POSITIVE_INFINITY
   };
 }
 function getOrCreateStack(stacks, stackKey, indexValue) {
@@ -10598,9 +8535,9 @@ function autoSkip(scale, ticks) {
   return newTicks;
 }
 function determineMaxTicks(scale) {
-  const offset3 = scale.options.offset;
+  const offset = scale.options.offset;
   const tickLength = scale._tickSize();
-  const maxScale = scale._length / tickLength + (offset3 ? 0 : 1);
+  const maxScale = scale._length / tickLength + (offset ? 0 : 1);
   const maxChart = scale._maxLength / tickLength;
   return Math.floor(Math.min(maxScale, maxChart));
 }
@@ -10695,16 +8632,16 @@ function getPixelForGridLine(scale, index7, offsetGridLines) {
   const end = scale._endPixel;
   const epsilon = 1e-6;
   let lineValue = scale.getPixelForTick(validIndex2);
-  let offset3;
+  let offset;
   if (offsetGridLines) {
     if (length === 1) {
-      offset3 = Math.max(lineValue - start, end - lineValue);
+      offset = Math.max(lineValue - start, end - lineValue);
     } else if (index7 === 0) {
-      offset3 = (scale.getPixelForTick(1) - lineValue) / 2;
+      offset = (scale.getPixelForTick(1) - lineValue) / 2;
     } else {
-      offset3 = (lineValue - scale.getPixelForTick(validIndex2 - 1)) / 2;
+      offset = (lineValue - scale.getPixelForTick(validIndex2 - 1)) / 2;
     }
-    lineValue += validIndex2 < index7 ? offset3 : -offset3;
+    lineValue += validIndex2 < index7 ? offset : -offset;
     if (lineValue < start - epsilon || lineValue > end + epsilon) {
       return;
     }
@@ -10756,7 +8693,7 @@ function titleAlign(align, position, reverse) {
   }
   return ret;
 }
-function titleArgs(scale, offset3, position, align) {
+function titleArgs(scale, offset, position, align) {
   const { top, left, bottom, right, chart: chart2 } = scale;
   const { chartArea, scales } = chart2;
   let rotation = 0;
@@ -10768,22 +8705,22 @@ function titleArgs(scale, offset3, position, align) {
     if (isObject(position)) {
       const positionAxisID = Object.keys(position)[0];
       const value = position[positionAxisID];
-      titleY = scales[positionAxisID].getPixelForValue(value) + height - offset3;
+      titleY = scales[positionAxisID].getPixelForValue(value) + height - offset;
     } else if (position === "center") {
-      titleY = (chartArea.bottom + chartArea.top) / 2 + height - offset3;
+      titleY = (chartArea.bottom + chartArea.top) / 2 + height - offset;
     } else {
-      titleY = offsetFromEdge(scale, position, offset3);
+      titleY = offsetFromEdge(scale, position, offset);
     }
     maxWidth = right - left;
   } else {
     if (isObject(position)) {
       const positionAxisID = Object.keys(position)[0];
       const value = position[positionAxisID];
-      titleX = scales[positionAxisID].getPixelForValue(value) - width + offset3;
+      titleX = scales[positionAxisID].getPixelForValue(value) - width + offset;
     } else if (position === "center") {
-      titleX = (chartArea.left + chartArea.right) / 2 - width + offset3;
+      titleX = (chartArea.left + chartArea.right) / 2 - width + offset;
     } else {
-      titleX = offsetFromEdge(scale, position, offset3);
+      titleX = offsetFromEdge(scale, position, offset);
     }
     titleY = _alignStartEnd(align, bottom, top);
     rotation = position === "left" ? -HALF_PI : HALF_PI;
@@ -11414,8 +9351,8 @@ function getTooltipSize(tooltip, options2) {
     height
   };
 }
-function determineYAlign(chart2, size2) {
-  const { y, height } = size2;
+function determineYAlign(chart2, size) {
+  const { y, height } = size;
   if (y < height / 2) {
     return "top";
   } else if (y > chart2.height - height / 2) {
@@ -11423,8 +9360,8 @@ function determineYAlign(chart2, size2) {
   }
   return "center";
 }
-function doesNotFitWithAlign(xAlign, chart2, options2, size2) {
-  const { x, width } = size2;
+function doesNotFitWithAlign(xAlign, chart2, options2, size) {
+  const { x, width } = size;
   const caret = options2.caretSize + options2.caretPadding;
   if (xAlign === "left" && x + width + caret > chart2.width) {
     return true;
@@ -11433,8 +9370,8 @@ function doesNotFitWithAlign(xAlign, chart2, options2, size2) {
     return true;
   }
 }
-function determineXAlign(chart2, options2, size2, yAlign) {
-  const { x, width } = size2;
+function determineXAlign(chart2, options2, size, yAlign) {
+  const { x, width } = size;
   const { width: chartWidth, chartArea: { left, right } } = chart2;
   let xAlign = "center";
   if (yAlign === "center") {
@@ -11444,20 +9381,20 @@ function determineXAlign(chart2, options2, size2, yAlign) {
   } else if (x >= chartWidth - width / 2) {
     xAlign = "right";
   }
-  if (doesNotFitWithAlign(xAlign, chart2, options2, size2)) {
+  if (doesNotFitWithAlign(xAlign, chart2, options2, size)) {
     xAlign = "center";
   }
   return xAlign;
 }
-function determineAlignment(chart2, options2, size2) {
-  const yAlign = size2.yAlign || options2.yAlign || determineYAlign(chart2, size2);
+function determineAlignment(chart2, options2, size) {
+  const yAlign = size.yAlign || options2.yAlign || determineYAlign(chart2, size);
   return {
-    xAlign: size2.xAlign || options2.xAlign || determineXAlign(chart2, options2, size2, yAlign),
+    xAlign: size.xAlign || options2.xAlign || determineXAlign(chart2, options2, size, yAlign),
     yAlign
   };
 }
-function alignX(size2, xAlign) {
-  let { x, width } = size2;
+function alignX(size, xAlign) {
+  let { x, width } = size;
   if (xAlign === "right") {
     x -= width;
   } else if (xAlign === "center") {
@@ -11465,8 +9402,8 @@ function alignX(size2, xAlign) {
   }
   return x;
 }
-function alignY(size2, yAlign, paddingAndSize) {
-  let { y, height } = size2;
+function alignY(size, yAlign, paddingAndSize) {
+  let { y, height } = size;
   if (yAlign === "top") {
     y += paddingAndSize;
   } else if (yAlign === "bottom") {
@@ -11476,13 +9413,13 @@ function alignY(size2, yAlign, paddingAndSize) {
   }
   return y;
 }
-function getBackgroundPoint(options2, size2, alignment, chart2) {
+function getBackgroundPoint(options2, size, alignment, chart2) {
   const { caretSize, caretPadding, cornerRadius } = options2;
   const { xAlign, yAlign } = alignment;
   const paddingAndSize = caretSize + caretPadding;
   const { topLeft, topRight, bottomLeft, bottomRight } = toTRBLCorners(cornerRadius);
-  let x = alignX(size2, xAlign);
-  const y = alignY(size2, yAlign, paddingAndSize);
+  let x = alignX(size, xAlign);
+  const y = alignY(size, yAlign, paddingAndSize);
   if (yAlign === "center") {
     if (xAlign === "left") {
       x += paddingAndSize;
@@ -11495,8 +9432,8 @@ function getBackgroundPoint(options2, size2, alignment, chart2) {
     x += Math.max(topRight, bottomRight) + caretSize;
   }
   return {
-    x: _limitValue(x, 0, chart2.width - size2.width),
-    y: _limitValue(y, 0, chart2.height - size2.height)
+    x: _limitValue(x, 0, chart2.width - size.width),
+    y: _limitValue(y, 0, chart2.height - size.height)
   };
 }
 function getAlignedX(tooltip, align, options2) {
@@ -11542,12 +9479,12 @@ function _getLabelForValue(value) {
 function generateTicks$1(generationOptions, dataRange) {
   const ticks = [];
   const MIN_SPACING = 1e-14;
-  const { bounds, step, min: min2, max: max2, precision, count, maxTicks, maxDigits, includeBounds } = generationOptions;
+  const { bounds, step, min, max, precision, count, maxTicks, maxDigits, includeBounds } = generationOptions;
   const unit = step || 1;
   const maxSpaces = maxTicks - 1;
   const { min: rmin, max: rmax } = dataRange;
-  const minDefined = !isNullOrUndef(min2);
-  const maxDefined = !isNullOrUndef(max2);
+  const minDefined = !isNullOrUndef(min);
+  const maxDefined = !isNullOrUndef(max);
   const countDefined = !isNullOrUndef(count);
   const minSpacing = (rmax - rmin) / (maxDigits + 1);
   let spacing = niceNum((rmax - rmin) / maxSpaces / unit) * unit;
@@ -11577,14 +9514,14 @@ function generateTicks$1(generationOptions, dataRange) {
     niceMin = rmin;
     niceMax = rmax;
   }
-  if (minDefined && maxDefined && step && almostWhole((max2 - min2) / step, spacing / 1e3)) {
-    numSpaces = Math.round(Math.min((max2 - min2) / spacing, maxTicks));
-    spacing = (max2 - min2) / numSpaces;
-    niceMin = min2;
-    niceMax = max2;
+  if (minDefined && maxDefined && step && almostWhole((max - min) / step, spacing / 1e3)) {
+    numSpaces = Math.round(Math.min((max - min) / spacing, maxTicks));
+    spacing = (max - min) / numSpaces;
+    niceMin = min;
+    niceMax = max;
   } else if (countDefined) {
-    niceMin = minDefined ? min2 : niceMin;
-    niceMax = maxDefined ? max2 : niceMax;
+    niceMin = minDefined ? min : niceMin;
+    niceMax = maxDefined ? max : niceMax;
     numSpaces = count - 1;
     spacing = (niceMax - niceMin) / numSpaces;
   } else {
@@ -11601,38 +9538,38 @@ function generateTicks$1(generationOptions, dataRange) {
   niceMax = Math.round(niceMax * factor) / factor;
   let j = 0;
   if (minDefined) {
-    if (includeBounds && niceMin !== min2) {
+    if (includeBounds && niceMin !== min) {
       ticks.push({
-        value: min2
+        value: min
       });
-      if (niceMin < min2) {
+      if (niceMin < min) {
         j++;
       }
-      if (almostEquals(Math.round((niceMin + j * spacing) * factor) / factor, min2, relativeLabelSize(min2, minSpacing, generationOptions))) {
+      if (almostEquals(Math.round((niceMin + j * spacing) * factor) / factor, min, relativeLabelSize(min, minSpacing, generationOptions))) {
         j++;
       }
-    } else if (niceMin < min2) {
+    } else if (niceMin < min) {
       j++;
     }
   }
   for (; j < numSpaces; ++j) {
     const tickValue = Math.round((niceMin + j * spacing) * factor) / factor;
-    if (maxDefined && tickValue > max2) {
+    if (maxDefined && tickValue > max) {
       break;
     }
     ticks.push({
       value: tickValue
     });
   }
-  if (maxDefined && includeBounds && niceMax !== max2) {
-    if (ticks.length && almostEquals(ticks[ticks.length - 1].value, max2, relativeLabelSize(max2, minSpacing, generationOptions))) {
-      ticks[ticks.length - 1].value = max2;
+  if (maxDefined && includeBounds && niceMax !== max) {
+    if (ticks.length && almostEquals(ticks[ticks.length - 1].value, max, relativeLabelSize(max, minSpacing, generationOptions))) {
+      ticks[ticks.length - 1].value = max;
     } else {
       ticks.push({
-        value: max2
+        value: max
       });
     }
-  } else if (!maxDefined || niceMax === max2) {
+  } else if (!maxDefined || niceMax === max) {
     ticks.push({
       value: niceMax
     });
@@ -11649,36 +9586,36 @@ function isMajor(tickVal) {
   const remain = tickVal / Math.pow(10, log10Floor(tickVal));
   return remain === 1;
 }
-function steps(min2, max2, rangeExp) {
+function steps(min, max, rangeExp) {
   const rangeStep = Math.pow(10, rangeExp);
-  const start = Math.floor(min2 / rangeStep);
-  const end = Math.ceil(max2 / rangeStep);
+  const start = Math.floor(min / rangeStep);
+  const end = Math.ceil(max / rangeStep);
   return end - start;
 }
-function startExp(min2, max2) {
-  const range = max2 - min2;
+function startExp(min, max) {
+  const range = max - min;
   let rangeExp = log10Floor(range);
-  while (steps(min2, max2, rangeExp) > 10) {
+  while (steps(min, max, rangeExp) > 10) {
     rangeExp++;
   }
-  while (steps(min2, max2, rangeExp) < 10) {
+  while (steps(min, max, rangeExp) < 10) {
     rangeExp--;
   }
-  return Math.min(rangeExp, log10Floor(min2));
+  return Math.min(rangeExp, log10Floor(min));
 }
-function generateTicks(generationOptions, { min: min2, max: max2 }) {
-  min2 = finiteOrDefault(generationOptions.min, min2);
+function generateTicks(generationOptions, { min, max }) {
+  min = finiteOrDefault(generationOptions.min, min);
   const ticks = [];
-  const minExp = log10Floor(min2);
-  let exp = startExp(min2, max2);
+  const minExp = log10Floor(min);
+  let exp = startExp(min, max);
   let precision = exp < 0 ? Math.pow(10, Math.abs(exp)) : 1;
   const stepSize = Math.pow(10, exp);
   const base2 = minExp > exp ? Math.pow(10, minExp) : 0;
-  const start = Math.round((min2 - base2) * precision) / precision;
-  const offset3 = Math.floor((min2 - base2) / stepSize / 10) * stepSize * 10;
-  let significand = Math.floor((start - offset3) / Math.pow(10, exp));
-  let value = finiteOrDefault(generationOptions.min, Math.round((base2 + offset3 + significand * Math.pow(10, exp)) * precision) / precision);
-  while (value < max2) {
+  const start = Math.round((min - base2) * precision) / precision;
+  const offset = Math.floor((min - base2) / stepSize / 10) * stepSize * 10;
+  let significand = Math.floor((start - offset) / Math.pow(10, exp));
+  let value = finiteOrDefault(generationOptions.min, Math.round((base2 + offset + significand * Math.pow(10, exp)) * precision) / precision);
+  while (value < max) {
     ticks.push({
       value,
       major: isMajor(value),
@@ -11694,7 +9631,7 @@ function generateTicks(generationOptions, { min: min2, max: max2 }) {
       significand = 2;
       precision = exp >= 0 ? 1 : precision;
     }
-    value = Math.round((base2 + offset3 + significand * Math.pow(10, exp)) * precision) / precision;
+    value = Math.round((base2 + offset + significand * Math.pow(10, exp)) * precision) / precision;
   }
   const lastTick = finiteOrDefault(generationOptions.max, value);
   ticks.push({
@@ -11721,21 +9658,21 @@ function measureLabelSize(ctx, font, label) {
     h: label.length * font.lineHeight
   };
 }
-function determineLimits(angle, pos, size2, min2, max2) {
-  if (angle === min2 || angle === max2) {
+function determineLimits(angle, pos, size, min, max) {
+  if (angle === min || angle === max) {
     return {
-      start: pos - size2 / 2,
-      end: pos + size2 / 2
+      start: pos - size / 2,
+      end: pos + size / 2
     };
-  } else if (angle < min2 || angle > max2) {
+  } else if (angle < min || angle > max) {
     return {
-      start: pos - size2,
+      start: pos - size,
       end: pos
     };
   }
   return {
     start: pos,
-    end: pos + size2
+    end: pos + size
   };
 }
 function fitWithPointLabels(scale) {
@@ -11789,12 +9726,12 @@ function updateLimits(limits, orig, angle, hLimits, vLimits) {
 }
 function createPointLabelItem(scale, index7, itemOpts) {
   const outerDistance = scale.drawingArea;
-  const { extra, additionalAngle, padding, size: size2 } = itemOpts;
+  const { extra, additionalAngle, padding, size } = itemOpts;
   const pointLabelPosition = scale.getPointPosition(index7, outerDistance + extra + padding, additionalAngle);
   const angle = Math.round(toDegrees(_normalizeAngle(pointLabelPosition.angle + HALF_PI)));
-  const y = yForAngle(pointLabelPosition.y, size2.h, angle);
+  const y = yForAngle(pointLabelPosition.y, size.h, angle);
   const textAlign = getTextAlignForAngle(angle);
-  const left = leftForTextAlign(pointLabelPosition.x, size2.w, textAlign);
+  const left = leftForTextAlign(pointLabelPosition.x, size.w, textAlign);
   return {
     visible: true,
     x: pointLabelPosition.x,
@@ -11802,8 +9739,8 @@ function createPointLabelItem(scale, index7, itemOpts) {
     textAlign,
     left,
     top: y,
-    right: left + size2.w,
-    bottom: y + size2.h
+    right: left + size.w,
+    bottom: y + size.h
   };
 }
 function isNotOverlapped(item, area) {
@@ -11964,7 +9901,7 @@ function parse2(scale, input) {
     return null;
   }
   const adapter = scale._adapter;
-  const { parser, round: round3, isoWeekday } = scale._parseOpts;
+  const { parser, round: round2, isoWeekday } = scale._parseOpts;
   let value = input;
   if (typeof parser === "function") {
     value = parser(value);
@@ -11975,26 +9912,26 @@ function parse2(scale, input) {
   if (value === null) {
     return null;
   }
-  if (round3) {
-    value = round3 === "week" && (isNumber2(isoWeekday) || isoWeekday === true) ? adapter.startOf(value, "isoWeek", isoWeekday) : adapter.startOf(value, round3);
+  if (round2) {
+    value = round2 === "week" && (isNumber2(isoWeekday) || isoWeekday === true) ? adapter.startOf(value, "isoWeek", isoWeekday) : adapter.startOf(value, round2);
   }
   return +value;
 }
-function determineUnitForAutoTicks(minUnit, min2, max2, capacity) {
+function determineUnitForAutoTicks(minUnit, min, max, capacity) {
   const ilen = UNITS.length;
   for (let i = UNITS.indexOf(minUnit); i < ilen - 1; ++i) {
     const interval = INTERVALS[UNITS[i]];
     const factor = interval.steps ? interval.steps : Number.MAX_SAFE_INTEGER;
-    if (interval.common && Math.ceil((max2 - min2) / (factor * interval.size)) <= capacity) {
+    if (interval.common && Math.ceil((max - min) / (factor * interval.size)) <= capacity) {
       return UNITS[i];
     }
   }
   return UNITS[ilen - 1];
 }
-function determineUnitForFormatting(scale, numTicks, minUnit, min2, max2) {
+function determineUnitForFormatting(scale, numTicks, minUnit, min, max) {
   for (let i = UNITS.length - 1; i >= UNITS.indexOf(minUnit); i--) {
     const unit = UNITS[i];
-    if (INTERVALS[unit].common && scale._adapter.diff(max2, min2, unit) >= numTicks - 1) {
+    if (INTERVALS[unit].common && scale._adapter.diff(max, min, unit) >= numTicks - 1) {
       return unit;
     }
   }
@@ -12064,7 +10001,7 @@ function interpolate2(table, val, reverse) {
   const span = nextSource - prevSource;
   return span ? prevTarget + (nextTarget - prevTarget) * (val - prevSource) / span : prevTarget;
 }
-var Animator, animator, transparent, interpolators, Animation, Animations, isDirectUpdateMode, cloneIfNotShared, createStack, DatasetController, LineController, DateAdapterBase, adapters, Interaction, STATIC_POSITIONS, layouts, BasePlatform, BasicPlatform, EXPANDO_KEY, EVENT_TYPES, isNullOrEmpty, eventListenerOptions, drpListeningCharts, oldDevicePixelRatio, DomPlatform, Element2, reverseAlign, offsetFromEdge, getTicksLimit, Scale, TypedRegistry, Registry, registry, PluginService, keyCache, keysCached, addIfFound, Config, hasFunction, version, KNOWN_POSITIONS, instances, getChart, Chart, usePath2D, LineElement, PointElement, getBoxSize, itemsEqual, Legend, plugin_legend, Title, plugin_title, positioners, defaultCallbacks, Tooltip, plugin_tooltip, addIfString, validIndex, CategoryScale, LinearScaleBase, LinearScale, log10Floor, changeExponent, LogarithmicScale, RadialLinearScale, INTERVALS, UNITS, TimeScale, TimeSeriesScale;
+var Animator, animator, transparent, interpolators, Animation, Animations, isDirectUpdateMode, cloneIfNotShared, createStack, DatasetController, LineController, DateAdapterBase, adapters, Interaction, STATIC_POSITIONS, layouts, BasePlatform, BasicPlatform, EXPANDO_KEY, EVENT_TYPES, isNullOrEmpty, eventListenerOptions, drpListeningCharts, oldDevicePixelRatio, DomPlatform, Element, reverseAlign, offsetFromEdge, getTicksLimit, Scale, TypedRegistry, Registry, registry, PluginService, keyCache, keysCached, addIfFound, Config, hasFunction, version, KNOWN_POSITIONS, instances, getChart, Chart, usePath2D, LineElement, PointElement, getBoxSize, itemsEqual, Legend, plugin_legend, Title, plugin_title, positioners, defaultCallbacks, Tooltip, plugin_tooltip, addIfString, validIndex, CategoryScale, LinearScaleBase, LinearScale, log10Floor, changeExponent, LogarithmicScale, RadialLinearScale, INTERVALS, UNITS, TimeScale, TimeSeriesScale;
 var init_chart = __esm({
   "node_modules/chart.js/dist/chart.js"() {
     init_helpers_segment();
@@ -13455,7 +11392,7 @@ var init_chart = __esm({
         return !!(container && container.isConnected);
       }
     };
-    Element2 = class {
+    Element = class {
       static defaults = {};
       static defaultRoutes = void 0;
       x;
@@ -13489,9 +11426,9 @@ var init_chart = __esm({
       }
     };
     reverseAlign = (align) => align === "left" ? "right" : align === "right" ? "left" : align;
-    offsetFromEdge = (scale, edge, offset3) => edge === "top" || edge === "left" ? scale[edge] + offset3 : scale[edge] - offset3;
+    offsetFromEdge = (scale, edge, offset) => edge === "top" || edge === "left" ? scale[edge] + offset : scale[edge] - offset;
     getTicksLimit = (ticksLength, maxTicksLimit) => Math.min(maxTicksLimit || ticksLength, ticksLength);
-    Scale = class _Scale extends Element2 {
+    Scale = class _Scale extends Element {
       constructor(cfg) {
         super();
         this.id = cfg.id;
@@ -13567,29 +11504,29 @@ var init_chart = __esm({
         };
       }
       getMinMax(canStack) {
-        let { min: min2, max: max2, minDefined, maxDefined } = this.getUserBounds();
+        let { min, max, minDefined, maxDefined } = this.getUserBounds();
         let range;
         if (minDefined && maxDefined) {
           return {
-            min: min2,
-            max: max2
+            min,
+            max
           };
         }
         const metas = this.getMatchingVisibleMetas();
         for (let i = 0, ilen = metas.length; i < ilen; ++i) {
           range = metas[i].controller.getMinMax(this, canStack);
           if (!minDefined) {
-            min2 = Math.min(min2, range.min);
+            min = Math.min(min, range.min);
           }
           if (!maxDefined) {
-            max2 = Math.max(max2, range.max);
+            max = Math.max(max, range.max);
           }
         }
-        min2 = maxDefined && min2 > max2 ? max2 : min2;
-        max2 = minDefined && min2 > max2 ? min2 : max2;
+        min = maxDefined && min > max ? max : min;
+        max = minDefined && min > max ? min : max;
         return {
-          min: finiteOrDefault(min2, finiteOrDefault(max2, min2)),
-          max: finiteOrDefault(max2, finiteOrDefault(min2, max2))
+          min: finiteOrDefault(min, finiteOrDefault(max, min)),
+          max: finiteOrDefault(max, finiteOrDefault(min, max))
         };
       }
       getPadding() {
@@ -14013,8 +11950,8 @@ var init_chart = __esm({
         return this.getPixelForValue(this.getBaseValue());
       }
       getBaseValue() {
-        const { min: min2, max: max2 } = this;
-        return min2 < 0 && max2 < 0 ? max2 : min2 > 0 && max2 > 0 ? min2 : 0;
+        const { min, max } = this;
+        return min < 0 && max < 0 ? max : min > 0 && max > 0 ? min : 0;
       }
       getContext(index7) {
         const ticks = this.ticks || [];
@@ -14047,10 +11984,10 @@ var init_chart = __esm({
         const chart2 = this.chart;
         const options2 = this.options;
         const { grid, position, border } = options2;
-        const offset3 = grid.offset;
+        const offset = grid.offset;
         const isHorizontal = this.isHorizontal();
         const ticks = this.ticks;
-        const ticksLength = ticks.length + (offset3 ? 1 : 0);
+        const ticksLength = ticks.length + (offset ? 1 : 0);
         const tl = getTickMarkLength(grid);
         const items = [];
         const borderOpts = border.setContext(this.getContext());
@@ -14124,7 +12061,7 @@ var init_chart = __esm({
           const tickColor = optsAtIndex.tickColor;
           const tickBorderDash = optsAtIndex.tickBorderDash || [];
           const tickBorderDashOffset = optsAtIndex.tickBorderDashOffset;
-          lineValue = getPixelForGridLine(this, i, offset3);
+          lineValue = getPixelForGridLine(this, i, offset);
           if (lineValue === void 0) {
             continue;
           }
@@ -14553,16 +12490,16 @@ var init_chart = __esm({
         const font = toFont(title.font);
         const padding = toPadding(title.padding);
         const align = title.align;
-        let offset3 = font.lineHeight / 2;
+        let offset = font.lineHeight / 2;
         if (position === "bottom" || position === "center" || isObject(position)) {
-          offset3 += padding.bottom;
+          offset += padding.bottom;
           if (isArray(title.text)) {
-            offset3 += font.lineHeight * (title.text.length - 1);
+            offset += font.lineHeight * (title.text.length - 1);
           }
         } else {
-          offset3 += padding.top;
+          offset += padding.top;
         }
-        const { titleX, titleY, maxWidth, rotation } = titleArgs(this, offset3, position, align);
+        const { titleX, titleY, maxWidth, rotation } = titleArgs(this, offset, position, align);
         renderText(ctx, title.text, 0, 0, font, {
           color: title.color,
           maxWidth,
@@ -14698,7 +12635,7 @@ var init_chart = __esm({
     Registry = class {
       constructor() {
         this.controllers = new TypedRegistry(DatasetController, "datasets", true);
-        this.elements = new TypedRegistry(Element2, "elements");
+        this.elements = new TypedRegistry(Element, "elements");
         this.plugins = new TypedRegistry(Object, "plugins");
         this.scales = new TypedRegistry(Scale, "scales");
         this._typedRegistries = [
@@ -15673,9 +13610,9 @@ var init_chart = __esm({
       }
       bindUserEvents() {
         const listeners = this._listeners;
-        const platform2 = this.platform;
+        const platform = this.platform;
         const _add = (type, listener2) => {
-          platform2.addEventListener(this, type, listener2);
+          platform.addEventListener(this, type, listener2);
           listeners[type] = listener2;
         };
         const listener = (e3, x, y) => {
@@ -15690,14 +13627,14 @@ var init_chart = __esm({
           this._responsiveListeners = {};
         }
         const listeners = this._responsiveListeners;
-        const platform2 = this.platform;
+        const platform = this.platform;
         const _add = (type, listener2) => {
-          platform2.addEventListener(this, type, listener2);
+          platform.addEventListener(this, type, listener2);
           listeners[type] = listener2;
         };
         const _remove = (type, listener2) => {
           if (listeners[type]) {
-            platform2.removeEventListener(this, type, listener2);
+            platform.removeEventListener(this, type, listener2);
             delete listeners[type];
           }
         };
@@ -15721,7 +13658,7 @@ var init_chart = __esm({
           this._resize(0, 0);
           _add("attach", attached);
         };
-        if (platform2.isAttached(this.canvas)) {
+        if (platform.isAttached(this.canvas)) {
           attached();
         } else {
           detached();
@@ -15853,7 +13790,7 @@ var init_chart = __esm({
       }
     };
     usePath2D = typeof Path2D === "function";
-    LineElement = class extends Element2 {
+    LineElement = class extends Element {
       static id = "line";
       static defaults = {
         borderCapStyle: "butt",
@@ -15986,7 +13923,7 @@ var init_chart = __esm({
         }
       }
     };
-    PointElement = class extends Element2 {
+    PointElement = class extends Element {
       static id = "point";
       parsed;
       skip;
@@ -16079,7 +14016,7 @@ var init_chart = __esm({
       };
     };
     itemsEqual = (a, b) => a !== null && b !== null && a.datasetIndex === b.datasetIndex && a.index === b.index;
-    Legend = class extends Element2 {
+    Legend = class extends Element {
       constructor(config) {
         super();
         this._added = false;
@@ -16419,7 +14356,7 @@ var init_chart = __esm({
           y = this.top + topPaddingPlusHalfFontSize;
           left = _alignStartEnd(opts.align, left, this.right - maxWidth);
         } else {
-          const maxHeight = this.columnSizes.reduce((acc, size2) => Math.max(acc, size2.height), 0);
+          const maxHeight = this.columnSizes.reduce((acc, size) => Math.max(acc, size.height), 0);
           y = topPaddingPlusHalfFontSize + _alignStartEnd(opts.align, this.top, this.bottom - maxHeight - opts.labels.padding - this._computeTitleHeight());
         }
         const x = _alignStartEnd(position, left, left + maxWidth);
@@ -16581,7 +14518,7 @@ var init_chart = __esm({
         }
       }
     };
-    Title = class extends Element2 {
+    Title = class extends Element {
       constructor(config) {
         super();
         this.chart = config.chart;
@@ -16621,22 +14558,22 @@ var init_chart = __esm({
         const pos = this.options.position;
         return pos === "top" || pos === "bottom";
       }
-      _drawArgs(offset3) {
+      _drawArgs(offset) {
         const { top, left, bottom, right, options: options2 } = this;
         const align = options2.align;
         let rotation = 0;
         let maxWidth, titleX, titleY;
         if (this.isHorizontal()) {
           titleX = _alignStartEnd(align, left, right);
-          titleY = top + offset3;
+          titleY = top + offset;
           maxWidth = right - left;
         } else {
           if (options2.position === "left") {
-            titleX = left + offset3;
+            titleX = left + offset;
             titleY = _alignStartEnd(align, bottom, top);
             rotation = PI * -0.5;
           } else {
-            titleX = right - offset3;
+            titleX = right - offset;
             titleY = _alignStartEnd(align, top, bottom);
             rotation = PI * 0.5;
           }
@@ -16657,8 +14594,8 @@ var init_chart = __esm({
         }
         const fontOpts = toFont(opts.font);
         const lineHeight = fontOpts.lineHeight;
-        const offset3 = lineHeight / 2 + this._padding.top;
-        const { titleX, titleY, maxWidth, rotation } = this._drawArgs(offset3);
+        const offset = lineHeight / 2 + this._padding.top;
+        const { titleX, titleY, maxWidth, rotation } = this._drawArgs(offset);
         renderText(ctx, opts.text, 0, 0, fontOpts, {
           color: opts.color,
           maxWidth,
@@ -16830,7 +14767,7 @@ var init_chart = __esm({
       footer: noop2,
       afterFooter: noop2
     };
-    Tooltip = class extends Element2 {
+    Tooltip = class extends Element {
       static positioners = positioners;
       constructor(config) {
         super();
@@ -16977,8 +14914,8 @@ var init_chart = __esm({
           this.body = this.getBody(tooltipItems, options2);
           this.afterBody = this.getAfterBody(tooltipItems, options2);
           this.footer = this.getFooter(tooltipItems, options2);
-          const size2 = this._size = getTooltipSize(this, options2);
-          const positionAndSize = Object.assign({}, position, size2);
+          const size = this._size = getTooltipSize(this, options2);
+          const positionAndSize = Object.assign({}, position, size);
           const alignment = determineAlignment(this.chart, options2, positionAndSize);
           const backgroundPoint = getBackgroundPoint(options2, positionAndSize, alignment, this.chart);
           this.xAlign = alignment.xAlign;
@@ -16987,8 +14924,8 @@ var init_chart = __esm({
             opacity: 1,
             x: backgroundPoint.x,
             y: backgroundPoint.y,
-            width: size2.width,
-            height: size2.height,
+            width: size.width,
+            height: size.height,
             caretX: position.x,
             caretY: position.y
           };
@@ -17006,18 +14943,18 @@ var init_chart = __esm({
           });
         }
       }
-      drawCaret(tooltipPoint, ctx, size2, options2) {
-        const caretPosition = this.getCaretPosition(tooltipPoint, size2, options2);
+      drawCaret(tooltipPoint, ctx, size, options2) {
+        const caretPosition = this.getCaretPosition(tooltipPoint, size, options2);
         ctx.lineTo(caretPosition.x1, caretPosition.y1);
         ctx.lineTo(caretPosition.x2, caretPosition.y2);
         ctx.lineTo(caretPosition.x3, caretPosition.y3);
       }
-      getCaretPosition(tooltipPoint, size2, options2) {
+      getCaretPosition(tooltipPoint, size, options2) {
         const { xAlign, yAlign } = this;
         const { caretSize, cornerRadius } = options2;
         const { topLeft, topRight, bottomLeft, bottomRight } = toTRBLCorners(cornerRadius);
         const { x: ptX, y: ptY } = tooltipPoint;
-        const { width, height } = size2;
+        const { width, height } = size;
         let x1, x2, x3, y1, y2, y3;
         if (yAlign === "center") {
           y2 = ptY + height / 2;
@@ -17255,15 +15192,15 @@ var init_chart = __esm({
           if (!position) {
             return;
           }
-          const size2 = this._size = getTooltipSize(this, options2);
+          const size = this._size = getTooltipSize(this, options2);
           const positionAndSize = Object.assign({}, position, this._size);
           const alignment = determineAlignment(chart2, options2, positionAndSize);
           const point = getBackgroundPoint(options2, positionAndSize, alignment, chart2);
           if (animX._to !== point.x || animY._to !== point.y) {
             this.xAlign = alignment.xAlign;
             this.yAlign = alignment.yAlign;
-            this.width = size2.width;
-            this.height = size2.height;
+            this.width = size.width;
+            this.height = size.height;
             this.caretX = position.x;
             this.caretY = position.y;
             this._resolveAnimations().update(this, point);
@@ -17509,7 +15446,7 @@ var init_chart = __esm({
       }
       return index7;
     };
-    validIndex = (index7, max2) => index7 === null ? null : _limitValue(Math.round(index7), 0, max2);
+    validIndex = (index7, max) => index7 === null ? null : _limitValue(Math.round(index7), 0, max);
     CategoryScale = class extends Scale {
       static id = "category";
       static defaults = {
@@ -17546,28 +15483,28 @@ var init_chart = __esm({
       }
       determineDataLimits() {
         const { minDefined, maxDefined } = this.getUserBounds();
-        let { min: min2, max: max2 } = this.getMinMax(true);
+        let { min, max } = this.getMinMax(true);
         if (this.options.bounds === "ticks") {
           if (!minDefined) {
-            min2 = 0;
+            min = 0;
           }
           if (!maxDefined) {
-            max2 = this.getLabels().length - 1;
+            max = this.getLabels().length - 1;
           }
         }
-        this.min = min2;
-        this.max = max2;
+        this.min = min;
+        this.max = max;
       }
       buildTicks() {
-        const min2 = this.min;
-        const max2 = this.max;
-        const offset3 = this.options.offset;
+        const min = this.min;
+        const max = this.max;
+        const offset = this.options.offset;
         const ticks = [];
         let labels = this.getLabels();
-        labels = min2 === 0 && max2 === labels.length - 1 ? labels : labels.slice(min2, max2 + 1);
-        this._valueRange = Math.max(labels.length - (offset3 ? 0 : 1), 1);
-        this._startValue = this.min - (offset3 ? 0.5 : 0);
-        for (let value = min2; value <= max2; value++) {
+        labels = min === 0 && max === labels.length - 1 ? labels : labels.slice(min, max + 1);
+        this._valueRange = Math.max(labels.length - (offset ? 0 : 1), 1);
+        this._startValue = this.min - (offset ? 0.5 : 0);
+        for (let value = min; value <= max; value++) {
           ticks.push({
             value
           });
@@ -17624,27 +15561,27 @@ var init_chart = __esm({
       handleTickRangeOptions() {
         const { beginAtZero } = this.options;
         const { minDefined, maxDefined } = this.getUserBounds();
-        let { min: min2, max: max2 } = this;
-        const setMin = (v) => min2 = minDefined ? min2 : v;
-        const setMax = (v) => max2 = maxDefined ? max2 : v;
+        let { min, max } = this;
+        const setMin = (v) => min = minDefined ? min : v;
+        const setMax = (v) => max = maxDefined ? max : v;
         if (beginAtZero) {
-          const minSign = sign(min2);
-          const maxSign = sign(max2);
+          const minSign = sign(min);
+          const maxSign = sign(max);
           if (minSign < 0 && maxSign < 0) {
             setMax(0);
           } else if (minSign > 0 && maxSign > 0) {
             setMin(0);
           }
         }
-        if (min2 === max2) {
-          let offset3 = max2 === 0 ? 1 : Math.abs(max2 * 0.05);
-          setMax(max2 + offset3);
+        if (min === max) {
+          let offset = max === 0 ? 1 : Math.abs(max * 0.05);
+          setMax(max + offset);
           if (!beginAtZero) {
-            setMin(min2 - offset3);
+            setMin(min - offset);
           }
         }
-        this.min = min2;
-        this.max = max2;
+        this.min = min;
+        this.max = max;
       }
       getTickLimit() {
         const tickOpts = this.options.ticks;
@@ -17707,9 +15644,9 @@ var init_chart = __esm({
         let end = this.max;
         super.configure();
         if (this.options.offset && ticks.length) {
-          const offset3 = (end - start) / Math.max(ticks.length - 1, 1) / 2;
-          start -= offset3;
-          end += offset3;
+          const offset = (end - start) / Math.max(ticks.length - 1, 1) / 2;
+          start -= offset;
+          end += offset;
         }
         this._startValue = start;
         this._endValue = end;
@@ -17727,9 +15664,9 @@ var init_chart = __esm({
         }
       };
       determineDataLimits() {
-        const { min: min2, max: max2 } = this.getMinMax(true);
-        this.min = isNumberFinite(min2) ? min2 : 0;
-        this.max = isNumberFinite(max2) ? max2 : 1;
+        const { min, max } = this.getMinMax(true);
+        this.min = isNumberFinite(min) ? min : 0;
+        this.max = isNumberFinite(max) ? max : 1;
         this.handleTickRangeOptions();
       }
       computeTickLimit() {
@@ -17778,40 +15715,40 @@ var init_chart = __esm({
         return isNumberFinite(value) && value > 0 ? value : null;
       }
       determineDataLimits() {
-        const { min: min2, max: max2 } = this.getMinMax(true);
-        this.min = isNumberFinite(min2) ? Math.max(0, min2) : null;
-        this.max = isNumberFinite(max2) ? Math.max(0, max2) : null;
+        const { min, max } = this.getMinMax(true);
+        this.min = isNumberFinite(min) ? Math.max(0, min) : null;
+        this.max = isNumberFinite(max) ? Math.max(0, max) : null;
         if (this.options.beginAtZero) {
           this._zero = true;
         }
         if (this._zero && this.min !== this._suggestedMin && !isNumberFinite(this._userMin)) {
-          this.min = min2 === changeExponent(this.min, 0) ? changeExponent(this.min, -1) : changeExponent(this.min, 0);
+          this.min = min === changeExponent(this.min, 0) ? changeExponent(this.min, -1) : changeExponent(this.min, 0);
         }
         this.handleTickRangeOptions();
       }
       handleTickRangeOptions() {
         const { minDefined, maxDefined } = this.getUserBounds();
-        let min2 = this.min;
-        let max2 = this.max;
-        const setMin = (v) => min2 = minDefined ? min2 : v;
-        const setMax = (v) => max2 = maxDefined ? max2 : v;
-        if (min2 === max2) {
-          if (min2 <= 0) {
+        let min = this.min;
+        let max = this.max;
+        const setMin = (v) => min = minDefined ? min : v;
+        const setMax = (v) => max = maxDefined ? max : v;
+        if (min === max) {
+          if (min <= 0) {
             setMin(1);
             setMax(10);
           } else {
-            setMin(changeExponent(min2, -1));
-            setMax(changeExponent(max2, 1));
+            setMin(changeExponent(min, -1));
+            setMax(changeExponent(max, 1));
           }
         }
-        if (min2 <= 0) {
-          setMin(changeExponent(max2, -1));
+        if (min <= 0) {
+          setMin(changeExponent(max, -1));
         }
-        if (max2 <= 0) {
-          setMax(changeExponent(min2, 1));
+        if (max <= 0) {
+          setMax(changeExponent(min, 1));
         }
-        this.min = min2;
-        this.max = max2;
+        this.min = min;
+        this.max = max;
       }
       buildTicks() {
         const opts = this.options;
@@ -17917,9 +15854,9 @@ var init_chart = __esm({
         this.drawingArea = Math.floor(Math.min(w, h) / 2);
       }
       determineDataLimits() {
-        const { min: min2, max: max2 } = this.getMinMax(false);
-        this.min = isNumberFinite(min2) && !isNaN(min2) ? min2 : 0;
-        this.max = isNumberFinite(max2) && !isNaN(max2) ? max2 : 0;
+        const { min, max } = this.getMinMax(false);
+        this.min = isNumberFinite(min) && !isNaN(min) ? min : 0;
+        this.max = isNumberFinite(max) && !isNaN(max) ? max : 0;
         this.handleTickRangeOptions();
       }
       computeTickLimit() {
@@ -18018,18 +15955,18 @@ var init_chart = __esm({
         const opts = this.options;
         const { angleLines, grid, border } = opts;
         const labelCount = this._pointLabels.length;
-        let i, offset3, position;
+        let i, offset, position;
         if (opts.pointLabels.display) {
           drawPointLabels(this, labelCount);
         }
         if (grid.display) {
           this.ticks.forEach((tick, index7) => {
             if (index7 !== 0 || index7 === 0 && this.min < 0) {
-              offset3 = this.getDistanceFromCenterForValue(tick.value);
+              offset = this.getDistanceFromCenterForValue(tick.value);
               const context2 = this.getContext(index7);
               const optsAtIndex = grid.setContext(context2);
               const optsAtIndexBorder = border.setContext(context2);
-              drawRadiusLine(this, optsAtIndex, offset3, labelCount, optsAtIndexBorder);
+              drawRadiusLine(this, optsAtIndex, offset, labelCount, optsAtIndexBorder);
             }
           });
         }
@@ -18045,8 +15982,8 @@ var init_chart = __esm({
             ctx.strokeStyle = color2;
             ctx.setLineDash(optsAtIndex.borderDash);
             ctx.lineDashOffset = optsAtIndex.borderDashOffset;
-            offset3 = this.getDistanceFromCenterForValue(opts.reverse ? this.min : this.max);
-            position = this.getPointPosition(i, offset3);
+            offset = this.getDistanceFromCenterForValue(opts.reverse ? this.min : this.max);
+            position = this.getPointPosition(i, offset);
             ctx.beginPath();
             ctx.moveTo(this.xCenter, this.yCenter);
             ctx.lineTo(position.x, position.y);
@@ -18065,7 +16002,7 @@ var init_chart = __esm({
           return;
         }
         const startAngle = this.getIndexAngle(0);
-        let offset3, width;
+        let offset, width;
         ctx.save();
         ctx.translate(this.xCenter, this.yCenter);
         ctx.rotate(startAngle);
@@ -18077,15 +16014,15 @@ var init_chart = __esm({
           }
           const optsAtIndex = tickOpts.setContext(this.getContext(index7));
           const tickFont = toFont(optsAtIndex.font);
-          offset3 = this.getDistanceFromCenterForValue(this.ticks[index7].value);
+          offset = this.getDistanceFromCenterForValue(this.ticks[index7].value);
           if (optsAtIndex.showLabelBackdrop) {
             ctx.font = tickFont.string;
             width = ctx.measureText(tick.label).width;
             ctx.fillStyle = optsAtIndex.backdropColor;
             const padding = toPadding(optsAtIndex.backdropPadding);
-            ctx.fillRect(-width / 2 - padding.left, -offset3 - tickFont.size / 2 - padding.top, width + padding.width, tickFont.size + padding.height);
+            ctx.fillRect(-width / 2 - padding.left, -offset - tickFont.size / 2 - padding.top, width + padding.width, tickFont.size + padding.height);
           }
-          renderText(ctx, tick.label, 0, -offset3, tickFont, {
+          renderText(ctx, tick.label, 0, -offset, tickFont, {
             color: optsAtIndex.color,
             strokeColor: optsAtIndex.textStrokeColor,
             strokeWidth: optsAtIndex.textStrokeWidth
@@ -18208,13 +16145,13 @@ var init_chart = __esm({
         const options2 = this.options;
         const adapter = this._adapter;
         const unit = options2.time.unit || "day";
-        let { min: min2, max: max2, minDefined, maxDefined } = this.getUserBounds();
+        let { min, max, minDefined, maxDefined } = this.getUserBounds();
         function _applyBounds(bounds) {
           if (!minDefined && !isNaN(bounds.min)) {
-            min2 = Math.min(min2, bounds.min);
+            min = Math.min(min, bounds.min);
           }
           if (!maxDefined && !isNaN(bounds.max)) {
-            max2 = Math.max(max2, bounds.max);
+            max = Math.max(max, bounds.max);
           }
         }
         if (!minDefined || !maxDefined) {
@@ -18223,22 +16160,22 @@ var init_chart = __esm({
             _applyBounds(this.getMinMax(false));
           }
         }
-        min2 = isNumberFinite(min2) && !isNaN(min2) ? min2 : +adapter.startOf(Date.now(), unit);
-        max2 = isNumberFinite(max2) && !isNaN(max2) ? max2 : +adapter.endOf(Date.now(), unit) + 1;
-        this.min = Math.min(min2, max2 - 1);
-        this.max = Math.max(min2 + 1, max2);
+        min = isNumberFinite(min) && !isNaN(min) ? min : +adapter.startOf(Date.now(), unit);
+        max = isNumberFinite(max) && !isNaN(max) ? max : +adapter.endOf(Date.now(), unit) + 1;
+        this.min = Math.min(min, max - 1);
+        this.max = Math.max(min + 1, max);
       }
       _getLabelBounds() {
         const arr = this.getLabelTimestamps();
-        let min2 = Number.POSITIVE_INFINITY;
-        let max2 = Number.NEGATIVE_INFINITY;
+        let min = Number.POSITIVE_INFINITY;
+        let max = Number.NEGATIVE_INFINITY;
         if (arr.length) {
-          min2 = arr[0];
-          max2 = arr[arr.length - 1];
+          min = arr[0];
+          max = arr[arr.length - 1];
         }
         return {
-          min: min2,
-          max: max2
+          min,
+          max
         };
       }
       buildTicks() {
@@ -18250,10 +16187,10 @@ var init_chart = __esm({
           this.min = this._userMin || timestamps[0];
           this.max = this._userMax || timestamps[timestamps.length - 1];
         }
-        const min2 = this.min;
-        const max2 = this.max;
-        const ticks = _filterBetween(timestamps, min2, max2);
-        this._unit = timeOpts.unit || (tickOpts.autoSkip ? determineUnitForAutoTicks(timeOpts.minUnit, this.min, this.max, this._getLabelCapacity(min2)) : determineUnitForFormatting(this, ticks.length, timeOpts.minUnit, this.min, this.max));
+        const min = this.min;
+        const max = this.max;
+        const ticks = _filterBetween(timestamps, min, max);
+        this._unit = timeOpts.unit || (tickOpts.autoSkip ? determineUnitForAutoTicks(timeOpts.minUnit, this.min, this.max, this._getLabelCapacity(min)) : determineUnitForFormatting(this, ticks.length, timeOpts.minUnit, this.min, this.max));
         this._majorUnit = !tickOpts.major.enabled || this._unit === "year" ? void 0 : determineMajorUnit(this._unit);
         this.initOffsets(timestamps);
         if (options2.reverse) {
@@ -18295,29 +16232,29 @@ var init_chart = __esm({
       }
       _generate() {
         const adapter = this._adapter;
-        const min2 = this.min;
-        const max2 = this.max;
+        const min = this.min;
+        const max = this.max;
         const options2 = this.options;
         const timeOpts = options2.time;
-        const minor = timeOpts.unit || determineUnitForAutoTicks(timeOpts.minUnit, min2, max2, this._getLabelCapacity(min2));
+        const minor = timeOpts.unit || determineUnitForAutoTicks(timeOpts.minUnit, min, max, this._getLabelCapacity(min));
         const stepSize = valueOrDefault(options2.ticks.stepSize, 1);
         const weekday = minor === "week" ? timeOpts.isoWeekday : false;
         const hasWeekday = isNumber2(weekday) || weekday === true;
         const ticks = {};
-        let first = min2;
+        let first = min;
         let time, count;
         if (hasWeekday) {
           first = +adapter.startOf(first, "isoWeek", weekday);
         }
         first = +adapter.startOf(first, hasWeekday ? "day" : minor);
-        if (adapter.diff(max2, min2, minor) > 1e5 * stepSize) {
-          throw new Error(min2 + " and " + max2 + " are too far apart with stepSize of " + stepSize + " " + minor);
+        if (adapter.diff(max, min, minor) > 1e5 * stepSize) {
+          throw new Error(min + " and " + max + " are too far apart with stepSize of " + stepSize + " " + minor);
         }
         const timestamps = options2.ticks.source === "data" && this.getDataTimestamps();
-        for (time = first, count = 0; time < max2; time = +adapter.add(time, stepSize, minor), count++) {
+        for (time = first, count = 0; time < max; time = +adapter.add(time, stepSize, minor), count++) {
           addTick(ticks, time, timestamps);
         }
-        if (time === max2 || options2.bounds === "ticks" || count === 1) {
+        if (time === max || options2.bounds === "ticks" || count === 1) {
           addTick(ticks, time, timestamps);
         }
         return Object.keys(ticks).sort(sorter).map((x) => +x);
@@ -18395,8 +16332,8 @@ var init_chart = __esm({
         const exampleLabel = this._tickFormatFunction(exampleTime, 0, ticksFromTimestamps(this, [
           exampleTime
         ], this._majorUnit), format);
-        const size2 = this._getLabelSize(exampleLabel);
-        const capacity = Math.floor(this.isHorizontal() ? this.width / size2.w : this.height / size2.h) - 1;
+        const size = this._getLabelSize(exampleLabel);
+        const capacity = Math.floor(this.isHorizontal() ? this.width / size.w : this.height / size.h) - 1;
         return capacity > 0 ? capacity : 1;
       }
       getDataTimestamps() {
@@ -18447,24 +16384,24 @@ var init_chart = __esm({
         super.initOffsets(timestamps);
       }
       buildLookupTable(timestamps) {
-        const { min: min2, max: max2 } = this;
+        const { min, max } = this;
         const items = [];
         const table = [];
         let i, ilen, prev, curr, next;
         for (i = 0, ilen = timestamps.length; i < ilen; ++i) {
           curr = timestamps[i];
-          if (curr >= min2 && curr <= max2) {
+          if (curr >= min && curr <= max) {
             items.push(curr);
           }
         }
         if (items.length < 2) {
           return [
             {
-              time: min2,
+              time: min,
               pos: 0
             },
             {
-              time: max2,
+              time: max,
               pos: 1
             }
           ];
@@ -18483,14 +16420,14 @@ var init_chart = __esm({
         return table;
       }
       _generate() {
-        const min2 = this.min;
-        const max2 = this.max;
+        const min = this.min;
+        const max = this.max;
         let timestamps = super.getDataTimestamps();
-        if (!timestamps.includes(min2) || !timestamps.length) {
-          timestamps.splice(0, 0, min2);
+        if (!timestamps.includes(min) || !timestamps.length) {
+          timestamps.splice(0, 0, min);
         }
-        if (!timestamps.includes(max2) || timestamps.length === 1) {
-          timestamps.push(max2);
+        if (!timestamps.includes(max) || timestamps.length === 1) {
+          timestamps.push(max);
         }
         return timestamps.sort((a, b) => a - b);
       }
@@ -19345,8 +17282,8 @@ var init__6 = __esm({
   ".svelte-kit/output/server/nodes/5.js"() {
     index6 = 5;
     component6 = async () => component_cache6 ??= (await Promise.resolve().then(() => (init_page_svelte4(), page_svelte_exports4))).default;
-    imports6 = ["_app/immutable/nodes/5.B77o0542.js", "_app/immutable/chunks/DBueJji7.js", "_app/immutable/chunks/D0RhbEBz.js", "_app/immutable/chunks/Dt_hD-_W.js", "_app/immutable/chunks/CImrTV2S.js"];
-    stylesheets6 = ["_app/immutable/assets/5.520sU_rV.css", "_app/immutable/assets/app.ZtUZiSHB.css"];
+    imports6 = ["_app/immutable/nodes/5.BCBOh9_X.js", "_app/immutable/chunks/PouGpQZY.js", "_app/immutable/chunks/DwZUwGx8.js", "_app/immutable/chunks/Byvutpzn.js", "_app/immutable/chunks/BkHsSVzA.js"];
+    stylesheets6 = ["_app/immutable/assets/5.520sU_rV.css", "_app/immutable/assets/app.DIkXoqN8.css"];
     fonts6 = [];
   }
 });
@@ -19461,7 +17398,25 @@ var options = {
   root: Root,
   service_worker: false,
   templates: {
-    app: ({ head, body: body2, assets: assets2, nonce, env }) => '<!doctype html>\n<html lang="en">\n	<head>\n		<meta property="og:title" content="Buddyville" /> \n		<meta property="og:description" content="Dive into the world of GFriend! This fan page is dedicated to the girls history and achievements." /> \n		<meta property="og:image" content="https://assets.teenvogue.com/photos/5fa97b1cae4e8fa5ef375193/16:9/w_6575,h_3698,c_limit/GFRIEND%20Press%20Photo_Photo%20Credit%20SOURCE%20MUSIC%201.jpg" /> \n		<meta property="og:site" content="https://www.buddyville.xyz/" />\n		<meta property="og:type" content="image/jpg" />\n		<meta name="twitter:site" content="summary_large_image" />\n		<meta name="twitter:creator" content="terrifiedpigeon" />\n		<meta name="twitter:title" content="Buddyville" />\n		<meta name="twitter:description" content="K-pop Infodump" />\n		<meta name="twitter:image:alt" content="Picture of gfriend" />\n		<meta charset="utf-8" />\n		<meta name="viewport" content="width=device-width, initial-scale=1" />\n		' + head + '\n	</head>\n	<body data-sveltekit-preload-data="hover">\n		<div style="display: contents">' + body2 + "</div>\n	</body>\n</html>\n",
+    app: ({ head, body: body2, assets: assets2, nonce, env }) => `<!doctype html>
+<script>
+	
+<\/script>
+<html lang="en">
+	<head>
+		<meta property="og:title" content="Eye of thee storm" /> 
+		<meta property="og:description" content="Learn about Source Music's girl groups over the years." /> 
+		<meta property="og:image" content="/src/lib/images/hybe.jpg" /> 
+		<meta property="og:site" content="https://www.eyeofthestorm.xyz/" />
+		<meta property="og:type" content="image/jpg" /> 
+		<meta name="twitter:site" content="summary_large_image" />
+		<meta name="twitter:creator" content="eyeofthestormdb" />
+		<meta name="twitter:title" content="Eye of the Storm Project" />
+		<meta name="twitter:description" content="Learn about Source Music's girl groups over the years." />
+		<meta name="twitter:image:alt" content="Picture of hybe's slogan" />
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		` + head + '\n	</head>\n	<body data-sveltekit-preload-data="hover">\n		<div style="display: contents">' + body2 + "</div>\n	</body>\n</html>\n",
     error: ({ status, message }) => '<!doctype html>\n<html lang="en">\n	<head>\n		<meta charset="utf-8" />\n		<title>' + message + `</title>
 
 		<style>
@@ -19533,7 +17488,7 @@ var options = {
 		<div class="error">
 			<span class="status">` + status + '</span>\n			<div class="message">\n				<h1>' + message + "</h1>\n			</div>\n		</div>\n	</body>\n</html>\n"
   },
-  version_hash: "1yspean"
+  version_hash: "8jisn2"
 };
 async function get_hooks() {
   let handle;
@@ -20092,7 +18047,6 @@ function stringify_primitive2(thing) {
 
 // .svelte-kit/output/server/index.js
 init_exports();
-init_chunks();
 var import_cookie = __toESM(require_cookie(), 1);
 var set_cookie_parser = __toESM(require_set_cookie(), 1);
 var BROWSER = false;
@@ -21083,8 +19037,8 @@ function reverse_endianness(bytes) {
 function encode(str) {
   const encoded = encoder$2.encode(str);
   const length = encoded.length * 8;
-  const size2 = 512 * Math.ceil((length + 65) / 512);
-  const bytes = new Uint8Array(size2 / 8);
+  const size = 512 * Math.ceil((length + 65) / 512);
+  const bytes = new Uint8Array(size / 8);
   bytes.set(encoded);
   bytes[encoded.length] = 128;
   reverse_endianness(bytes);
@@ -23237,7 +21191,7 @@ var manifest = (() => {
     assets: /* @__PURE__ */ new Set([".nojekyll"]),
     mimeTypes: {},
     _: {
-      client: { start: "_app/immutable/entry/start.CUx5PYLH.js", app: "_app/immutable/entry/app.BU_VmsSa.js", imports: ["_app/immutable/entry/start.CUx5PYLH.js", "_app/immutable/chunks/CITdYyKU.js", "_app/immutable/chunks/DBueJji7.js", "_app/immutable/chunks/Dy5kwvZB.js", "_app/immutable/entry/app.BU_VmsSa.js", "_app/immutable/chunks/DBueJji7.js", "_app/immutable/chunks/D0RhbEBz.js"], stylesheets: [], fonts: [], uses_env_dynamic_public: false },
+      client: { start: "_app/immutable/entry/start.C85l4Efe.js", app: "_app/immutable/entry/app.DyOJiHAh.js", imports: ["_app/immutable/entry/start.C85l4Efe.js", "_app/immutable/chunks/ChnTbVQw.js", "_app/immutable/chunks/PouGpQZY.js", "_app/immutable/entry/app.DyOJiHAh.js", "_app/immutable/chunks/PouGpQZY.js", "_app/immutable/chunks/DwZUwGx8.js"], stylesheets: [], fonts: [], uses_env_dynamic_public: false },
       nodes: [
         __memo(() => Promise.resolve().then(() => (init__(), __exports))),
         __memo(() => Promise.resolve().then(() => (init__2(), __exports2))),

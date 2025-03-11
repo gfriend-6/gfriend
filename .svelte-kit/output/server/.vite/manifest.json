@@ -16,22 +16,6 @@
       "_Frame.js"
     ]
   },
-  "_ChevronDownOutline.js": {
-    "file": "chunks/ChevronDownOutline.js",
-    "name": "ChevronDownOutline",
-    "imports": [
-      "_ssr.js"
-    ]
-  },
-  "_DropdownItem.js": {
-    "file": "chunks/DropdownItem.js",
-    "name": "DropdownItem",
-    "imports": [
-      "_ssr.js",
-      "_Frame.js",
-      "_index.js"
-    ]
-  },
   "_Frame.js": {
     "file": "chunks/Frame.js",
     "name": "Frame",
@@ -43,12 +27,11 @@
     "file": "chunks/Timeline.js",
     "name": "Timeline",
     "imports": [
-      "_ssr.js",
-      "_ChevronDownOutline.js"
+      "_ssr.js"
     ]
   },
   "_app.js": {
-    "file": "_app/immutable/assets/app.DJPotyho.css",
+    "file": "_app/immutable/assets/app.bGDl0MLk.css",
     "src": "_app.js"
   },
   "_client.js": {
@@ -56,17 +39,12 @@
     "name": "client",
     "imports": [
       "_exports.js",
-      "_index.js",
       "_ssr2.js"
     ]
   },
   "_exports.js": {
     "file": "chunks/exports.js",
-    "name": "exports"
-  },
-  "_index.js": {
-    "file": "chunks/index.js",
-    "name": "index",
+    "name": "exports",
     "imports": [
       "_ssr.js"
     ]
@@ -112,8 +90,7 @@
     "isEntry": true,
     "imports": [
       "_internal.js",
-      "_exports.js",
-      "_index.js"
+      "_exports.js"
     ]
   },
   "src/routes/+layout.js": {
@@ -129,15 +106,13 @@
     "isEntry": true,
     "imports": [
       "_ssr.js",
-      "_DropdownItem.js",
       "_Frame.js",
-      "_index.js",
-      "_ChevronDownOutline.js",
+      "_exports.js",
       "_stores.js"
     ],
     "css": [
       "_app/immutable/assets/_layout.CiA9g6rf.css",
-      "_app/immutable/assets/app.DJPotyho.css"
+      "_app/immutable/assets/app.bGDl0MLk.css"
     ]
   },
   "src/routes/+page.svelte": {
@@ -168,11 +143,8 @@
     "isEntry": true,
     "imports": [
       "_ssr.js",
-      "_Frame.js",
       "_Card.js",
-      "_DropdownItem.js",
-      "_Timeline.js",
-      "_ChevronDownOutline.js"
+      "_Timeline.js"
     ]
   },
   "src/routes/wins/+page.svelte": {
@@ -186,7 +158,7 @@
     ],
     "css": [
       "_app/immutable/assets/_page.520sU_rV.css",
-      "_app/immutable/assets/app.DJPotyho.css"
+      "_app/immutable/assets/app.bGDl0MLk.css"
     ]
   }
 }

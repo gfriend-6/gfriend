@@ -1,5 +1,4 @@
-import "./exports.js";
-import { w as writable } from "./index.js";
+import { w as writable } from "./exports.js";
 import { o as onMount } from "./ssr2.js";
 function get(key, parse = JSON.parse) {
   try {
