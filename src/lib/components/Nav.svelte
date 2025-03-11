@@ -7,9 +7,9 @@
   $: activeUrl = $page.url.pathname;
 </script>
 <div class="w-full bg-primary-2">
-<Navbar class="w-4/5 place-self-center mx-auto">
+<Navbar class="w-4/5 place-self-center mx-auto bg-primary-2">
   <NavBrand href="/">
-    <img src={logo} class="me-3 size-24 sm:six-16" alt="logo"/>
+    <img src={logo} class="me-3 size-16 sm:size-10" alt="logo"/>
     <span class="self-center whitespace-nowrap text-xl font-semibold text-black">Eye of the Storm</span>
   </NavBrand>
   <NavHamburger />
