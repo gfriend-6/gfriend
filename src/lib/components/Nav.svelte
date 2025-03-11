@@ -13,7 +13,7 @@
     <span class="self-center whitespace-nowrap text-xl font-semibold text-black">Eye of the Storm</span>
   </NavBrand>
   <NavHamburger />
-  <NavUl {activeUrl} activeClass="font-bold text-primary-3" nonActiveClass="text-accent-5 hover:text-white">
+  <NavUl {activeUrl} activeClass="font-bold text-primary-4" nonActiveClass="text-accent-5 hover:text-white">
     <NavLi href="/">Home</NavLi>
     <NavLi href="/timeline">Timeline</NavLi>
   </NavUl>
