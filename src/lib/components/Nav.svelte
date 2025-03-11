@@ -2,7 +2,7 @@
   import { Navbar, NavBrand, NavLi, NavUl, NavHamburger, Dropdown, DropdownItem, DropdownDivider } from 'flowbite-svelte';
   import { ChevronDownOutline } from 'flowbite-svelte-icons';
   import { page } from '$app/stores';
-  import logo from '$lib/images/logo.png';
+  import logo from '$lib/images/logo.svg';
 
   $: activeUrl = $page.url.pathname;
 </script>
