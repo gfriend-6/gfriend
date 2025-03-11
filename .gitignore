@@ -4,6 +4,9 @@ node_modules
 .output
 .vercel
 .svelte-kit
+.cloudflare
+.wrangler
+node_modules
 
 # OS
 .DS_Store
