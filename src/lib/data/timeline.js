@@ -163,7 +163,7 @@ export const timeline = {
             sources: ["https://magazine.weverse.io/article/view/401?lang=en&ref=main&artist=LESSERAFIM"]
         },
         {
-            title: "GFriend's 3rd Album: \"回:Walpurgis Night\" is Released",
+            title: "GFriend's 3rd Album: \"回:Walpurgis Night Night\" is Released",
             date: "November 9, 2020",
             labels: {
                 group: ['GFriend'],
@@ -171,7 +171,7 @@ export const timeline = {
                 companies: ['Source Music'],
                 type: ['Music'],
             },
-            text: '回:Song of the Sirens is release with positive reactions.',
+            text: '回:Walpurgis Night is release with positive reactions.',
             notes: "",
             sources: ["https://kpopreviewed.com/2020/12/30/album-walpurgis-night-gfriend/"]
         },
