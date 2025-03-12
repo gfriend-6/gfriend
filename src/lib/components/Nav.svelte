@@ -15,7 +15,7 @@
   <NavHamburger />
   <NavUl {activeUrl} activeClass="font-bold text-primary-4" nonActiveClass="text-accent-5 hover:text-white">
     <NavLi href="/">Home</NavLi>
-    <NavLi href="/timeline">Basic Timeline</NavLi>
+    <NavLi href="/timelines/launch">Basic Timeline</NavLi>
   </NavUl>
 </Navbar>
 </div>
