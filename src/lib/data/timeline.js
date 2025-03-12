@@ -353,7 +353,7 @@ export const timeline = {
                 companies: ['ADOR'],
                 type: ['Trainee'],
             },
-            text: 'This was announced on June 30, 2022. However there was information given about the group prior to their debut M/V dropping.',
+            text: 'This was announced on June 30, 2022. However there was no information given about the group prior to their debut M/V dropping.',
             notes: "",
             sources: ['https://www.instagram.com/p/Cfcq9xoDguR/']
         },

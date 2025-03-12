@@ -12,22 +12,10 @@
   import TimelineItem from "$lib/components/TimelineItem.svelte";
   import Timeline from "$lib/components/Timeline.svelte";
   import { timeline } from "$lib/data/snapshots.js";
-  afterNavigate(() => {
-    let snapshots2 = [];
-    for (let snapshot in timeline["events"]) {
-      if (parseInt(slug) in timeline["events"][snapshot]["snapshots"]) {
-        snapshots2.push(timeline["events"][snapshot]);
-      }
-    }
-    console.log(snapshots2)
-    return snapshots2
-  });
-  let snapshots = alligator()
-  let slug = (page.params.slug);
+  let snapshots = timeline["events"]
 </script>
 
 <div class="overflow-hidden -mt-5">
-  {#key slug}
     <Card size="lg" class="float-left mt-5 bg-accent-1 border-accent-3">
       <Timeline order="default">
         {#each snapshots as item}
@@ -60,5 +48,4 @@
         {/each}
       </Timeline>
     </Card>
-  {/key}
 </div>

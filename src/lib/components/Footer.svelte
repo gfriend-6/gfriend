@@ -13,7 +13,7 @@
         </FooterLinkGroup>
     </div>
     <FooterLinkGroup ulClass="flex flex-wrap items-center mt-3 text-sm text-black sm:mt-0">
-      <FooterLink href="https://x.com/TerrifiedPigeon" target="_blank">Contact</FooterLink>
+      <FooterLink href="https://x.com/EyeOfTheStormDB" target="_blank">Contact</FooterLink>
     </FooterLinkGroup>
     </div>
   </Footer>

@@ -15,8 +15,9 @@
 </script>
 
 <div class="overflow-hidden -mt-5">
+  <br/>
+  <h1 class="text-xl font-bold">This is a simplified version of a much more complicated timeline.</h1>
     <Card size="lg" class="float-left mt-5 bg-accent-1 border-accent-3">
-      <h1 class="text-xl font-bold">This is a simplified version of a much more complicated timeline.</h1>
       <Timeline order="default">
         {#each timeline_events as item}
           <TimelineItem
