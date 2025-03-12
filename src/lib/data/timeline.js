@@ -9,20 +9,7 @@ export const timeline = {
     events: [
         {
             title: "Source Music Casts Minji",
-            date: "2017",
-            labels: {
-                groups: [],
-                other: ['Team N'],
-                companies: ['Source Music'],
-                type: ['Trainee'],
-            },
-            text: "",
-            notes: "",
-            sources: ["https://m.entertain.naver.com/article/433/0000106807", "https://www.koreatimes.co.kr/www/art/2025/03/398_362674.html"]
-        },
-        {
-            title: "Minji joins Source Music",
-            date: "2018",
+            date: "2017/2018",
             labels: {
                 groups: [],
                 other: ['Team N'],

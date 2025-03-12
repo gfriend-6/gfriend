@@ -1,7 +1,7 @@
 <script>
     import { Footer, FooterCopyright, FooterLinkGroup, FooterLink,} from 'flowbite-svelte';
   </script>
-    <div class="w-full bg-accent-2">
+    <div class="w-full bg-primary-2">
     <Footer color="primary" class="w-4/5 place-self-center mx-auto my-max">
     <div class="sm:flex sm:items-center sm:justify-between">
         <div class="overflow-hidden">
