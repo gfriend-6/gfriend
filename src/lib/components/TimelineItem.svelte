@@ -8,8 +8,8 @@
     export let date = "";
     const liClasses = "mb-10 ms-4"
     const divClasses = "absolute w-3 h-3 bg-primary-3 rounded-full mt-1.5 -start-1.5 border border-accent-1"
-    const timeClasses = "mb-1 text-xs font-normal leading-none text-primary-3 dark:text-gray-500"
-    const h3Cls = "text-md font-semibold text-gray-900 dark:text-white"
+    const timeClasses = "mb-1 text-xs font-normal leading-none text-primary-3"
+    const h3Cls = "text-md font-semibold text-gray-900"
     </script>
     
     <li class={liClasses}>
