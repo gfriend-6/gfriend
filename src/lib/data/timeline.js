@@ -331,6 +331,33 @@ export const timeline = {
             notes: "",
             sources: ['https://www.envimedia.co/7-things-to-know-about-le-sserafims-kazuha/']
         },
+        {
+            title: "Source Music debut's LE SSERAFIM",
+            date: "May 2, 2022",
+            labels: {
+                groups: [],
+                other: ['Team S', 'LE SSERAFIM'],
+                companies: ['Source Music'],
+                type: ['Trainee'],
+            },
+            text: 'This was announced on April 12, 2022.',
+            notes: "",
+            sources: ['https://m.entertain.naver.com/article/311/0001433859']
+        },
+        {
+            title: "ADOR debut's NewJeans",
+            date: "July 22, 2022",
+            labels: {
+                groups: [],
+                other: ['Team N', 'NewJeans'],
+                companies: ['ADOR'],
+                type: ['Trainee'],
+            },
+            text: 'This was announced on June 30, 2022.',
+            notes: "",
+            sources: ['https://www.instagram.com/p/Cfcq9xoDguR/']
+        },
+        
     ]
   };
   

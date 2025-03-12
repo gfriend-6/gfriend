@@ -13,6 +13,7 @@
 <div class="overflow-hidden -mt-5">
     <Card size="lg" class="float-left mt-5 bg-accent-1 border-accent-3">
 <h1 class="text-xl underline">Coming Soon</h1>
+<br>
 <ul class="list-disc list-inside">
     <li>Source Music</li>
     <ul class="list-disc list-inside indent-8">
