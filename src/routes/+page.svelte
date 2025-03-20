@@ -8,7 +8,7 @@
     DropdownItem,
   } from "flowbite-svelte";
 </script>
-<h1 class="text-2xl font-bold text-primary-3 underline hover:text-primary-4"><a href="/timelines/launch">Timeline</a></h1>
+<h1 class="text-2xl font-bold text-primary-3 hover:underline hover:text-primary-4"><a href="/timelines/launch">Timeline</a></h1>
 
 <div class="overflow-hidden -mt-5">
     <Card size="lg" class="float-left mt-5 bg-accent-1 border-accent-3">
